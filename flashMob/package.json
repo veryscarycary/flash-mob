@@ -16,11 +16,12 @@
     "url": "git+https://github.com/AkaiS/flash-mob.git"
   },
   "dependencies": {
-    "react": "15.3.1",
-    "react-native": "0.32.0",
     "bootstrap": "^4.0.0-alpha.2",
     "jquery": "^2.2.1",
-    "lodash": "^4.6.1"
+    "lodash": "^4.6.1",
+    "react": "15.3.1",
+    "react-native": "0.32.0",
+    "react-native-button": "^1.7.0"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",

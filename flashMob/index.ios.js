@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import Button from 'react-native-button';
 import {
   AppRegistry,
   StyleSheet,
@@ -17,15 +18,21 @@ class flashMob extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Flash!
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit index.ios.js
+          Entertainment in a whim!
         </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+        <Button
+          containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: '#40e0d0'}}
+          style={{fontSize: 20, color: 'white'}}>
+          Log in
+        </Button>
+        <Button
+          containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: '#40e0d0'}}
+          style={{fontSize: 20, color: 'white'}}>
+          Sign up
+        </Button>
       </View>
     );
   }
