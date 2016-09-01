@@ -1,6 +1,7 @@
 {
   "name": "flashMob",
   "version": "0.0.1",
+  "description": "App for abrupt meet ups",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start"
@@ -10,12 +11,16 @@
   "bugs": {
     "url": "https://github.com/AkaiS/flash-mob/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AkaiS/flash-mob.git"
+  },
   "dependencies": {
     "react": "15.3.1",
     "react-native": "0.32.0",
     "bootstrap": "^4.0.0-alpha.2",
     "jquery": "^2.2.1",
-    "lodash": "^4.6.1",
+    "lodash": "^4.6.1"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
@@ -24,5 +29,5 @@
     "chai": "^3.5.0",
     "mocha": "2.3.3",
     "sinon": "^1.17.3"
-  },
+  }
 }
