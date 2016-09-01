@@ -2,7 +2,7 @@ var express = require('express');
 var routes = require('./router');
 
 var app = express();
-app.use('/', routes);
+app.use(routes);
 
 var port = process.env.port || 3000;
 
