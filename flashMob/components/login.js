@@ -55,12 +55,32 @@ export class Login extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      username: '',
+      password: '',
+      isLoggedin: false
+    };
   }
 
-  handleSubmit() {
-
+  handleLogin() {
+    fetch('71.6.27.66/api/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password
+      })
+    }).then(function(res) {
+      this.setState({isLoggedin: true});
+    }).catch(function(err) {
+      console.log('There is an error. It\'s sad day D=', err);
+    });
   }
 
+//onChangeText will collect text input and set it to state object
   render() {
     return (
         <View style={styles.container}>
@@ -69,7 +89,7 @@ export class Login extends Component {
           <Text style={styles.allText}>password:</Text>
           <TextInput style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
           <Text></Text>
-          <TouchableHighlight style={[styles.button, styles.newButton]} onPress={this.handleSubmit.bind(this)}>
+          <TouchableHighlight style={[styles.button, styles.newButton]} onPress={this.handleLogin.bind(this)}>
             <Text style={styles.buttonText}>Send</Text>
           </TouchableHighlight>
         </View>

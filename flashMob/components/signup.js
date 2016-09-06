@@ -56,16 +56,51 @@ export class Signup extends Component {
     super();
 
     this.state = {
-      username: 'username',
-      password: 'password',
-      confirm: 'confirm password' //useless placeholder
+      username: '',
+      password: '',
+      confirm: '',
+      pwMatched: false,
+      isLoggedin: false
     };
   }
 
   handleSignup() {
-
+    //check if comfirm password matches password
+    if (this.state.password !== this.state.confirm) {
+      this.setState({pwMatched: true});
+    } else {
+      this.setState({pwMatched: false});
+      this.postNewUser();
+    }
   }
 
+  postNewUser() {
+    //make a post request to server
+    fetch('71.6.27.66/api/signup', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password
+      })
+    }).then(function(res) {
+      this.setState({isLoggedin: true});
+      redirectToLoggedIn();
+    }).catch(function(err) {
+      console.log('There is an error. It\'s sad day D=', err);
+    });
+  }
+
+  redirectToLoggedIn() {
+    if (this.state.isLoggedin) {
+      //redirect to events page with out using NavigatorIOS
+    }
+  }
+
+//onChangeText will collect text input and set it to state object
   render() {
     return (
         <View style={styles.container}>
@@ -76,11 +111,14 @@ export class Signup extends Component {
           <TextInput style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
           <Text></Text>
           <Text style={styles.allText}>Confirm Password:</Text>
-          <TextInput style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
+          <TextInput style={styles.textInput} onChangeText={(text)=>this.setState({confirm: text})}/>
           <Text></Text>
           <TouchableHighlight style={[styles.button, styles.newButton]} onPress={this.handleSignup.bind(this)}>
             <Text style={styles.buttonText}>Sign up!</Text>
           </TouchableHighlight>
+          <View accessible={this.state.pwMatched}>
+          <Text style={styles.allText}> Password does not match, try again!</Text>
+          </View>
         </View>
       );
   }
