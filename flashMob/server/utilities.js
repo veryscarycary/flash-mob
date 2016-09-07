@@ -1,18 +1,14 @@
 var User = require('./db/db').User;
+var Event = require('./db/db').Event;
 var sequelize = require('./db/db').sequelize;
 
 module.exports.createUser = function (req, res) {
 
-  var user = {
-    username: req.body.username,
-    password: req.body.password
-  };
-
   // creates new user with data from req.body
   User.sync().then(function() {
     return User.create({
-      username: user.username,
-      password: user.password
+      username: req.body.username,
+      password: req.body.password
     });
   });
 
@@ -41,17 +37,12 @@ module.exports.findUser = function (req, res) {
 
 module.exports.login = function (req, res) {
 
-  var user = {
-    username: req.body.username,
-    password: req.body.password
-  };
-
   // searches users table for user
   // { replacements } gives a value to :username in the sequelize query
   sequelize.query('SELECT * FROM Users WHERE username = :username AND password = :password',
     { replacements: {
-      username: user.username,
-      password: user.password
+      username: req.body.username,
+      password: req.body.password
       }, 
       type: sequelize.QueryTypes.SELECT 
     })
@@ -65,3 +56,21 @@ module.exports.login = function (req, res) {
       }
     });
 };
+
+module.exports.createEvent = function (req, res) {
+
+  Event.sync().then(function() {
+    return Event.create({
+      title: req.body.title,
+      category: req.body.category,
+      distance: req.body.distance,
+      time: req.body.time,
+      description: req.body.description,
+      organizer: req.body.organizer
+    });
+  });
+
+  res.send('Event created! Happy day! =D');
+
+};
+

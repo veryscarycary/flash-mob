@@ -42,6 +42,14 @@ router.get('/api/events', function(req, res) {
 
 });
 
+router.post('/api/events', function(req, res) {
+
+  console.log('Post at /api/events');
+  utils.createEvent(req, res);
+
+});
+
+
 router.get('/api/events/event', function (req, res) {
 
   console.log('Get at /api/events/event');
