@@ -28,10 +28,6 @@ var Event = sequelize.define('Event', {
 
 // force: true drops table if it exists, development only
 User.sync({force: true}).then(function() {
-  return User.create({
-    username: 'Chris',
-    password: 'Avocado'
-  });
 });
 
 Event.sync({force: true}).then(function () {
@@ -54,4 +50,6 @@ sequelize.authenticate()
   
   
 
-module.exports = sequelize;
+module.exports.sequelize = sequelize;
+module.exports.User = User;
+module.exports.Event = Event;
