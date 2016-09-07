@@ -16,20 +16,18 @@ module.exports.createUser = function (req, res) {
 
 module.exports.findUser = function (req, res) {
 
-  var username = req.body.username;
-
   // searches users table for user
   // { replacements } gives a value to :username in the sequelize query
   sequelize.query('SELECT * FROM Users WHERE username = :username',
-     { replacements: {username: username}, type: sequelize.QueryTypes.SELECT }
+     { replacements: {username: req.body.username}, type: sequelize.QueryTypes.SELECT }
     )
   .then(function (users) {
     // if user does not exist, create user
     if (users.length === 0) {
       module.exports.createUser(req, res);
-      res.send(201, 'Username created');
+      res.status(303).redirect('/api/events');
     } else {
-      res.send('Username already exists');
+      res.status(400).send('Username already exists');
     }
   });
 
@@ -38,7 +36,7 @@ module.exports.findUser = function (req, res) {
 module.exports.login = function (req, res) {
 
   // searches users table for user
-  // { replacements } gives a value to :username in the sequelize query
+  // { replacements } gives a value to :username and :password in the sequelize query
   sequelize.query('SELECT * FROM Users WHERE username = :username AND password = :password',
     { replacements: {
       username: req.body.username,
@@ -50,15 +48,16 @@ module.exports.login = function (req, res) {
       // if user does not exist, create user
       if (users.length === 1) {
         // create session
-        res.redirect('/api/events');
+        res.status(303).redirect('/api/events');
       } else {
-        res.send('The username and password provided do not match any records');
+        res.status(400).send('The username and password provided do not match any records');
       }
     });
 };
 
 module.exports.createEvent = function (req, res) {
 
+  // adds new event from parsed request body
   Event.sync().then(function() {
     return Event.create({
       title: req.body.title,
@@ -70,7 +69,7 @@ module.exports.createEvent = function (req, res) {
     });
   });
 
-  res.send('Event created! Happy day! =D');
+  res.status(201).send('Event created! Happy day! =D');
 
 };
 
