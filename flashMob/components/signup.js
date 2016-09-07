@@ -65,15 +65,15 @@ export class Signup extends Component {
     return (
         <View style={styles.textInputContainer}>
           <Text style={styles.allText}>Username:</Text>
-          <TextInput style={styles.textInput} onChangeText={(text)=>this.setState({username: text})}/>
+          <TextInput style={styles.textInput} autoCapitalize='none' onChangeText={(text)=>this.setState({username: text})}/>
           <Text></Text>
           <Text style={styles.allText}>Password:</Text>
-          <TextInput secureTextEntry={true} style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
+          <TextInput secureTextEntry={true} autoCapitalize='none' style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
           <Text></Text>
           <Text style={styles.allText}>Confirm Password:</Text>
-          <TextInput secureTextEntry={true} style={styles.textInput} onChangeText={(text)=>this.setState({confirm: text})}/>
+          <TextInput secureTextEntry={true} autoCapitalize='none' style={styles.textInput} onChangeText={(text)=>this.setState({confirm: text})}/>
           <Text></Text>
-          <TouchableHighlight style={[styles.button, styles.newButton]} onPress={this.handleSignup.bind(this)}>
+          <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this.handleSignup.bind(this)}>
             <Text style={styles.buttonText}>SIGN UP!</Text>
           </TouchableHighlight>
           {this.state.pwMatched ? <Text style={styles.allText}> Password does not match, try again!</Text> : null}

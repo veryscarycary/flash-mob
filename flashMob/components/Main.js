@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from 'react-native-button';
 import { Signup } from './signup.js';
 import { Login } from './login.js';
+import { Profile } from './profile.js';
 import { styles } from './styles.js';
 import {
   StyleSheet,
@@ -17,6 +18,7 @@ export class Main extends Component {
 
     this.openLogin = this.openLogin.bind(this);
     this.openSignup = this.openSignup.bind(this);
+    this.testGeo = this.testGeo.bind(this);
   }
 
   openLogin() {
@@ -31,7 +33,13 @@ export class Main extends Component {
       title: 'Sign Up',
       component: Signup
     });
-    //<Signup styles={this.props.styles}/>
+  }
+
+  testGeo() {
+    this.props.navigator.push({
+      title: 'Geo',
+      component: Profile
+    });
   }
 
   render() {
@@ -51,6 +59,10 @@ export class Main extends Component {
               <Text style={styles.buttonText}>Sign up</Text>
             </TouchableHighlight>
         </View>
+            <Text></Text>
+            <TouchableHighlight style={[styles.button, styles.newButton, styles.signupButton]} underlayColor='white' onPress={this.testGeo}>
+              <Text style={styles.buttonText}>TEST</Text>
+            </TouchableHighlight>
       </View>
         
       );

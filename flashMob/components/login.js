@@ -43,11 +43,11 @@ export class Login extends Component {
     return (
         <View style={styles.textInputContainer}>
           <Text style={styles.allText}>Username:</Text>
-          <TextInput style={styles.textInput} onChangeText={(text)=>this.setState({username: text})}/>
+          <TextInput style={styles.textInput} autoCapitalize='none' onChangeText={(text)=>this.setState({username: text})}/>
           <Text style={styles.allText}>Password:</Text>
-          <TextInput secureTextEntry={true} style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
+          <TextInput secureTextEntry={true} autoCapitalize='none' style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
           <Text></Text>
-          <TouchableHighlight style={[styles.button, styles.newButton]} onPress={this.handleLogin.bind(this)}>
+          <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this.handleLogin.bind(this)}>
             <Text style={styles.buttonText}>SEND</Text>
           </TouchableHighlight>
         </View>
