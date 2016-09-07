@@ -41,11 +41,11 @@ export class Login extends Component {
 //onChangeText will collect text input and set it to state object
   render() {
     return (
-        <View style={styles.container}>
-          <Text style={styles.allText}>username:</Text>
+        <View style={styles.textInputContainer}>
+          <Text style={styles.allText}>Username:</Text>
           <TextInput style={styles.textInput} onChangeText={(text)=>this.setState({username: text})}/>
-          <Text style={styles.allText}>password:</Text>
-          <TextInput style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
+          <Text style={styles.allText}>Password:</Text>
+          <TextInput secureTextEntry={true} style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
           <Text></Text>
           <TouchableHighlight style={[styles.button, styles.newButton]} onPress={this.handleLogin.bind(this)}>
             <Text style={styles.buttonText}>SEND</Text>

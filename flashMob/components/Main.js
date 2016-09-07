@@ -7,7 +7,8 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } from 'react-native';
 
 export class Main extends Component {
@@ -20,14 +21,14 @@ export class Main extends Component {
 
   openLogin() {
     this.props.navigator.push({
-      title: 'login',
+      title: 'Log in',
       component: Login
     });
   }
 
   openSignup() {
     this.props.navigator.push({
-      title: 'signup',
+      title: 'Sign Up',
       component: Signup
     });
     //<Signup styles={this.props.styles}/>
@@ -36,9 +37,8 @@ export class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.heading}>
-          Flash!
-        </Text>
+        <Image style={styles.image} source={require('./img/flash-logo-pink.png')} />
+        <Image style={styles.imageChar} source={require('./img/flash-logo-char.png')} />
         <Text style={styles.subhead}>
           Entertainment in a whim!
         </Text>

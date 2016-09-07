@@ -55,13 +55,15 @@ export class Signup extends Component {
   redirectToLoggedIn() {
     if (this.state.isLoggedin) {
       //redirect to events page with out using NavigatorIOS
+
+      //passing down username
     }
   }
 
 //onChangeText will collect text input and set it to state object
   render() {
     return (
-        <View style={styles.container}>
+        <View style={styles.textInputContainer}>
           <Text style={styles.allText}>Username:</Text>
           <TextInput style={styles.textInput} onChangeText={(text)=>this.setState({username: text})}/>
           <Text></Text>

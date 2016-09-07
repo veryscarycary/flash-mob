@@ -8,18 +8,33 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f0f8ff',
   },
+  textInputContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    backgroundColor: '#f0f8ff',
+  },
   buttonContainer: {
     flexDirection: 'row',
+  },
+  image: {
+    height: 70,
+    width: 60
+  },
+  imageChar: {
+    height: 30,
+    width: 90,
+    marginBottom: 10,
   },
   heading: {
     fontSize: 32,
     textAlign: 'center',
-    margin: 10,
+    marginBottom: 10,
   },
   subhead: {
-    fontSize: 18,
+    fontSize: 15,
     textAlign: 'center',
-    color: '#333333',
+    color: '#696969',
     marginBottom: 10,
   },
   buttonText: {
@@ -54,10 +69,10 @@ export const styles = StyleSheet.create({
     color: 'black'
   },
   allText: {
-    fontSize: 18,
     textAlign: 'left',
+    left: 20,
+    fontSize: 18,
     color: '#333333',
     marginBottom: 5,
-    marginLeft: 20
   }
 });
