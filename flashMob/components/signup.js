@@ -54,7 +54,7 @@ export class Signup extends Component {
 
   redirectToLoggedIn() {
     if (this.state.isLoggedin) {
-      //redirect to events page with out using NavigatorIOS
+      //redirect to events page with out using NavigatorIOS, status code 303
 
       //passing down username
     }

@@ -33,6 +33,7 @@ export class Login extends Component {
       })
     }).then(function(res) {
       this.setState({isLoggedin: true});
+      //redirect to logged in page , with status code 303
     }).catch(function(err) {
       console.log('There is an error. It\'s sad day D=', err);
     });
