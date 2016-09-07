@@ -5,7 +5,7 @@ var sequelize = require('./db/db').sequelize;
 module.exports.createUser = function (req, res) {
 
   // creates new user with data from req.body
-  User.sync().then(function() {
+  User.sync().then(function () {
     return User.create({
       username: req.body.username,
       password: req.body.password
@@ -58,7 +58,7 @@ module.exports.login = function (req, res) {
 module.exports.createEvent = function (req, res) {
 
   // adds new event from parsed request body
-  Event.sync().then(function() {
+  Event.sync().then(function () {
     return Event.create({
       title: req.body.title,
       category: req.body.category,
