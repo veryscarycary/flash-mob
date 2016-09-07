@@ -17,7 +17,7 @@ router.post('/api/signup', function(req, res) {
 router.get('/api/events', function(req, res) {
 
   console.log('Get at /api/events');
-  res.send('Arrived at api/events');
+  utils.getEvents(req, res);
 
 });
 

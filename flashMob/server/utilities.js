@@ -73,3 +73,15 @@ module.exports.createEvent = function (req, res) {
 
 };
 
+module.exports.getEvents = function (req, res) {
+
+  // queries events table and returns array of results
+  // results limited to ten in ascending order by time
+  Event.findAll({
+    limit: 10,
+    order: [['time', 'ASC']]
+  }).then(function (results) {
+    res.send(results);
+  });
+
+};
