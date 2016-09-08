@@ -34,7 +34,7 @@ export class Signup extends Component {
 
   postNewUser() {
     //make a post request to server
-    fetch('71.6.27.66/api/signup', {
+    fetch('http://localhost:3000/api/signup', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -44,10 +44,10 @@ export class Signup extends Component {
         username: this.state.username,
         password: this.state.password
       })
-    }).then(function(res) {
+    }).then((res) => {
       this.setState({isLoggedin: true});
       redirectToLoggedIn();
-    }).catch(function(err) {
+    }).catch((err) => {
       console.log('There is an error. It\'s sad day D=', err);
     });
   }
@@ -83,6 +83,3 @@ export class Signup extends Component {
       );
   }
 }
-          // <View accessible={this.state.pwMatched}>
-          // <Text style={styles.allText}> Password does not match, try again!</Text>
-          // </View>

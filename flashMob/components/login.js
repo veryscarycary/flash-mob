@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { styles } from './styles.js';
-import { Location } from './location.js';
 
 import {
   StyleSheet,
@@ -32,16 +31,13 @@ export class Login extends Component {
         username: this.state.username,
         password: this.state.password
       })
-    }).then(function(res) {
-      if (res.statusCode === 303) {
-      //redirect to logged in page , with status code 303
+    }).then((res) => {
+      if (res.status === 200) {
+      //redirect to events page
         this.setState({isLoggedin: true});      
-      } else {
-        
-      }
-      //400 request cannot be found
-    }).catch(function(err) {
-      console.log('There is an error. It\'s sad day D=', err);
+      } 
+    }).catch((err) => {
+      console.log('There is an error. It\'s a sad day D=', err);
     });
   }
 
@@ -61,3 +57,93 @@ export class Login extends Component {
       );
   }
 }
+
+
+/*
+
+This file will eventually migrate to events.js
+
+import React, { Component } from 'react';
+import { styles } from './styles.js';
+import MapView from 'react-native-maps';
+
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableHighlight,
+  TextInput,
+  Image
+} from 'react-native';
+
+export class Location extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      initialPosition: 'unknown',
+      lastPosition: 'unknown',
+      isLoaded: false
+    };
+  }
+
+  watchID: ?number = null;
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        //first params on success
+        //position is stringified in doc, not sure if we need it
+        //var initialPosition = JSON.stringify(position);
+        var initialPosition = position;
+        this.setState({initialPosition});
+      }, 
+      //second params on error
+      (err) => console.log('There is an error. It\'s a sad day D=', err),
+      //optional param
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+    this.watchID = navigator.geolocation.watchPosition(
+      (position) => {
+        var lastPosition = position;
+        this.setState({lastPosition});
+        this.getNearbyEvents();
+        this.setState({isLoaded: true});
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+
+  getNearbyEvents() {
+    //invoke when user log in, return event near by events
+    fetch('http://localhost:3000/api/events', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      query: JSON.stringify({
+        latitude: this.state.lastPosition.coords.latitude,
+        longitude: this.state.lastPosition.coords.longitude
+      })
+    }).then((res) => {
+      //redirect to events home page
+      console.log('got latitude and longitude', this.state.lastPosition.coords.latitude, this.state.lastPosition.coords.longitude);
+    }).catch((err) => {
+      console.log('There is an error. It\'s a sad day D=', err);
+    });
+  }
+
+  render() {
+    return (
+        <View>
+          {this.state.isLoaded ? <MapView/> : <Image source={require('./img/loading.gif')}/>}
+        </View>
+      );
+  }
+}
+
+*/
