@@ -1,15 +1,6 @@
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('flashMob', 'root', 'hr47');
 
-// TRIED THIS:
-// {
-//   host: 'localhost',
-//   dialect: 'mysql',
-//   port: 3306
-// }
-
-// var sequelize = new Sequelize('mysql://');
-
 // model definition for Users
 var User = sequelize.define('User', {
 
@@ -21,17 +12,18 @@ var User = sequelize.define('User', {
 // model definition for Events
 var Event = sequelize.define('Event', {
 
-  name: Sequelize.STRING,
-  description: Sequelize.STRING,
+  title: Sequelize.STRING,
+  category: Sequelize.STRING,
+  distance: Sequelize.INTEGER,
   time: Sequelize.STRING,
-  location: Sequelize.STRING,
+  description: Sequelize.TEXT(),
   // Foreign key relationship with Users table
   organizer: Sequelize.STRING
 
 });
 
 // force: true drops table if it exists, development only
-User.sync({force: true}).then(function() {
+User.sync({force: true}).then(function () {
 });
 
 Event.sync({force: true}).then(function () {
