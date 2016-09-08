@@ -3,10 +3,12 @@ import {
   StyleSheet,
   Text,
   View,
-  ListView
+  ListView,
+  TouchableHighlight
 } from 'react-native';
 
 var Event = require('./event.js');
+var CreateEvent = require('./createEvent.js');
 
 class EventsList extends Component {
   constructor(props) {
@@ -90,6 +92,14 @@ class EventsList extends Component {
     this.state = {
       dataSource: this.ds.cloneWithRows(this.events)
     }
+    this._onForward = this._onForward.bind(this)
+  }
+
+  _onForward() {
+    this.props.navigator.push({
+      component: CreateEvent,
+      title: "Create Event"
+    })
   }
 
   // componentWillMount() {
@@ -102,11 +112,16 @@ class EventsList extends Component {
 
   render() {
     return (
-      <View style={styles.events}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Event event={rowData}/>}
-        />
+      <View>
+        <View style={styles.events}>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={(rowData) => <Event event={rowData}/>}
+          />
+        </View>
+        <TouchableHighlight style={styles.bottomBar} onPress={this._onForward}> 
+          <Text style={styles.footer}>Create Event</Text>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -115,6 +130,18 @@ class EventsList extends Component {
 const styles = StyleSheet.create({
   events: {
     flexDirection: 'row',
+    flex: 1
+  },
+  bottomBar: {
+    backgroundColor: '#cccccc',
+    marginBottom: 0,
+    paddingBottom: 10,
+    paddingTop: 10,
+    flexDirection: 'row'
+  },
+  footer: {
+    fontSize: 20,
+    textAlign: 'center',
     flex: 1
   }
 })
