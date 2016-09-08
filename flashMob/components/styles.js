@@ -71,8 +71,15 @@ export const styles = StyleSheet.create({
   allText: {
     textAlign: 'left',
     left: 20,
-    fontSize: 18,
+    fontSize: 16,
     color: '#333333',
+    marginBottom: 5,
+  },
+  textAlert: {
+    textAlign: 'left',
+    left: 20,
+    fontSize: 16,
+    color: '#ff69b4',
     marginBottom: 5,
   }
 });

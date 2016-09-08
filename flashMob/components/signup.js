@@ -19,7 +19,7 @@ export class Signup extends Component {
       password: '',
       confirm: '',
       pwMatched: false,
-      isLoggedin: false
+      usernameIsUsed: false
     };
   }
 
@@ -46,9 +46,13 @@ export class Signup extends Component {
         password: this.state.password
       })
     }).then((res) => {
-      this.setState({isLoggedin: true});
-      this.redirectToLogin();
+      if (res.status === 400) {
+        this.setState({usernameIsUsed: true});
+      } else {
+        this.redirectToLogin();
+      }
     }).catch((err) => {
+      //if name exist
       console.log('There is an error. It\'s sad day D=', err);
     });
   }
@@ -60,16 +64,14 @@ export class Signup extends Component {
       component: Login
     });
 
-      //passing down username
-
-      //if 400, username exist
-
   }
 
 //onChangeText will collect text input and set it to state object
   render() {
     return (
         <View style={styles.textInputContainer}>
+          {this.state.pwMatched ? <Text style={styles.textAlert}> Password does not match, try again!</Text> : null}
+          {this.state.usernameIsUsed ? <Text style={styles.textAlert}> Username not available, try something else!</Text> : null}
           <Text style={styles.allText}>Username:</Text>
           <TextInput style={styles.textInput} autoCapitalize='none' autoCorrect={false} onChangeText={(text)=>this.setState({username: text})}/>
           <Text></Text>
@@ -82,7 +84,6 @@ export class Signup extends Component {
           <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this.handleSignup.bind(this)}>
             <Text style={styles.buttonText}>SIGN UP!</Text>
           </TouchableHighlight>
-          {this.state.pwMatched ? <Text style={styles.allText}> Password does not match, try again!</Text> : null}
         </View>
       );
   }

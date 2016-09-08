@@ -33,15 +33,17 @@ export class Login extends Component {
         password: this.state.password
       })
     }).then((res) => {
-      if (res.status === 200) {
+      if (res.status === 400) {
+        this.setState({userNameDoesNotExist: true});
+      } else {
       //redirect to events page
         this.setState({isLoggedin: true});      
         this.props.navigator.replacePreviousAndPop({
           title: "Events List",
           component: EventsList,
           passProps: {username: this.state.username}
-        });
-      } 
+        });        
+      }
     }).catch((err) => {
       console.log('There is an error. It\'s a sad day D=', err);
     });
@@ -51,6 +53,7 @@ export class Login extends Component {
   render() {
     return (
         <View style={styles.textInputContainer}>
+          {this.state.userNameDoesNotExist ? <Text style={styles.textAlert}>User does not exist</Text> : null}
           <Text style={styles.allText}>Username:</Text>
           <TextInput style={styles.textInput} autoCapitalize='none' autoCorrect={false} onChangeText={(text)=>this.setState({username: text})}/>
           <Text style={styles.allText}>Password:</Text>
