@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { styles } from './styles.js';
+import { Login } from './login.js';
 
 import {
   StyleSheet,
@@ -46,20 +47,23 @@ export class Signup extends Component {
       })
     }).then((res) => {
       this.setState({isLoggedin: true});
-      redirectToLoggedIn();
+      this.redirectToLogin();
     }).catch((err) => {
       console.log('There is an error. It\'s sad day D=', err);
     });
   }
 
-  redirectToLoggedIn() {
-    if (this.state.isLoggedin) {
-      //redirect to events page with out using NavigatorIOS, status code 303
+  redirectToLogin() {
+    this.props.navigator.replace({
+      //redirect to log in create new nav stack
+      title: 'Log in',
+      component: Login
+    });
 
       //passing down username
 
       //if 400, username exist
-    }
+
   }
 
 //onChangeText will collect text input and set it to state object
@@ -67,7 +71,7 @@ export class Signup extends Component {
     return (
         <View style={styles.textInputContainer}>
           <Text style={styles.allText}>Username:</Text>
-          <TextInput style={styles.textInput} autoCapitalize='none' onChangeText={(text)=>this.setState({username: text})}/>
+          <TextInput style={styles.textInput} autoCapitalize='none' autoCorrect={false} onChangeText={(text)=>this.setState({username: text})}/>
           <Text></Text>
           <Text style={styles.allText}>Password:</Text>
           <TextInput secureTextEntry={true} autoCapitalize='none' style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>

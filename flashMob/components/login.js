@@ -38,7 +38,8 @@ export class Login extends Component {
         this.setState({isLoggedin: true});      
         this.props.navigator.replacePreviousAndPop({
           title: "Events List",
-          component: EventsList
+          component: EventsList,
+          passProps: {username: this.state.username}
         });
       } 
     }).catch((err) => {
@@ -51,7 +52,7 @@ export class Login extends Component {
     return (
         <View style={styles.textInputContainer}>
           <Text style={styles.allText}>Username:</Text>
-          <TextInput style={styles.textInput} autoCapitalize='none' onChangeText={(text)=>this.setState({username: text})}/>
+          <TextInput style={styles.textInput} autoCapitalize='none' autoCorrect={false} onChangeText={(text)=>this.setState({username: text})}/>
           <Text style={styles.allText}>Password:</Text>
           <TextInput secureTextEntry={true} autoCapitalize='none' style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
           <Text></Text>
