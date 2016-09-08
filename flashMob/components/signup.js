@@ -34,7 +34,7 @@ export class Signup extends Component {
 
   postNewUser() {
     //make a post request to server
-    fetch('71.6.27.66/api/signup', {
+    fetch('http://localhost:3000/api/signup', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -44,19 +44,21 @@ export class Signup extends Component {
         username: this.state.username,
         password: this.state.password
       })
-    }).then(function(res) {
+    }).then((res) => {
       this.setState({isLoggedin: true});
       redirectToLoggedIn();
-    }).catch(function(err) {
+    }).catch((err) => {
       console.log('There is an error. It\'s sad day D=', err);
     });
   }
 
   redirectToLoggedIn() {
     if (this.state.isLoggedin) {
-      //redirect to events page with out using NavigatorIOS
+      //redirect to events page with out using NavigatorIOS, status code 303
 
       //passing down username
+
+      //if 400, username exist
     }
   }
 
@@ -65,15 +67,15 @@ export class Signup extends Component {
     return (
         <View style={styles.textInputContainer}>
           <Text style={styles.allText}>Username:</Text>
-          <TextInput style={styles.textInput} onChangeText={(text)=>this.setState({username: text})}/>
+          <TextInput style={styles.textInput} autoCapitalize='none' onChangeText={(text)=>this.setState({username: text})}/>
           <Text></Text>
           <Text style={styles.allText}>Password:</Text>
-          <TextInput secureTextEntry={true} style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
+          <TextInput secureTextEntry={true} autoCapitalize='none' style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
           <Text></Text>
           <Text style={styles.allText}>Confirm Password:</Text>
-          <TextInput secureTextEntry={true} style={styles.textInput} onChangeText={(text)=>this.setState({confirm: text})}/>
+          <TextInput secureTextEntry={true} autoCapitalize='none' style={styles.textInput} onChangeText={(text)=>this.setState({confirm: text})}/>
           <Text></Text>
-          <TouchableHighlight style={[styles.button, styles.newButton]} onPress={this.handleSignup.bind(this)}>
+          <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this.handleSignup.bind(this)}>
             <Text style={styles.buttonText}>SIGN UP!</Text>
           </TouchableHighlight>
           {this.state.pwMatched ? <Text style={styles.allText}> Password does not match, try again!</Text> : null}
@@ -81,6 +83,3 @@ export class Signup extends Component {
       );
   }
 }
-          // <View accessible={this.state.pwMatched}>
-          // <Text style={styles.allText}> Password does not match, try again!</Text>
-          // </View>
