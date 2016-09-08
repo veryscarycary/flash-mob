@@ -14,11 +14,11 @@ var Event = sequelize.define('Event', {
 
   title: Sequelize.STRING,
   category: Sequelize.STRING,
-  distance: Sequelize.INTEGER,
-  time: Sequelize.STRING,
-  description: Sequelize.TEXT(),
-  // Foreign key relationship with Users table
-  organizer: Sequelize.STRING
+  location: Sequelize.STRING,
+  date: Sequelize.DATE,
+  description: Sequelize.TEXT()
+  // Foreign key relationship with Users table to be added later
+  // organizer: Sequelize.STRING
 
 });
 
