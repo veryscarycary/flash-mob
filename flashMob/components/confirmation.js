@@ -30,8 +30,8 @@ export class Confirmation extends Component {
       body: JSON.stringify({
         title: this.props.title,
         category: this.props.category,
-        dist: this.props.location,
-        time: this.props.date,
+        location: this.props.location,
+        date: this.props.date,
         description: this.props.description
       })
     });

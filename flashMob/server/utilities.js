@@ -6,10 +6,12 @@ module.exports.createUser = function (req, res) {
 
   // creates new user with data from req.body
   User.sync().then(function () {
+
     return User.create({
       username: req.body.username,
       password: req.body.password
     });
+
   });
 
 };
@@ -22,6 +24,7 @@ module.exports.findUser = function (req, res) {
      { replacements: {username: req.body.username}, type: sequelize.QueryTypes.SELECT }
     )
   .then(function (users) {
+
     // if user does not exist, create user
     if (users.length === 0) {
       module.exports.createUser(req, res);
@@ -29,6 +32,7 @@ module.exports.findUser = function (req, res) {
     } else {
       res.status(400).send('Username already exists');
     }
+
   });
 
 };
@@ -45,6 +49,7 @@ module.exports.login = function (req, res) {
       type: sequelize.QueryTypes.SELECT 
     })
     .then(function (users) {
+
       // if user does not exist, create user
       if (users.length === 1) {
         // create session
@@ -52,6 +57,7 @@ module.exports.login = function (req, res) {
       } else {
         res.status(400).send('The username and password provided do not match any records');
       }
+      
     });
 };
 
@@ -59,13 +65,16 @@ module.exports.createEvent = function (req, res) {
 
   // adds new event from parsed request body
   Event.sync().then(function () {
+
     return Event.create({
       title: req.body.title,
       category: req.body.category,
-      distance: req.body.distance,
-      time: req.body.time,
-      description: req.body.description,
-      organizer: req.body.organizer
+      location: req.body.location,
+      date: req.body.date,
+      description: req.body.description
+      // organizer to be added later
+      // organizer: req.body.organizer
+
     });
   });
 
@@ -79,7 +88,7 @@ module.exports.getEvents = function (req, res) {
   // results limited to ten in ascending order by time
   Event.findAll({
     limit: 10,
-    order: [['time', 'ASC']]
+    order: [['date', 'ASC']]
   }).then(function (results) {
     res.send(results);
   });
