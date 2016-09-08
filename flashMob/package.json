@@ -16,19 +16,19 @@
     "url": "git+https://github.com/AkaiS/flash-mob.git"
   },
   "dependencies": {
-    "bluebird": "^3.4.6",
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
     "bootstrap": "^4.0.0-alpha.2",
     "express": "^4.14.0",
     "jquery": "^2.2.1",
+    "lodash": "^4.6.1",
+    "mysql": "^2.11.1",
+    "node": "0.0.0",
     "nodemon": "^1.10.2",
     "react": "15.3.1",
     "react-native": "0.32.0",
     "react-native-button": "^1.7.0",
     "react-native-maps": "^0.8.0",
-    "lodash": "^4.6.1",
-    "mysql": "^2.11.1",
-    "node": "0.0.0",
     "sequelize": "^3.24.1"
   },
   "devDependencies": {
