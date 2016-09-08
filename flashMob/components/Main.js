@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from 'react-native-button';
 import { Signup } from './signup.js';
 import { Login } from './login.js';
-import { Location } from './location.js';
+//import { Location } from './location.js';
 import { styles } from './styles.js';
 import {
   StyleSheet,
@@ -18,7 +18,7 @@ export class Main extends Component {
 
     this.openLogin = this.openLogin.bind(this);
     this.openSignup = this.openSignup.bind(this);
-    this.testGeo = this.testGeo.bind(this);
+    //this.testGeo = this.testGeo.bind(this);
   }
 
   openLogin() {
