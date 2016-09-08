@@ -19,73 +19,85 @@ class EventsList extends Component {
         title: 'Super fun time',
         category: 'Music',
         dist: .2,
-        time: '7:00PM'
+        time: '7:00PM',
+        description:'test to see if description works'
       },
       {
         title: 'less fun time',
         category: 'Sports',
         dist: .5,
-        time: '4:30PM'
+        time: '4:30PM',
+        description:'test to see if description works'
       },
       {
         title: 'inventive title',
         category: 'Random',
         dist: .3,
-        time: '12:00AM'
+        time: '12:00AM',
+        description:'test to see if description works'
       },
       {
         title: 'Super fun time',
         category: 'Music',
         dist: .2,
-        time: '7:00PM'
+        time: '7:00PM',
+        description:'test to see if description works'
       },
       {
         title: 'less fun time',
         category: 'Sports',
         dist: .5,
-        time: '4:30PM'
+        time: '4:30PM',
+        description:'test to see if description works'
       },
       {
         title: 'inventive title',
         category: 'Random',
         dist: .3,
-        time: '12:00AM'
+        time: '12:00AM',
+        description:'test to see if description works'
       },
       {
         title: 'Super fun time',
         category: 'Music',
         dist: .2,
-        time: '7:00PM'
+        time: '7:00PM',
+        description:'test to see if description works'
       },
       {
         title: 'less fun time',
         category: 'Sports',
         dist: .5,
-        time: '4:30PM'
+        time: '4:30PM',
+        description:'test to see if description works'
       },
       {
         title: 'inventive title',
         category: 'Random',
         dist: .3,
-        time: '12:00AM'
+        time: '12:00AM',
+        description:'test to see if description works'
       },
       {
         title: 'Super fun time',
         category: 'Music',
         dist: .2,
-        time: '7:00PM'
+        time: '7:00PM',
+        description:'test to see if description works'
       },
       {
         title: 'less fun time',
         category: 'Sports',
         dist: .5,
-        time: '4:30PM'
+        time: '4:30PM',
+        description:'test to see if description works'
       },
       {
         title: 'inventive title',
         category: 'Random',
         dist: .3,
-        time: '12:00AM'
+        time: '12:00AM',
+        description:'test to see if description works'
       }
     ];
     
