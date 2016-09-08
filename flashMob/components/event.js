@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 
-class Event extends Component {
+export class Event extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -89,5 +89,3 @@ const styles = StyleSheet.create({
 });
 
 // <TouchableHighLight onPress={this._goToEvent}
-
-module.exports = Event;

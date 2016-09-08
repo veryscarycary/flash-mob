@@ -7,7 +7,7 @@ import {
   Modal
 } from 'react-native';
 
-class Confirmation extends Component {
+export class Confirmation extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -127,5 +127,3 @@ const styles = StyleSheet.create({
     flex: 1
   },
 });
-
-module.exports = Confirmation;

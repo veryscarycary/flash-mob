@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Event } from './event.js';
+import { CreateEvent } from './createEvent';
 import {
   StyleSheet,
   Text,
@@ -7,10 +9,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-var Event = require('./event.js');
-var CreateEvent = require('./createEvent.js');
-
-class EventsList extends Component {
+export class EventsList extends Component {
   constructor(props) {
     super(props);
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -157,5 +156,3 @@ const styles = StyleSheet.create({
     flex: 1
   }
 })
-
-module.exports = EventsList;

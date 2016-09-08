@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Confirmation } from './confirmation.js'
 import {
   StyleSheet,
   Text,
@@ -8,9 +9,7 @@ import {
   DatePickerIOS
 } from 'react-native';
 
-var Confirmation = require('./confirmation.js')
-
-class CreateEvent extends Component {
+export class CreateEvent extends Component {
   constructor(props) {
     super(props)
     this.date = new Date()
@@ -124,5 +123,3 @@ const styles = StyleSheet.create({
     padding: 1
   }
 });
-
-module.exports = CreateEvent;
