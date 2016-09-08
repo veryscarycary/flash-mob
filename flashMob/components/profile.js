@@ -15,52 +15,20 @@ export class Profile extends Component {
     super(props);
 
     this.state = {
-      initialPosition: 'unknown',
-      lastPosition: 'unknown',
+
     };
-  }
-  
-   watchID: ?number = null;
+  }  
 
-  componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        //first params on success
-        var initialPosition = JSON.stringify(position);
-        console.log('geo---------->>>>', position);
-        console.log('THIS------->', this);
-        this.setState({initialPosition});
-      }, 
-      //second params on error
-      (err) => console.log('There is an error. It\'s a sad day D=', err),
-      //optional param
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-      );
-    this.watchID = navigator.geolocation.watchPosition(
-      (position) => {
-        var lastPosition = JSON.stringify(position);
-        this.setState({lastPosition});
-        console.log(this.state.lastPosition);
-      });
-  }
-
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
-  }
-
-  storeLocation(lat, lon) {
-    this.setState({
-      initialPositionLatitude: lat, 
-      initialPositionLongitude: lon
-    });
+  userEvent() {
+  //get added events
+    
   }
 
   render() {
     return (
         <View style={styles.textInputContainer}>
           <Text>Your Username: {this.state.username}</Text>
-          
-          <Text>Your Location: {this.state.lastPosition}</Text>
+          <Text>list of user's events goes here</Text>        
 
         </View>
       );

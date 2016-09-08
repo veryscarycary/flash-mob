@@ -57,6 +57,8 @@ export class Signup extends Component {
       //redirect to events page with out using NavigatorIOS, status code 303
 
       //passing down username
+
+      //if 400, username exist
     }
   }
 

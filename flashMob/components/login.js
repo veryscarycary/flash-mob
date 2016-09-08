@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { styles } from './styles.js';
+import { Location } from './location.js';
 
 import {
   StyleSheet,
@@ -21,7 +22,7 @@ export class Login extends Component {
   }
 
   handleLogin() {
-    fetch('71.6.27.66/api/login', {
+    fetch('http://localhost:3000/api/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -32,8 +33,13 @@ export class Login extends Component {
         password: this.state.password
       })
     }).then(function(res) {
-      this.setState({isLoggedin: true});
+      if (res.statusCode === 303) {
       //redirect to logged in page , with status code 303
+        this.setState({isLoggedin: true});      
+      } else {
+        
+      }
+      //400 request cannot be found
     }).catch(function(err) {
       console.log('There is an error. It\'s sad day D=', err);
     });
