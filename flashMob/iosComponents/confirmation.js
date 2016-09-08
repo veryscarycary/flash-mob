@@ -73,7 +73,7 @@ class Confirmation extends Component {
         </View>
         <Text style={styles.lastQ}>Is this information correct?</Text>
         <TouchableHighlight style={styles.bottomBar} onPress={this._submit}> 
-          <Text style={styles.footer}>Confirm Event Details</Text>
+          <Text style={styles.footer}>Submit Event</Text>
         </TouchableHighlight>
       </View>
     );
