@@ -62,11 +62,21 @@ module.exports.findUser = function (req, res) {
     // if user does not exist, create user
     if (users.length === 0) {
       createUser(req, res);
-      // create session (future addition)
-      res.status(303).redirect('/api/events');
+      res.send('User created');
     } else {
       res.status(400).send('Username already exists');
     }
+
+  });
+
+};
+
+var createSession = function (req, res) {
+
+  return req.session.regenerate(function () {
+    
+    // assign user to sessionStore object
+    req.sessionStore.user = req.body.username;
 
   });
 
@@ -89,8 +99,10 @@ module.exports.login = function (req, res) {
         // use bcrypt to compare plain text password with password from hashedVal
         if (comparePassword(req.body.password, hashedVal[0].password)) {
           // if passwords match, redirect to events page
-          // create session (future addition)
-          res.status(303).redirect('/api/events');
+          // create session
+          createSession(req, res);
+
+          res.status(200).send('The login was authenticated and a session was created');
         } else {
           // if passwords do not match, send error code
           res.status(400).send('The password does not match the given username');  
