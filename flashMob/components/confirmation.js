@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { styles } from './styles.js';
 import {
   StyleSheet,
   Text,
@@ -9,18 +10,20 @@ import {
 
 export class Confirmation extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+
     this.state = {
       modalVisible: false
-    }
-    this._submit = this._submit.bind(this)
-    this._return = this._return.bind(this)
+    };
+
+    this._submit = this._submit.bind(this);
+    this._return = this._return.bind(this);
   }
 
   _submit() {
     this.setState({
       modalVisible: true
-    })
+    });
     fetch('http://localhost:3000/api/events', {
       method: 'POST',
       headers: {
@@ -40,14 +43,14 @@ export class Confirmation extends Component {
   _return() {
     this.setState({
       modalVisible: false
-    })
-    this.props.navigator.popToTop(0)
+    });
+    this.props.navigator.popToTop(0);
   }
 
   render() {
     return (
 
-      <View style={styles.container}>
+      <View style={styles.textInputContainer}>
         <Modal
           animationType={"slide"}
           transparent={false}
@@ -55,8 +58,8 @@ export class Confirmation extends Component {
           >
           <TouchableHighlight style={styles.highlight} onPress={this._return}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>Thanks, your event has been saved!</Text>
-              <Text style={styles.modalText}>Press anywhere to return to events</Text>
+              <Text style={styles.confirm}>Thanks, your event has been saved!</Text>
+              <Text style={styles.confirm}>Press anywhere to return to events</Text>
             </View>
           </TouchableHighlight>
         </Modal>
@@ -72,59 +75,59 @@ export class Confirmation extends Component {
           <Text style={styles.info}>Event Description</Text>
           <Text style={styles.text}>{this.props.description}</Text>
         </View>
-        <Text style={styles.lastQ}>Is this information correct?</Text>
-        <TouchableHighlight style={styles.bottomBar} onPress={this._submit}> 
-          <Text style={styles.footer}>Submit Event</Text>
+        <Text style={styles.confirm}>Is this information correct?</Text>
+        <TouchableHighlight style={[styles.button, styles.newButton]} onPress={this._submit}> 
+          <Text style={styles.buttonText}>Submit Event</Text>
         </TouchableHighlight>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  highlight: {
-    flex: 1
-  },
-  modalView: {
-    marginTop: 22,
-    flex: 1,
-    justifyContent: 'center'
-  },
-  modalText: {
-    textAlign: 'center',
-    fontSize: 20
-  },
-  lastQ: {
-    paddingBottom: 10,
-    textAlign: 'center'
-  },
-  confirm: {
-    flex: 1,
-    marginTop: 70,
-    marginLeft: 20
-  },
-  info: {
-    color: 'grey',
-    fontStyle: 'italic',
-    fontSize: 20
-  },
-  text: {
-    fontSize: 20,
-    marginBottom: 20
-  },
-  bottomBar: {
-    backgroundColor: '#cccccc',
-    marginBottom: 0,
-    paddingBottom: 10,
-    paddingTop: 10,
-    flexDirection: 'row'
-  },
-  footer: {
-    fontSize: 20,
-    textAlign: 'center',
-    flex: 1
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//   },
+//   highlight: {
+//     flex: 1
+//   },
+//   modalView: {
+//     marginTop: 22,
+//     flex: 1,
+//     justifyContent: 'center'
+//   },
+//   modalText: {
+//     textAlign: 'center',
+//     fontSize: 20
+//   },
+//   lastQ: {
+//     paddingBottom: 10,
+//     textAlign: 'center'
+//   },
+//   confirm: {
+//     flex: 1,
+//     marginTop: 70,
+//     marginLeft: 20
+//   },
+//   info: {
+//     color: 'grey',
+//     fontStyle: 'italic',
+//     fontSize: 20
+//   },
+//   text: {
+//     fontSize: 20,
+//     marginBottom: 20
+//   },
+//   bottomBar: {
+//     backgroundColor: '#cccccc',
+//     marginBottom: 0,
+//     paddingBottom: 10,
+//     paddingTop: 10,
+//     flexDirection: 'row'
+//   },
+//   footer: {
+//     fontSize: 20,
+//     textAlign: 'center',
+//     flex: 1
+//   },
+// });

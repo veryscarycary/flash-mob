@@ -70,8 +70,8 @@ export class Signup extends Component {
   render() {
     return (
         <View style={styles.textInputContainer}>
-          {this.state.pwMatched ? <Text style={styles.textAlert}> Password does not match, try again!</Text> : null}
-          {this.state.usernameIsUsed ? <Text style={styles.textAlert}> Username not available, try something else!</Text> : null}
+          {this.state.pwMatched ? <Text style={styles.textAlert}> password does not match, try again!</Text> : null}
+          {this.state.usernameIsUsed ? <Text style={styles.textAlert}> username not available, try something else!</Text> : null}
           <Text style={styles.allText}>Username:</Text>
           <TextInput style={styles.textInput} autoCapitalize='none' autoCorrect={false} onChangeText={(text)=>this.setState({username: text})}/>
           <Text></Text>
@@ -82,7 +82,7 @@ export class Signup extends Component {
           <TextInput secureTextEntry={true} autoCapitalize='none' style={styles.textInput} onChangeText={(text)=>this.setState({confirm: text})}/>
           <Text></Text>
           <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this.handleSignup.bind(this)}>
-            <Text style={styles.buttonText}>SIGN UP!</Text>
+            <Text style={styles.buttonText}>Sign up</Text>
           </TouchableHighlight>
         </View>
       );

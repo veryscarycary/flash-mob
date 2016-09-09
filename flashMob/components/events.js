@@ -1,158 +1,113 @@
 import React, { Component } from 'react';
 import { Event } from './event.js';
 import { CreateEvent } from './createEvent';
+import { styles } from './styles.js';
 import {
   StyleSheet,
   Text,
   View,
   ListView,
-  TouchableHighlight
+  TouchableHighlight,
+  RefreshControl
 } from 'react-native';
 
 export class EventsList extends Component {
   constructor(props) {
     super(props);
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.events = [
-      {
-        title: 'Super fun time',
-        category: 'Music',
-        dist: .2,
-        time: '7:00PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'less fun time',
-        category: 'Sports',
-        dist: .5,
-        time: '4:30PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'inventive title',
-        category: 'Random',
-        dist: .3,
-        time: '12:00AM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'Super fun time',
-        category: 'Music',
-        dist: .2,
-        time: '7:00PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'less fun time',
-        category: 'Sports',
-        dist: .5,
-        time: '4:30PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'inventive title',
-        category: 'Random',
-        dist: .3,
-        time: '12:00AM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'Super fun time',
-        category: 'Music',
-        dist: .2,
-        time: '7:00PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'less fun time',
-        category: 'Sports',
-        dist: .5,
-        time: '4:30PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'inventive title',
-        category: 'Random',
-        dist: .3,
-        time: '12:00AM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'Super fun time',
-        category: 'Music',
-        dist: .2,
-        time: '7:00PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'less fun time',
-        category: 'Sports',
-        dist: .5,
-        time: '4:30PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'inventive title',
-        category: 'Random',
-        dist: .3,
-        time: '12:00AM',
-        description:'test to see if description works'
-      }
-    ];
     
     this.state = {
-      dataSource: this.ds.cloneWithRows(this.events)
-    }
-    this._onForward = this._onForward.bind(this)
+      refreshing: false,
+      dataSource: this.ds.cloneWithRows([])
+    };
+    this._onForward = this._onForward.bind(this);
+    this._onRefresh = this._onRefresh.bind(this);
+    this.renderSectionHeader = this.renderSectionHeader.bind(this);
   }
 
   _onForward() {
     this.props.navigator.push({
       component: CreateEvent,
-      title: "Create Event"
-    })
+      title: 'create event'
+    });
   }
 
-  // componentWillMount() {
-  //   fetch('')
-  //     .then((res) => res.json())
-  //     .then((resJSON) => this.setState({
-  //       events: resJSON
-  //     }));
-  // }
+  _onRefresh() {
+    this.setState({
+      refreshing: true
+    });
+    fetch('http://localhost:3000/api/events')
+      .then((res) => res.json())
+      .then((resJSON) => {
+        this.setState({
+          dataSource: this.ds.cloneWithRows(resJSON)
+        });
+        this.setState({
+          refreshing: false
+        });
+      });
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3000/api/events')
+      .then((res) => res.json())
+      .then((resJSON) => this.setState({
+        dataSource: this.ds.cloneWithRows(resJSON)
+      })
+    );
+  }
+
+  renderSectionHeader() {
+    return (
+      <View style={styles.row}>
+        <Text style={styles.greeting}>HI {this.props.username.toUpperCase()} !</Text>
+      </View>
+      );
+  }
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <View style={styles.events}>
           <ListView
+            renderSectionHeader={this.renderSectionHeader}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh}
+              />
+            }
             dataSource={this.state.dataSource}
             renderRow={(rowData) => <Event event={rowData}/>}
           />
         </View>
-        <TouchableHighlight style={styles.bottomBar} onPress={this._onForward}> 
-          <Text style={styles.footer}>Create Event</Text>
+        <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._onForward}> 
+          <Text style={styles.buttonText}>Create Event</Text>
         </TouchableHighlight>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  events: {
-    flexDirection: 'row',
-    flex: 1
-  },
-  bottomBar: {
-    backgroundColor: '#cccccc',
-    marginBottom: 0,
-    paddingBottom: 10,
-    paddingTop: 10,
-    flexDirection: 'row'
-  },
-  footer: {
-    fontSize: 20,
-    textAlign: 'center',
-    flex: 1
-  }
-})
+// const styles1 = StyleSheet.create({
+//   wrapper: {
+//     flex: 1
+//   },
+//   events: {
+//     marginTop: 70,
+//     flexDirection: 'row',
+//     flex: 1
+//   },
+//   bottomBar: {
+//     backgroundColor: '#cccccc',
+//     marginBottom: 0,
+//     paddingBottom: 10,
+//     paddingTop: 10,
+//     flexDirection: 'row'
+//   },
+//   footer: {
+//     fontSize: 20,
+//     textAlign: 'center',
+//     flex: 1
+//   }
+// });

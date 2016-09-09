@@ -39,7 +39,7 @@ export class Login extends Component {
       //redirect to events page
         this.setState({isLoggedin: true});      
         this.props.navigator.replacePreviousAndPop({
-          title: "Events List",
+          title: "events",
           component: EventsList,
           passProps: {username: this.state.username}
         });        
@@ -53,14 +53,14 @@ export class Login extends Component {
   render() {
     return (
         <View style={styles.textInputContainer}>
-          {this.state.userNameDoesNotExist ? <Text style={styles.textAlert}>User does not exist</Text> : null}
+          {this.state.userNameDoesNotExist ? <Text style={styles.textAlert}>username or password is incorrect</Text> : null}
           <Text style={styles.allText}>Username:</Text>
           <TextInput style={styles.textInput} autoCapitalize='none' autoCorrect={false} onChangeText={(text)=>this.setState({username: text})}/>
           <Text style={styles.allText}>Password:</Text>
           <TextInput secureTextEntry={true} autoCapitalize='none' style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
           <Text></Text>
           <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this.handleLogin.bind(this)}>
-            <Text style={styles.buttonText}>SEND</Text>
+            <Text style={styles.buttonText}>Send</Text>
           </TouchableHighlight>
         </View>
       );
