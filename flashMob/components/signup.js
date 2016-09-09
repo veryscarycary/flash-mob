@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { styles } from './styles.js';
+import { Login } from './login.js';
 
 import {
   StyleSheet,
@@ -18,7 +19,7 @@ export class Signup extends Component {
       password: '',
       confirm: '',
       pwMatched: false,
-      isLoggedin: false
+      usernameIsUsed: false
     };
   }
 
@@ -45,29 +46,34 @@ export class Signup extends Component {
         password: this.state.password
       })
     }).then((res) => {
-      this.setState({isLoggedin: true});
-      redirectToLoggedIn();
+      if (res.status === 400) {
+        this.setState({usernameIsUsed: true});
+      } else {
+        this.redirectToLogin();
+      }
     }).catch((err) => {
+      //if name exist
       console.log('There is an error. It\'s sad day D=', err);
     });
   }
 
-  redirectToLoggedIn() {
-    if (this.state.isLoggedin) {
-      //redirect to events page with out using NavigatorIOS, status code 303
+  redirectToLogin() {
+    this.props.navigator.replace({
+      //redirect to log in create new nav stack
+      title: 'Log in',
+      component: Login
+    });
 
-      //passing down username
-
-      //if 400, username exist
-    }
   }
 
 //onChangeText will collect text input and set it to state object
   render() {
     return (
         <View style={styles.textInputContainer}>
+          {this.state.pwMatched ? <Text style={styles.textAlert}> password does not match, try again!</Text> : null}
+          {this.state.usernameIsUsed ? <Text style={styles.textAlert}> username not available, try something else!</Text> : null}
           <Text style={styles.allText}>Username:</Text>
-          <TextInput style={styles.textInput} autoCapitalize='none' onChangeText={(text)=>this.setState({username: text})}/>
+          <TextInput style={styles.textInput} autoCapitalize='none' autoCorrect={false} onChangeText={(text)=>this.setState({username: text})}/>
           <Text></Text>
           <Text style={styles.allText}>Password:</Text>
           <TextInput secureTextEntry={true} autoCapitalize='none' style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
@@ -76,9 +82,8 @@ export class Signup extends Component {
           <TextInput secureTextEntry={true} autoCapitalize='none' style={styles.textInput} onChangeText={(text)=>this.setState({confirm: text})}/>
           <Text></Text>
           <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this.handleSignup.bind(this)}>
-            <Text style={styles.buttonText}>SIGN UP!</Text>
+            <Text style={styles.buttonText}>Sign up</Text>
           </TouchableHighlight>
-          {this.state.pwMatched ? <Text style={styles.allText}> Password does not match, try again!</Text> : null}
         </View>
       );
   }

@@ -23,10 +23,10 @@ var Event = sequelize.define('Event', {
 });
 
 // force: true drops table if it exists, development only
-User.sync().then(function () {
+User.sync({force: true}).then(function () {
 });
 
-Event.sync().then(function () {
+Event.sync({force: true}).then(function () {
 });
 
 sequelize.authenticate()

@@ -33,14 +33,17 @@ export class Login extends Component {
         password: this.state.password
       })
     }).then((res) => {
-      if (res.status === 200) {
+      if (res.status === 400) {
+        this.setState({userNameDoesNotExist: true});
+      } else {
       //redirect to events page
         this.setState({isLoggedin: true});      
         this.props.navigator.replacePreviousAndPop({
-          title: "Events List",
-          component: EventsList
-        });
-      } 
+          title: "events",
+          component: EventsList,
+          passProps: {username: this.state.username}
+        });        
+      }
     }).catch((err) => {
       console.log('There is an error. It\'s a sad day D=', err);
     });
@@ -50,13 +53,14 @@ export class Login extends Component {
   render() {
     return (
         <View style={styles.textInputContainer}>
+          {this.state.userNameDoesNotExist ? <Text style={styles.textAlert}>username or password is incorrect</Text> : null}
           <Text style={styles.allText}>Username:</Text>
-          <TextInput style={styles.textInput} autoCapitalize='none' onChangeText={(text)=>this.setState({username: text})}/>
+          <TextInput style={styles.textInput} autoCapitalize='none' autoCorrect={false} onChangeText={(text)=>this.setState({username: text})}/>
           <Text style={styles.allText}>Password:</Text>
           <TextInput secureTextEntry={true} autoCapitalize='none' style={styles.textInput} onChangeText={(text)=>this.setState({password: text})}/>
           <Text></Text>
           <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this.handleLogin.bind(this)}>
-            <Text style={styles.buttonText}>SEND</Text>
+            <Text style={styles.buttonText}>Send</Text>
           </TouchableHighlight>
         </View>
       );
