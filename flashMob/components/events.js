@@ -6,104 +6,21 @@ import {
   Text,
   View,
   ListView,
-  TouchableHighlight
+  TouchableHighlight,
+  RefreshControl
 } from 'react-native';
 
 export class EventsList extends Component {
   constructor(props) {
     super(props);
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.events = [
-      {
-        title: 'Super fun time',
-        category: 'Music',
-        dist: .2,
-        time: '7:00PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'less fun time',
-        category: 'Sports',
-        dist: .5,
-        time: '4:30PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'inventive title',
-        category: 'Random',
-        dist: .3,
-        time: '12:00AM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'Super fun time',
-        category: 'Music',
-        dist: .2,
-        time: '7:00PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'less fun time',
-        category: 'Sports',
-        dist: .5,
-        time: '4:30PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'inventive title',
-        category: 'Random',
-        dist: .3,
-        time: '12:00AM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'Super fun time',
-        category: 'Music',
-        dist: .2,
-        time: '7:00PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'less fun time',
-        category: 'Sports',
-        dist: .5,
-        time: '4:30PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'inventive title',
-        category: 'Random',
-        dist: .3,
-        time: '12:00AM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'Super fun time',
-        category: 'Music',
-        dist: .2,
-        time: '7:00PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'less fun time',
-        category: 'Sports',
-        dist: .5,
-        time: '4:30PM',
-        description:'test to see if description works'
-      },
-      {
-        title: 'inventive title',
-        category: 'Random',
-        dist: .3,
-        time: '12:00AM',
-        description:'test to see if description works'
-      }
-    ];
     
     this.state = {
-      dataSource: this.ds.cloneWithRows(this.events)
+      refreshing: false,
+      dataSource: this.ds.cloneWithRows([])
     }
     this._onForward = this._onForward.bind(this)
+    this._onRefresh = this._onRefresh.bind(this)
   }
 
   _onForward() {
@@ -113,19 +30,41 @@ export class EventsList extends Component {
     })
   }
 
-  // componentWillMount() {
-  //   fetch('')
-  //     .then((res) => res.json())
-  //     .then((resJSON) => this.setState({
-  //       events: resJSON
-  //     }));
-  // }
+  _onRefresh() {
+    this.setState({
+      refreshing: true
+    })
+    fetch('http://localhost:3000/api/events')
+      .then((res) => res.json())
+      .then((resJSON) => {
+        this.setState({
+          dataSource: this.ds.cloneWithRows(resJSON)
+        })
+        this.setState({
+          refreshing: false
+        })
+      });
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3000/api/events')
+      .then((res) => res.json())
+      .then((resJSON) => this.setState({
+          dataSource: this.ds.cloneWithRows(resJSON)
+        }));
+  }
 
   render() {
     return (
-      <View>
+      <View style={styles.wrapper}>
         <View style={styles.events}>
           <ListView
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh}
+              />
+            }
             dataSource={this.state.dataSource}
             renderRow={(rowData) => <Event event={rowData}/>}
           />
@@ -139,7 +78,11 @@ export class EventsList extends Component {
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1
+  },
   events: {
+    marginTop: 70,
     flexDirection: 'row',
     flex: 1
   },
