@@ -32,7 +32,7 @@ var Event = sequelize.define('Event', {
 User.sync().then(function () {
 });
 
-Event.sync({force: true}).then(function () {
+Event.sync().then(function () {
 });
 
 sequelize.authenticate()
