@@ -20,8 +20,7 @@ export class EventsList extends Component {
       refreshing: false,
       dataSource: this.ds.cloneWithRows([]),
       initialPosition: 'unknown',
-      lastPosition: 'unknown',
-      dataForMarkers: null
+      lastPosition: 'unknown'
     };
     this._onForward = this._onForward.bind(this);
     this._onRefresh = this._onRefresh.bind(this);
@@ -45,7 +44,6 @@ export class EventsList extends Component {
       .then((res) => res.json())
       .then((resJSON) => {
         this.setState({
-          dataForMarkers: resJSON,
           dataSource: this.ds.cloneWithRows(resJSON)
         });
         this.setState({

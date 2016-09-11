@@ -162,13 +162,17 @@ module.exports.getMarkers = function(req, res) {
       var obj = {};
       obj.title = results[i].title;
       obj.description = results[i].description;
-      var coords = results[i].location.split(',');
+      var coords = results[i].location.split(','); // 165 - 171 cut
       var n1 = parseFloat(coords[0]);
       var n2 = parseFloat(coords[1]);
       obj.latlng = {
         latitude: n1,
         longitude: n2
       };
+      // obj.latlng = {
+      //   latitude: results[i].latitude,
+      //   longitude: results[i].longitude
+      // };
       formatted.push(obj);
     }
     res.send(formatted);

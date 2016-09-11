@@ -78,9 +78,6 @@ export class Map extends Component {
   }
 
   render() {
-    if (this.state.markers.length > 0) {
-      console.log(this.state.markers[0]);
-    }
     return (
       <View style={localStyles.map}>
         <MapView
