@@ -30,11 +30,12 @@ export class CreateEvent extends Component {
     this.getCurrentAddress = this.getCurrentAddress.bind(this);
     this._customLocation = this._customLocation.bind(this);
   }
-
+  // state change on ios data picker
   onDateChange(date) {
     this.setState({date: date});
   }
 
+  // uses your current location's lat and long to return an address
   getCurrentAddress() {
     var key = 'AIzaSyCrkf6vpb_McrZE8p4jg4oUH-oqyGwFdUo';
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.props.latitude + ',' + this.props.longitude + '&key=' + key;
@@ -58,10 +59,12 @@ export class CreateEvent extends Component {
     });
   }
 
+  // get your current address right away so it is visible
   componentDidMount() {
     this.getCurrentAddress();
   }
   
+  // The switch for whether or not to getCoordsByAddress or to pass your current location
   _customLocation() {
     if (this.state.somewhereElse) {
       this.getCoordsByAddress();
@@ -70,6 +73,7 @@ export class CreateEvent extends Component {
     }
   }
 
+  // push all event information to the confirmation page
   _onForward() {
     this.props.navigator.push({
       title: 'Confirm Your Event Information',
@@ -86,6 +90,7 @@ export class CreateEvent extends Component {
     });
   }
 
+  // return lat and long for an address
   getCoordsByAddress() {
     //API call to google to get coords when user input is an address
     var address = this.state.location.replace(' ', '+');
@@ -101,7 +106,6 @@ export class CreateEvent extends Component {
     }).then((res) => {
       return res.json();   
     }).then((resJson) => {
-      console.log('getting google result?--->', resJson)
       this.setState({latitude: resJson.results[0].geometry.location.lat});
       this.setState({longitude: resJson.results[0].geometry.location.lng});
     })
@@ -113,6 +117,7 @@ export class CreateEvent extends Component {
     });
   }
 
+  // toggles whether to use current location or supply text input for custom event address
   toggleCustomAddressbar() {
     this.setState({
       somewhereElse: true,
@@ -120,6 +125,7 @@ export class CreateEvent extends Component {
     });
   }
 
+  // set state for current location
   setLocationToHere() {
     this.setState({
       somewhereElse: false,
@@ -127,9 +133,10 @@ export class CreateEvent extends Component {
       latitude: this.props.latitude,
       longitude: this.props.longitude
     });
-    console.log(this.state.somewhereElse);
   }
 
+  // text inputs set state to get it ready for transfer to confirmation
+  // Confirm button sends to confirmation page
   render() {
     return (
       <View style={styles.container}>
@@ -188,43 +195,3 @@ export class CreateEvent extends Component {
     );
   }
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     marginTop: 70,
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     backgroundColor: '#F5FCFF',
-//     flexDirection: 'column'
-//   },
-//   input: {
-//     flex: 1
-//   },
-//   bottomBar: {
-//     backgroundColor: '#cccccc',
-//     marginBottom: 0,
-//     paddingBottom: 10,
-//     paddingTop: 10,
-//     flexDirection: 'row'
-//   },
-//   footer: {
-//     fontSize: 20,
-//     textAlign: 'center',
-//     flex: 1
-//   },
-//   textInput: {
-//     height: 30,
-//     width: 300,
-//     borderWidth: 1,
-//     borderColor: 'black',
-//     padding: 1
-//   },
-//   description: {
-//     height: 120,
-//     width: 300,
-//     borderWidth: 1,
-//     borderColor: 'black',
-//     padding: 1
-//   }
-// });

@@ -20,6 +20,7 @@ export class Confirmation extends Component {
     this._return = this._return.bind(this);
   }
 
+  // submit event information to the server
   _submit() {
     this.setState({
       modalVisible: true
@@ -45,6 +46,7 @@ export class Confirmation extends Component {
     });
   }
 
+  // go back to events page after submitting an event
   _return() {
     this.setState({
       modalVisible: false
@@ -52,6 +54,7 @@ export class Confirmation extends Component {
     this.props.navigator.popToTop(0);
   }
 
+  // modal acts as confirmation of event submission
   render() {
     return (
 
@@ -88,51 +91,3 @@ export class Confirmation extends Component {
     );
   }
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//   },
-//   highlight: {
-//     flex: 1
-//   },
-//   modalView: {
-//     marginTop: 22,
-//     flex: 1,
-//     justifyContent: 'center'
-//   },
-//   modalText: {
-//     textAlign: 'center',
-//     fontSize: 20
-//   },
-//   lastQ: {
-//     paddingBottom: 10,
-//     textAlign: 'center'
-//   },
-//   confirm: {
-//     flex: 1,
-//     marginTop: 70,
-//     marginLeft: 20
-//   },
-//   info: {
-//     color: 'grey',
-//     fontStyle: 'italic',
-//     fontSize: 20
-//   },
-//   text: {
-//     fontSize: 20,
-//     marginBottom: 20
-//   },
-//   bottomBar: {
-//     backgroundColor: '#cccccc',
-//     marginBottom: 0,
-//     paddingBottom: 10,
-//     paddingTop: 10,
-//     flexDirection: 'row'
-//   },
-//   footer: {
-//     fontSize: 20,
-//     textAlign: 'center',
-//     flex: 1
-//   },
-// });

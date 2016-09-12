@@ -18,7 +18,6 @@ export class Main extends Component {
 
     this.openLogin = this.openLogin.bind(this);
     this.openSignup = this.openSignup.bind(this);
-    this.testGeo = this.testGeo.bind(this);
   }
 
   openLogin() {
@@ -34,16 +33,6 @@ export class Main extends Component {
       component: Signup
     });
   }
-
-/*
-ignore - for testing only*/
-  testGeo() {
-    this.props.navigator.push({
-      title: 'map',
-      component: mapView
-    });
-  }
-
 
   render() {
     return (

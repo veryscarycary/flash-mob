@@ -11,6 +11,9 @@ import {
   RefreshControl
 } from 'react-native';
 
+
+// Events list is the scene which render a list of nearby events
+// all events need to make it into the listview datasrouce if they are to render
 export class EventsList extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +36,7 @@ export class EventsList extends Component {
 
   watchID: ?number = null;
 
+  // get current position then get nearby events
   componentDidMount() {
     //get user's geolocation
     navigator.geolocation.getCurrentPosition(
@@ -88,6 +92,7 @@ export class EventsList extends Component {
     );
   }
 
+  // go to create an event
   _onForward() {
     console.log('user geo', this.state.latitude, this.state.longitude);
     this.props.navigator.push({
@@ -98,6 +103,7 @@ export class EventsList extends Component {
     });
   }
 
+  // used to control the spinning wheel and send the call to refresh the event
   _onRefresh() {
     this.setState({
       refreshing: true
@@ -105,6 +111,7 @@ export class EventsList extends Component {
     this.getNearbyEvents();
   }
 
+  // If there are events, greet the user
   renderSectionHeader() {
     return (
       <View style={styles.row}>
@@ -126,7 +133,7 @@ export class EventsList extends Component {
               />
             }
             dataSource={this.state.dataSource}
-            renderRow={(rowData) => <Event event={rowData}/>}
+            renderRow={(rowData) => <Event event={rowData} latitude={this.state.latitude} longitude={this.state.longitude}/>}
           />
         </View>
         <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._onForward}> 
