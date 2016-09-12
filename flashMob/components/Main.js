@@ -62,10 +62,6 @@ ignore - for testing only*/
               <Text style={styles.buttonText}>Sign up</Text>
             </TouchableHighlight>
         </View>
-            <Text></Text>
-            <TouchableHighlight style={[styles.button, styles.newButton, styles.signupButton]} underlayColor='white' onPress={this.testGeo}>
-              <Text style={styles.buttonText}>TEST</Text>
-            </TouchableHighlight>
       </View>
         
       );

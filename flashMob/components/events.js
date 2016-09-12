@@ -21,8 +21,8 @@ export class EventsList extends Component {
       dataSource: this.ds.cloneWithRows([]),
       initialPosition: 'unknown',
       lastPosition: 'unknown',
-      lastPositionLatitude: '',
-      lastPositionLongitude: '',
+      latitude: '',
+      longitude: '',
       dataForMarkers: null
     };
     this._onForward = this._onForward.bind(this);
@@ -59,9 +59,9 @@ export class EventsList extends Component {
       (position) => {
         var lastPosition = position;
         this.setState({lastPosition});
-        this.setState({lastPositionLatitude: lastPosition.coords.latitude});
-        this.setState({lastPositionLongitude: lastPosition.coords.longitude});
-        this.getNearbyEvents();
+        this.setState({latitude: lastPosition.coords.latitude});
+        this.setState({longitude: lastPosition.coords.longitude});
+        //this.getNearbyEvents();
       }
     );
   }
@@ -70,6 +70,7 @@ export class EventsList extends Component {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
+  //function to look for near by events, passing in lat and lng
   getNearbyEvents() {
     //invoke when user log in, return event near by events
     fetch('http://localhost:3000/api/events', {
@@ -79,8 +80,8 @@ export class EventsList extends Component {
         'Content-Type': 'application/json',
       },
       query: JSON.stringify({
-        latitude: this.state.lastPosition.coords.latitude,
-        longitude: this.state.lastPosition.coords.longitude
+        latitude: this.state.latitude,
+        longitude: this.state.longitude
       })
     }).then((res) => {
       //redirect to events home page
@@ -91,12 +92,12 @@ export class EventsList extends Component {
   }
 
   _onForward() {
-    console.log('user geo', this.state.lastPositionLatitude, this.state.lastPositionLongitude);
+    console.log('user geo', this.state.latitude, this.state.longitude);
     this.props.navigator.push({
       title: 'create event',
       component: CreateEvent,
       //passing user's geolocation to CreateEvent
-      passProps: [this.state.lastPositionLatitude, this.state.lastPositionLongitude]
+      passProps: {latitude: this.state.latitude, longitude: this.state.longitude}
     });
   }
 
@@ -115,35 +116,6 @@ export class EventsList extends Component {
         });
       });
   }
-
-  // componentDidMount() {
-  //   navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       var initialPosition = JSON.stringify(position);
-  //       this.setState({initialPosition});
-  //     },
-  //     (error) => alert(error),
-  //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-  //   );
-  //   this.watchID = navigator.geolocation.watchPosition((position) => {
-  //     var lastPosition = JSON.stringify(position);
-  //     this.setState({lastPosition});
-  //   });
-
-  //   console.log(this.state.initialPosition)
-
-  //   fetch('http://localhost:3000/api/events')
-  //     .then((res) => res.json())
-  //     .then((resJSON) => this.setState({
-  //       dataSource: this.ds.cloneWithRows(resJSON)
-  //     })
-  //   );
-  // }
-
-
-  // componentWillUnmount() {
-  //   navigator.geolocation.clearWatch(this.watchID);
-  // }
 
   renderSectionHeader() {
     return (

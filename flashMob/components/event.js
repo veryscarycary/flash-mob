@@ -5,7 +5,8 @@ import {
   Text,
   View,
   TouchableWithoutFeedback,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } from 'react-native';
 
 export class Event extends Component {
@@ -13,16 +14,22 @@ export class Event extends Component {
     super(props);
     this.state = {
       descriptionHidden: false,
-      userList: []
+      isComing: false
     };
     this._showDescription = this._showDescription.bind(this);
     this._toggleDescription = this._toggleDescription.bind(this);
-    this.addToList = this.addToList.bind(this);
+    this._toggleIsComing = this._toggleIsComing.bind(this);
   }
 
   _toggleDescription() {
     this.setState({
       descriptionHidden: !this.state.descriptionHidden
+    });
+  }
+
+  _toggleIsComing() {
+    this.setState({
+      isComing: !this.state.isComing
     });
   }
 
@@ -33,7 +40,7 @@ export class Event extends Component {
         <Text style={styles.eventText}>
           {this.props.event.description}
         </Text>
-        <TouchableHighlight style={styles.meComing} underlayColor='white' onPress={this.addToList}>
+        <TouchableHighlight style={styles.meComing} underlayColor='white' onPress={this._toggleIsComing}>
           <Text style={styles.meComingText}>i am coming!</Text>
         </TouchableHighlight>
         </View>
@@ -43,19 +50,15 @@ export class Event extends Component {
     }
   }
 
-  addToList() {
-    //eventually add events to db
-    this.state.userList.push(this.props.event);
-    //does not work at the moment, userList array gets over wrtten each time
-    //console.log('current user list---->', this.state.userList);
-  }
+  // {this.state.isComing ? <Image source={require('./img/flash-logo-pink-sm.png')} /> : <Image source={require('./img/flash-logo-pink-sm-solid.png')} />}
 
   render() {
     return (
       <TouchableWithoutFeedback style={styles.highlight} onPress={this._toggleDescription}>
         <View style={styles.event}>
           <View style={styles.row}>
-            <Text style={styles.title}>{this.props.event.title}</Text>
+          {this.state.isComing ? <Image style={styles.imageIcon} source={require('./img/flash-logo-pink-sm-solid.png')} /> : <Image style={styles.imageIcon} source={require('./img/flash-logo-pink-sm.png')} />}
+            <Text style={styles.title}>{'  ' + this.props.event.title}</Text>
             <Text style={styles.category}>{this.props.event.category}</Text>
           </View>
           <View style={styles.row}>

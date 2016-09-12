@@ -25,6 +25,10 @@ export const styles = StyleSheet.create({
     height: 70,
     width: 60
   },
+  imageIcon: {
+    height: 20,
+    width: 15
+  },
   imageChar: {
     height: 30,
     width: 90,
