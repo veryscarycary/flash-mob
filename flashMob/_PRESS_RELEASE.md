@@ -1,37 +1,27 @@
+Heading
 Flash
 
-Heading
-
-Entertainment on a whim!
-
 Sub-Heading
-
-Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+Channel the randomness in you.
 
 Summary
-
-Flash mob is a IOS application that brings the community together by allowing user to join flash mobs that happens at their current location.
-
-Create an event that happens in the next 24 hours, welcome other users to spontaneously join the event if they are near by.
+Grab some friends or join a group of strangers. Flash is a one stop shop for all of your random deeds. Create an account and find events near you today.
 
 Problem
-There are no flash mob applications available out there. 
+Have an event with no idea how to organize it?
+Bored with nothing to do?
 
 Solution
-Finding interesting events around you
+Create an event in a matter of seconds with our simple and intuitive iOS application. Events are public so feel free to join.
 
 Quote from You
-
-Be awesome!
+Flash is changing the world one event at a time. Explore what's happening in and around your community.
 
 How to Get Started
-
-Download from the app store and sign in with facebook
+Download from the Apple app store and create an account.
 
 Customer Quote
-
-'I proposed to my wife with Flash and she said YES!'
+'I didn't realize the llama parade was so close to my house! Thanks, Flash!'
 
 Closing and Call to Action
-
-Wrap it up and give pointers where the reader should go next.
+Hop on the app store and Flash today.
