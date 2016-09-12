@@ -24,6 +24,7 @@ export class Confirmation extends Component {
     this.setState({
       modalVisible: true
     });
+    
     // geolocation on location
     // store lat and long for fetch
     fetch('http://localhost:3000/api/events', {
@@ -36,8 +37,8 @@ export class Confirmation extends Component {
         title: this.props.title,
         category: this.props.category,
         location: this.props.location,
-        // latitude: latitude,
-        // longitude: longitude,
+        latitude: this.props.latitude,
+        longitude: this.props.longitude,
         date: this.props.date,
         description: this.props.description
       })
@@ -80,7 +81,7 @@ export class Confirmation extends Component {
           <Text style={styles.text}>{this.props.description}</Text>
         </View>
         <Text style={styles.confirm}>Is this information correct?</Text>
-        <TouchableHighlight style={[styles.button, styles.newButton]} onPress={this._submit}> 
+        <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._submit}> 
           <Text style={styles.buttonText}>Submit Event</Text>
         </TouchableHighlight>
       </View>

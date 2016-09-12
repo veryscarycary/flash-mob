@@ -25,6 +25,10 @@ export const styles = StyleSheet.create({
     height: 70,
     width: 60
   },
+  imageIcon: {
+    height: 20,
+    width: 15
+  },
   imageChar: {
     height: 30,
     width: 90,
@@ -135,7 +139,7 @@ export const styles = StyleSheet.create({
   },
   meComing: {
     height: 30,
-    width: 150,
+    width: 140,
     alignSelf: 'center',
     justifyContent: 'center',
     borderWidth: 1,
@@ -145,10 +149,29 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
     borderRadius: 15,
   },
+  meComingHightlight: {
+    height: 30,
+    width: 140,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#ff69b4',
+    backgroundColor: 'white',
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 5,
+    borderRadius: 15,
+  },
   meComingText: {
     fontSize: 16,
     color: '#ff69b4',
     alignSelf: 'center'
+  },
+  meComingTextBold: {
+    fontSize: 18,
+    color: '#ff69b4',
+    alignSelf: 'center',
+    fontWeight: 'bold'
   },
   eventsTextInput: {
     height: 38,

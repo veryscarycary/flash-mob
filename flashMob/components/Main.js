@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from 'react-native-button';
 import { Signup } from './signup.js';
 import { Login } from './login.js';
-import { EventsList } from './events.js';
+import { mapView } from './mapView.js';
 import { styles } from './styles.js';
 import {
   StyleSheet,
@@ -39,8 +39,8 @@ export class Main extends Component {
 ignore - for testing only*/
   testGeo() {
     this.props.navigator.push({
-      title: 'event',
-      component: EventsList
+      title: 'map',
+      component: mapView
     });
   }
 
