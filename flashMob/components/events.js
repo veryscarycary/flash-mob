@@ -21,7 +21,9 @@ export class EventsList extends Component {
       dataSource: this.ds.cloneWithRows([]),
       initialPosition: 'unknown',
       lastPosition: 'unknown',
-      isLoaded: false
+      lastPositionLatitude: '',
+      lastPositionLongitude: '',
+      dataForMarkers: null
     };
     this._onForward = this._onForward.bind(this);
     this._onRefresh = this._onRefresh.bind(this);
@@ -39,6 +41,7 @@ export class EventsList extends Component {
       })
     );
 
+    //get user's geolocation
     navigator.geolocation.getCurrentPosition(
       (position) => {
         //first params on success
@@ -56,8 +59,9 @@ export class EventsList extends Component {
       (position) => {
         var lastPosition = position;
         this.setState({lastPosition});
+        this.setState({lastPositionLatitude: lastPosition.coords.latitude});
+        this.setState({lastPositionLongitude: lastPosition.coords.longitude});
         this.getNearbyEvents();
-        this.setState({isLoaded: true});
       }
     );
   }
@@ -87,10 +91,12 @@ export class EventsList extends Component {
   }
 
   _onForward() {
+    console.log('user geo', this.state.lastPositionLatitude, this.state.lastPositionLongitude);
     this.props.navigator.push({
-      component: CreateEvent,
       title: 'create event',
-      passProps: this.state.lastPosition
+      component: CreateEvent,
+      //passing user's geolocation to CreateEvent
+      passProps: [this.state.lastPositionLatitude, this.state.lastPositionLongitude]
     });
   }
 
@@ -111,12 +117,32 @@ export class EventsList extends Component {
   }
 
   // componentDidMount() {
+  //   navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       var initialPosition = JSON.stringify(position);
+  //       this.setState({initialPosition});
+  //     },
+  //     (error) => alert(error),
+  //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+  //   );
+  //   this.watchID = navigator.geolocation.watchPosition((position) => {
+  //     var lastPosition = JSON.stringify(position);
+  //     this.setState({lastPosition});
+  //   });
+
+  //   console.log(this.state.initialPosition)
+
   //   fetch('http://localhost:3000/api/events')
   //     .then((res) => res.json())
   //     .then((resJSON) => this.setState({
   //       dataSource: this.ds.cloneWithRows(resJSON)
   //     })
   //   );
+  // }
+
+
+  // componentWillUnmount() {
+  //   navigator.geolocation.clearWatch(this.watchID);
   // }
 
   renderSectionHeader() {

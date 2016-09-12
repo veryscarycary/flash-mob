@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { styles } from './styles.js';
 import { EventsList } from './events.js';
+import { Map } from './mapView.js';
 
 import {
   StyleSheet,
@@ -15,9 +16,10 @@ export class Login extends Component {
     super(props);
 
     this.state = {
+      test: this.props,
       username: '',
       password: '',
-      isLoggedin: false
+      isLoggedin: false,
     };
   }
 
@@ -39,9 +41,21 @@ export class Login extends Component {
       //redirect to events page
         this.setState({isLoggedin: true});      
         this.props.navigator.replacePreviousAndPop({
-          title: "events",
+          title: 'Events',
           component: EventsList,
-          passProps: {username: this.state.username}
+          passProps: {
+            username: this.state.username,
+          },
+          rightButtonTitle: 'Map',
+          onRightButtonPress: () => {
+            this.props.navigator.push({
+              title: 'Map',
+              component: Map,
+              passProps: {
+                username: this.state.username
+              }
+            });
+          }
         });        
       }
     }).catch((err) => {
