@@ -18,17 +18,21 @@ export class EventsList extends Component {
     
     this.state = {
       refreshing: false,
-      dataSource: this.ds.cloneWithRows([])
+      dataSource: this.ds.cloneWithRows([]),
+      initialPosition: 'unknown',
+      lastPosition: 'unknown'
     };
     this._onForward = this._onForward.bind(this);
     this._onRefresh = this._onRefresh.bind(this);
     this.renderSectionHeader = this.renderSectionHeader.bind(this);
   }
 
+  watchID: ?number = null;
+
   _onForward() {
     this.props.navigator.push({
       component: CreateEvent,
-      title: 'create event'
+      title: 'Create Event'
     });
   }
 
@@ -49,12 +53,31 @@ export class EventsList extends Component {
   }
 
   componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        var initialPosition = JSON.stringify(position);
+        this.setState({initialPosition});
+      },
+      (error) => alert(error),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+      var lastPosition = JSON.stringify(position);
+      this.setState({lastPosition});
+    });
+
+    console.log(this.state.initialPosition)
+
     fetch('http://localhost:3000/api/events')
       .then((res) => res.json())
       .then((resJSON) => this.setState({
         dataSource: this.ds.cloneWithRows(resJSON)
       })
     );
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
   }
 
   renderSectionHeader() {

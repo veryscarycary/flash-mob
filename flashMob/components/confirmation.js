@@ -24,6 +24,8 @@ export class Confirmation extends Component {
     this.setState({
       modalVisible: true
     });
+    // geolocation on location
+    // store lat and long for fetch
     fetch('http://localhost:3000/api/events', {
       method: 'POST',
       headers: {
@@ -34,6 +36,8 @@ export class Confirmation extends Component {
         title: this.props.title,
         category: this.props.category,
         location: this.props.location,
+        // latitude: latitude,
+        // longitude: longitude,
         date: this.props.date,
         description: this.props.description
       })

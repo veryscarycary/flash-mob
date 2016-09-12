@@ -17,6 +17,10 @@ export const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
   },
+  eventInputs: {
+    marginTop: 70,
+    flex: 1
+  },
   image: {
     height: 70,
     width: 60
@@ -128,7 +132,6 @@ export const styles = StyleSheet.create({
   },
   hidden: {
     marginLeft: 5,
-    fontSize: 16
   },
   meComing: {
     height: 30,
@@ -157,7 +160,7 @@ export const styles = StyleSheet.create({
     marginBottom: 10
   },
   description: {
-    height: 55,
+    height: 85,
     width: 300,
     borderWidth: 1,
     borderColor: 'grey',

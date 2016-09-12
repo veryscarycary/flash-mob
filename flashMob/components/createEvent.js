@@ -42,9 +42,8 @@ export class CreateEvent extends Component {
 
   render() {
     return (
-      <ScrollView showsVerticalScrollIndicator={true}>
       <View style={styles.container}>
-      <View>
+        <View style={styles.eventInputs}>
           <Text style={styles.eventText}>Title of event</Text>
           <TextInput
             maxLength={25}
@@ -78,12 +77,11 @@ export class CreateEvent extends Component {
             onChangeText={(description) => this.setState({description})}
             value={this.state.description}
           />
-          </View>
+        </View>
         <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._onForward}> 
           <Text style={styles.buttonText}>Confirm</Text>
         </TouchableHighlight>
       </View>
-      </ScrollView>
     );
   }
 }

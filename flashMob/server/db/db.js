@@ -16,10 +16,11 @@ var User = sequelize.define('User', {
 
 // model definition for Events
 var Event = sequelize.define('Event', {
-
+  //longitude: Sequelize.NUMBER,
+  //latitude: Sequelize.NUMBER,
   title: Sequelize.STRING,
   category: Sequelize.STRING,
-  location: Sequelize.STRING,
+  location: Sequelize.STRING, // get rid of this
   date: Sequelize.DATE,
   description: Sequelize.TEXT()
   // Foreign key relationship with Users table to be added later
@@ -32,7 +33,7 @@ var Event = sequelize.define('Event', {
 User.sync().then(function () {
 });
 
-Event.sync({force: true}).then(function () {
+Event.sync().then(function () {
 });
 
 sequelize.authenticate()
