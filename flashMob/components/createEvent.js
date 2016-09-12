@@ -17,9 +17,12 @@ export class CreateEvent extends Component {
     this.date = new Date();
     this.state = {
       date: this.date,
+      somewhereElse: false
     };
     this.onDateChange = this.onDateChange.bind(this);
     this._onForward = this._onForward.bind(this);
+    this.toggleCustomAddressbar = this.toggleCustomAddressbar.bind(this);
+    this.setLocationToHere = this.setLocationToHere.bind(this);
   }
 
   onDateChange(date) {
@@ -27,16 +30,50 @@ export class CreateEvent extends Component {
   }
 
   _onForward() {
+    var loc = this.getCoordsByAddress(this.state.location);
     this.props.navigator.push({
       title: 'Confirm Your Event Information',
       component: Confirmation,
       passProps: {
         title: this.state.title,
         category: this.state.category,
-        location: this.state.location,
+        location: loc,
         date: this.state.date,
         description: this.state.description
       }
+    });
+  }
+
+  toggleCustomAddressbar() {
+    this.setState({somewhereElse: true});
+  }
+
+  setLocationToHere() {
+    this.setState({location: this.props.lastPosition});
+    this.setState({somewhereElse: false});
+  }
+
+  getCoordsByAddress(location) {
+    //API call to google to get coords when user input is an address
+    var address = location.replace(' ', '+');
+    var key = 'AIzaSyCrkf6vpb_McrZE8p4jg4oUH-oqyGwFdUo';
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + key;
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    }).then((res) => {
+      console.log('google coords fetch--->>>', res);
+      return res.json();   
+    }).then((resJson) => {
+      //lat and lng lives inside resJson.results[0].geometry.location.lat/lng
+      //this.setState({location: resJson.results[0].geometry.location});
+      console.log(this.state.latitude, this.state.longitude);
+      return resJson.results[0].geometry.location;
+    }).catch((err) => {
+      console.log('There is an error. It\'s sad day D=', err.status, err);
     });
   }
 
@@ -45,9 +82,9 @@ export class CreateEvent extends Component {
       <ScrollView showsVerticalScrollIndicator={true}>
       <View style={styles.container}>
       <View>
-          <Text style={styles.eventText}>Title of event</Text>
+          <Text style={styles.eventText}>Title</Text>
           <TextInput
-            maxLength={25}
+            maxLength={50}
             style={styles.eventsTextInput}
             onChangeText={(title) => this.setState({title})}
             value={this.state.title}
@@ -60,11 +97,19 @@ export class CreateEvent extends Component {
             value={this.state.category}
           />
           <Text style={styles.eventText}>Where is the event?</Text>
-          <TextInput
-            style={styles.eventsTextInput}
-            onChangeText={(location) => this.setState({location})}
-            value={this.state.location}
-          />
+          <View style={styles.buttonContainer}>
+            <TouchableHighlight style={this.state.somewhereElse ? styles.meComing : styles.meComingHightlight} underlayColor='white' onPress={this.setLocationToHere}> 
+              <Text style={styles.meComingText}>Here</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={this.state.somewhereElse ? styles.meComingHightlight : styles.meComing} underlayColor='white' onPress={this.toggleCustomAddressbar}> 
+              <Text style={styles.meComingText}>Elsewhere</Text>
+            </TouchableHighlight>
+          </View>
+            {this.state.somewhereElse ? <TextInput
+              style={styles.eventsTextInput}
+              onChangeText={(location) => this.setState({location})}
+              value={this.state.location}
+              /> : null}
           <Text style={styles.eventText}>Pick a time and date</Text>
           <DatePickerIOS
                     date={this.state.date}
