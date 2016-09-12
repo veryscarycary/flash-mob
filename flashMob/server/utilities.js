@@ -207,8 +207,6 @@ module.exports.getEventsMap = function(req, res) {
       type: sequelize.QueryTypes.SELECT
     })
     .then(function (results) {
-      
-      console.log(results);
 
       var markers = [];
 
