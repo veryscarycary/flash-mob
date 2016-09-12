@@ -83,6 +83,7 @@ export class Map extends Component {
         <MapView
           style={localStyles.mapLayout}
           region={this.state.region}
+          showsUserLocation={true}
           onRegionChange={this.onRegionChange}
         >
           {this.state.markers.map(marker => (
