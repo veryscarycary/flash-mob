@@ -9,21 +9,29 @@ var hashPassword = function (password, username) {
   bcrypt.genSalt(10, function (err, salt) {
 
     if (err) {
+
       console.log(err);
       return;
+
     }
     
     bcrypt.hash(password, salt, function (err, hash) {
 
       if (err) {
+
         console.log(err);
         return;
+
       } else {
+
         // new user created in database
         return User.create({
+
           username: username,
           password: hash
+
         });
+
       }
 
     });
@@ -61,10 +69,14 @@ module.exports.findUser = function (req, res) {
 
     // if user does not exist, create user
     if (users.length === 0) {
+
       createUser(req, res);
       res.send('User created');
+
     } else {
+
       res.status(400).send('Username already exists');
+    
     }
 
   });
@@ -96,20 +108,28 @@ module.exports.login = function (req, res) {
 
       // the sequelize query returns a results array with an object
       if (hashedVal.length === 1) {
+
         // use bcrypt to compare plain text password with password from hashedVal
         if (comparePassword(req.body.password, hashedVal[0].password)) {
+
           // if passwords match, redirect to events page
           // create session
           createSession(req, res);
 
           res.status(200).send('The login was authenticated and a session was created');
+
         } else {
+
           // if passwords do not match, send error code
           res.status(400).send('The password does not match the given username');  
+        
         }
+
       } else {
+
         // if username does not exist, send error code
         res.status(400).send('The username provided does not match any records');
+      
       }
       
     });
@@ -123,11 +143,14 @@ module.exports.createEvent = function (req, res) {
 
     // new event created in database
     return Event.create({
+
       title: req.body.title,
       category: req.body.category,
-      location: req.body.location,
       date: req.body.date,
-      description: req.body.description
+      description: req.body.description,
+      location: req.body.location,
+      longitude: req.body.longitude,
+      latitude: req.body.latitude
       // organizer to be added later
       // organizer: req.body.organizer
 
@@ -144,38 +167,49 @@ module.exports.getEvents = function (req, res) {
   // queries events table and returns array of results
   // results limited to ten in ascending order by date
   Event.findAll({
+
     limit: 10,
     order: [['date', 'ASC']]
+
   }).then(function (results) {
+
     res.send(results);
+
   });
 
 };
 
+// gets markers (longitude, latitude) for map
 module.exports.getMarkers = function(req, res) {
+
   Event.findAll({
+
     limit: 10,
     order: [['date', 'ASC']]
-  }).then(function(results) {
-    var formatted = [];
+
+  }).then(function (results) {
+
+    var markers = [];
+
     for (var i = 0; i < results.length; i++) {
-      var obj = {};
-      obj.title = results[i].title;
-      obj.description = results[i].description;
-      var coords = results[i].location.split(','); // 165 - 171 cut
-      var n1 = parseFloat(coords[0]);
-      var n2 = parseFloat(coords[1]);
-      obj.latlng = {
-        latitude: n1,
-        longitude: n2
+
+      var marker = {
+
+        title: results[i].title,
+        description: results[i].description,
+        latlng: {
+          longitude: results[i].longitude,
+          latitude: results[i].latitude
+        }
+        
       };
-      // obj.latlng = {
-      //   latitude: results[i].latitude,
-      //   longitude: results[i].longitude
-      // };
-      formatted.push(obj);
+
+      markers.push(marker);
+
     }
-    res.send(formatted);
+
+    res.send(markers);
 
   });
+
 };
