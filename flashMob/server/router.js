@@ -26,7 +26,7 @@ router.post('/api/events', function (req, res) {
 
 });
 
-router.get('/api/markers', function (req, res) {
+router.post('/api/markers', function (req, res) {
 
   utils.getMarkers(req, res);
   

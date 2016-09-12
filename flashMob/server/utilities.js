@@ -176,40 +176,94 @@ module.exports.getEvents = function (req, res) {
     res.send(results);
 
   });
+  // if (!req.body.latitudeDelta) {
+  //   // queries events table and returns array of results
+  //   // results limited to ten in ascending order by date
+  //   // Event.findAll({
+
+  //   //   limit: 10,
+  //   //   order: [['date', 'ASC']]
+
+  //   // }).then(function (results) {
+
+  //   //   res.send(results);
+
+  //   // });
+  // } else {
+  // }
+  // res.send(getEventsByBox(req, res));
+
+};
+
+var getEventsByBox = function (req, res) {
+
+  console.log(req.body.latitude);
+  console.log(req.body.longitude);
+
+  var lat = req.body.latitude || 37;
+  var long = req.body.longitude || -122;
+  var latDelta = req.body.latitudeDelta || 1;
+  var longDelta = req.body.longitudeDelta || 1;
+
+  sequelize.query('SELECT * FROM Events WHERE latitude > :boxLatMin and latitude < :boxLatMax and longitude > :boxLongMin and longitude < :boxLongMax',
+    { replacements: {
+      boxLatMin: lat - latDelta,
+      boxLatMax: lat + latDelta,
+      boxLongMin: long - longDelta,
+      boxLongMax: long + longDelta
+      },
+      type: sequelize.QueryTypes.SELECT
+    })
+    .then(function (results) {
+      return results;
+    });
 
 };
 
 // gets markers (longitude, latitude) for map
 module.exports.getMarkers = function(req, res) {
 
-  Event.findAll({
+  var lat = req.body.latitude || 37;
+  var long = req.body.longitude || -122;
+  var latDelta = req.body.latitudeDelta || 1;
+  var longDelta = req.body.longitudeDelta || 1;
 
-    limit: 10,
-    order: [['date', 'ASC']]
+  console.log(lat);
+  console.log(long);
 
-  }).then(function (results) {
+  sequelize.query('SELECT * FROM Events WHERE latitude > :boxLatMin and latitude < :boxLatMax and longitude > :boxLongMin and longitude < :boxLongMax',
+    { replacements: {
+      boxLatMin: lat - latDelta,
+      boxLatMax: lat + latDelta,
+      boxLongMin: long - longDelta,
+      boxLongMax: long + longDelta
+      },
+      type: sequelize.QueryTypes.SELECT
+    })
+    .then(function (results) {
+      
+      console.log(results);
+      var markers = [];
 
-    var markers = [];
+      results.forEach(function (item) {
 
-    for (var i = 0; i < results.length; i++) {
+        var marker = {
 
-      var marker = {
-
-        title: results[i].title,
-        description: results[i].description,
-        latlng: {
-          longitude: results[i].longitude,
-          latitude: results[i].latitude
-        }
+          title: item.title,
+          description: item.description,
+          latlng: {
+            longitude: item.longitude,
+            latitude: item.latitude
+          }
         
-      };
+        };
 
       markers.push(marker);
 
-    }
+      });
 
     res.send(markers);
 
-  });
+    });
 
 };

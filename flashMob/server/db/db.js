@@ -17,8 +17,8 @@ var Event = sequelize.define('Event', {
   date: Sequelize.DATE,
   description: Sequelize.TEXT(),
   location: Sequelize.STRING,
-  longitude: Sequelize.FLOAT,
-  latitude: Sequelize.FLOAT
+  longitude: Sequelize.DOUBLE,
+  latitude: Sequelize.DOUBLE
   // Foreign key relationship with Users table to be added later
   // organizer: Sequelize.STRING
 
