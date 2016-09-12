@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { styles } from './styles.js';
+import { distance } from './util.js';
 import {
   StyleSheet,
   Text,
@@ -21,18 +22,21 @@ export class Event extends Component {
     this._toggleIsComing = this._toggleIsComing.bind(this);
   }
 
+  // show description when tapped on
   _toggleDescription() {
     this.setState({
       descriptionHidden: !this.state.descriptionHidden
     });
   }
 
+  // light up events you are going to
   _toggleIsComing() {
     this.setState({
       isComing: !this.state.isComing
     });
   }
 
+  // append description to event on eventlist
   _showDescription() {
     if (this.state.descriptionHidden) {
       return (
@@ -50,8 +54,6 @@ export class Event extends Component {
     }
   }
 
-  // {this.state.isComing ? <Image source={require('./img/flash-logo-pink-sm.png')} /> : <Image source={require('./img/flash-logo-pink-sm-solid.png')} />}
-
   render() {
     return (
       <TouchableWithoutFeedback style={styles.highlight} onPress={this._toggleDescription}>
@@ -62,7 +64,11 @@ export class Event extends Component {
             <Text style={styles.category}>{this.props.event.category}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.distAndTime}>{this.props.event.dist} miles away @ {this.props.event.time}</Text>
+            <Text style={styles.distAndTime}>{
+              Math.floor(distance(this.props.latitude, this.props.longitude, this.props.event.latitude, this.props.event.longitude) * 10) / 10
+            } miles away @ {
+              this.props.event.date.substr(this.props.event.date.indexOf('T') + 1, 5)
+            }</Text>
           </View>
           <View style={styles.hidden}>
             {this._showDescription()}
@@ -72,38 +78,3 @@ export class Event extends Component {
     );
   }
 }
-
-// const styles = StyleSheet.create({
-//   highlight: {
-//     flex: 1,
-//   },
-//   event: {
-//     flexDirection: 'column',
-//     padding: 8,
-//     margin: 1,
-//     borderStyle: 'solid',
-//     shadowRadius: 1,
-//     shadowColor: '#000000',
-//     shadowOpacity: .8,
-//     shadowOffset: {
-//       height: 1,
-//       width: 0
-//     }
-//   },
-//   row: {
-//     flexDirection: 'row',
-//     alignItems: 'stretch'
-//   },
-//   title: {
-//     flex: 4
-//   },
-//   category: {
-//     flex: 1
-//   },
-//   distAndTime: {
-//     color: 'grey',
-//     fontStyle: 'italic'
-//   },
-// });
-
-// <TouchableHighLight onPress={this._goToEvent}

@@ -30,6 +30,7 @@ export class Map extends Component {
 
   watchID: ?number = null;
 
+  // use post request for fetching markers so we can send information regarding current map view
   fetchMarkers() {
     fetch('http://localhost:3000/api/eventsMap', {
       method: 'POST',
@@ -54,10 +55,12 @@ export class Map extends Component {
     );
   }
 
+
   componentWillMount() {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
+  // get current location then fetch markers using that location
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -84,11 +87,13 @@ export class Map extends Component {
     });
   }
 
+  // set region then fetch markers for new region
   onRegionChange(region) {
     this.setState({region});
     this.fetchMarkers();
   }
   
+  // push info to create event scene
   _onForward() {
     this.props.navigator.push({
       component: CreateEvent,
@@ -97,6 +102,7 @@ export class Map extends Component {
     });
   }
 
+  // the map render with a button to create events
   render() {
     return (
       <View style={localStyles.map}>
