@@ -83,7 +83,7 @@ export class Confirmation extends Component {
           <Text style={styles.text}>{this.props.description}</Text>
         </View>
         <Text style={styles.confirm}>Is this information correct?</Text>
-        <TouchableHighlight style={[styles.button, styles.newButton]} onPress={this._submit}> 
+        <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._submit}> 
           <Text style={styles.buttonText}>Submit Event</Text>
         </TouchableHighlight>
       </View>

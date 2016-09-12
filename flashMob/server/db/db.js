@@ -1,16 +1,11 @@
-var app = require('../server');
 var Sequelize = require('sequelize');
-
-// SQL credentials:
-// Sequelize([database name], [SQL username], [SQL password]);
 var sequelize = new Sequelize('flashMob', 'root', 'hr47');
 
 // model definition for Users
 var User = sequelize.define('User', {
 
   username: Sequelize.STRING,
-  password: Sequelize.STRING,
-  session: Sequelize.STRING
+  password: Sequelize.STRING
 
 });
 
@@ -30,8 +25,7 @@ var Event = sequelize.define('Event', {
 });
 
 // force: true drops table if it exists, development only
-// {force: true}
-User.sync().then(function () {
+User.sync({force: true}).then(function () {
 });
 
 Event.sync().then(function () {

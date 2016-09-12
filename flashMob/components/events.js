@@ -20,7 +20,10 @@ export class EventsList extends Component {
       refreshing: false,
       dataSource: this.ds.cloneWithRows([]),
       initialPosition: 'unknown',
-      lastPosition: 'unknown'
+      lastPosition: 'unknown',
+      latitude: '',
+      longitude: '',
+      dataForMarkers: null
     };
     this._onForward = this._onForward.bind(this);
     this._onRefresh = this._onRefresh.bind(this);
@@ -29,10 +32,72 @@ export class EventsList extends Component {
 
   watchID: ?number = null;
 
+  componentDidMount() {
+    //getting all events in db
+    fetch('http://localhost:3000/api/events')
+      .then((res) => res.json())
+      .then((resJSON) => this.setState({
+        dataSource: this.ds.cloneWithRows(resJSON)
+      })
+    );
+
+    //get user's geolocation
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        //first params on success
+        //position is stringified in doc, not sure if we need it
+        //var initialPosition = JSON.stringify(position);
+        var initialPosition = position;
+        this.setState({initialPosition});
+      }, 
+      //second params on error
+      (err) => console.log('There is an error. It\'s a sad day D=', err),
+      //optional param
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+    this.watchID = navigator.geolocation.watchPosition(
+      (position) => {
+        var lastPosition = position;
+        this.setState({lastPosition});
+        this.setState({latitude: lastPosition.coords.latitude});
+        this.setState({longitude: lastPosition.coords.longitude});
+        //this.getNearbyEvents();
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+
+  //function to look for near by events, passing in lat and lng
+  getNearbyEvents() {
+    //invoke when user log in, return event near by events
+    fetch('http://localhost:3000/api/events', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      query: JSON.stringify({
+        latitude: this.state.latitude,
+        longitude: this.state.longitude
+      })
+    }).then((res) => {
+      //redirect to events home page
+      console.log('got latitude and longitude', this.state.lastPosition.coords.latitude, this.state.lastPosition.coords.longitude);
+    }).catch((err) => {
+      console.log('There is an error. It\'s a sad day D=', err);
+    });
+  }
+
   _onForward() {
+    console.log('user geo', this.state.latitude, this.state.longitude);
     this.props.navigator.push({
+      title: 'create event',
       component: CreateEvent,
-      title: 'Create Event'
+      //passing user's geolocation to CreateEvent
+      passProps: {latitude: this.state.latitude, longitude: this.state.longitude}
     });
   }
 
@@ -50,34 +115,6 @@ export class EventsList extends Component {
           refreshing: false
         });
       });
-  }
-
-  componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        var initialPosition = JSON.stringify(position);
-        this.setState({initialPosition});
-      },
-      (error) => alert(error),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      var lastPosition = JSON.stringify(position);
-      this.setState({lastPosition});
-    });
-
-    console.log(this.state.initialPosition)
-
-    fetch('http://localhost:3000/api/events')
-      .then((res) => res.json())
-      .then((resJSON) => this.setState({
-        dataSource: this.ds.cloneWithRows(resJSON)
-      })
-    );
-  }
-
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
   }
 
   renderSectionHeader() {
