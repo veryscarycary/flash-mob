@@ -28,19 +28,12 @@ export class EventsList extends Component {
     this._onForward = this._onForward.bind(this);
     this._onRefresh = this._onRefresh.bind(this);
     this.renderSectionHeader = this.renderSectionHeader.bind(this);
+    this.getNearbyEvents = this.getNearbyEvents.bind(this);
   }
 
   watchID: ?number = null;
 
   componentDidMount() {
-    //getting all events in db
-    fetch('http://localhost:3000/api/events')
-      .then((res) => res.json())
-      .then((resJSON) => this.setState({
-        dataSource: this.ds.cloneWithRows(resJSON)
-      })
-    );
-
     //get user's geolocation
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -61,7 +54,7 @@ export class EventsList extends Component {
         this.setState({lastPosition});
         this.setState({latitude: lastPosition.coords.latitude});
         this.setState({longitude: lastPosition.coords.longitude});
-        //this.getNearbyEvents();
+        this.getNearbyEvents();
       }
     );
   }
@@ -73,22 +66,26 @@ export class EventsList extends Component {
   //function to look for near by events, passing in lat and lng
   getNearbyEvents() {
     //invoke when user log in, return event near by events
-    fetch('http://localhost:3000/api/events', {
-      method: 'GET',
+    fetch('http://localhost:3000/api/eventsList', {
+      method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      query: JSON.stringify({
+      body: JSON.stringify({
         latitude: this.state.latitude,
-        longitude: this.state.longitude
+        longitude: this.state.longitude,
       })
-    }).then((res) => {
-      //redirect to events home page
-      console.log('got latitude and longitude', this.state.lastPosition.coords.latitude, this.state.lastPosition.coords.longitude);
-    }).catch((err) => {
-      console.log('There is an error. It\'s a sad day D=', err);
-    });
+      })
+      .then((res) => res.json())
+      .then((resJSON) => {
+        console.log(resJSON);
+        this.setState({
+          dataSource: this.ds.cloneWithRows(resJSON),
+          refreshing: false
+        })
+      }
+    );
   }
 
   _onForward() {
@@ -105,16 +102,7 @@ export class EventsList extends Component {
     this.setState({
       refreshing: true
     });
-    fetch('http://localhost:3000/api/events')
-      .then((res) => res.json())
-      .then((resJSON) => {
-        this.setState({
-          dataSource: this.ds.cloneWithRows(resJSON)
-        });
-        this.setState({
-          refreshing: false
-        });
-      });
+    this.getNearbyEvents();
   }
 
   renderSectionHeader() {

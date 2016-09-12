@@ -162,54 +162,76 @@ module.exports.createEvent = function (req, res) {
 
 };
 
-module.exports.getEvents = function (req, res) {
+// searches Events table for events within window range
+module.exports.getEventsList = function (req, res) {
 
-  // queries events table and returns array of results
-  // results limited to ten in ascending order by date
-  Event.findAll({
+  // pulls data from request or sets default value
+  var lat = req.body.latitude || 37;
+  var long = req.body.longitude || -122;
+  var latDelta = req.body.latitudeDelta || 0.0922;
+  var longDelta = req.body.longitudeDelta || 0.0421;
 
-    limit: 10,
-    order: [['date', 'ASC']]
+  sequelize.query('SELECT * FROM Events WHERE latitude > :boxLatMin and latitude < :boxLatMax and longitude > :boxLongMin and longitude < :boxLongMax',
+    { replacements: {
+      boxLatMin: lat - (latDelta * .5),
+      boxLatMax: lat + (latDelta * .5),
+      boxLongMin: long - (longDelta * .5),
+      boxLongMax: long + (longDelta * .5)
+      },
+      type: sequelize.QueryTypes.SELECT
+    })
+    .then(function (results) {
 
-  }).then(function (results) {
+      // sends an array of results to front-end
+      res.send(results);
 
-    res.send(results);
-
-  });
+    });
 
 };
 
-// gets markers (longitude, latitude) for map
-module.exports.getMarkers = function(req, res) {
+// similar to getEventsList but results array sends markers for map view
+module.exports.getEventsMap = function(req, res) {
 
-  Event.findAll({
+  var lat = req.body.latitude || 37;
+  var long = req.body.longitude || -122;
+  var latDelta = req.body.latitudeDelta || 0.0922;
+  var longDelta = req.body.longitudeDelta || 0.0421;
 
-    limit: 10,
-    order: [['date', 'ASC']]
+  sequelize.query('SELECT * FROM Events WHERE latitude > :boxLatMin and latitude < :boxLatMax and longitude > :boxLongMin and longitude < :boxLongMax',
+    { replacements: {
+      boxLatMin: lat - (latDelta * .5),
+      boxLatMax: lat + (latDelta * .5),
+      boxLongMin: long - (longDelta * .5),
+      boxLongMax: long + (longDelta * .5)
+      },
+      type: sequelize.QueryTypes.SELECT
+    })
+    .then(function (results) {
+      
+      console.log(results);
 
-  }).then(function (results) {
+      var markers = [];
 
-    var markers = [];
+      // builds a marker object from each event and adds to markers array
+      results.forEach(function (item) {
 
-    for (var i = 0; i < results.length; i++) {
+        var marker = {
 
-      var marker = {
-
-        title: results[i].title,
-        description: results[i].description,
-        latlng: {
-          longitude: results[i].longitude,
-          latitude: results[i].latitude
-        }
+          title: item.title,
+          description: item.description,
+          latlng: {
+            longitude: item.longitude,
+            latitude: item.latitude
+          }
         
-      };
+        };
 
       markers.push(marker);
 
-    }
+      });
 
     res.send(markers);
 
-  });
+    });
 
 };
