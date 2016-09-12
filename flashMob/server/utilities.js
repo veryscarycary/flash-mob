@@ -162,89 +162,57 @@ module.exports.createEvent = function (req, res) {
 
 };
 
-module.exports.getEvents = function (req, res) {
+// searches Events table for events within window range
+module.exports.getEventsList = function (req, res) {
 
-  // queries events table and returns array of results
-  // results limited to ten in ascending order by date
-  Event.findAll({
-
-    limit: 10,
-    order: [['date', 'ASC']]
-
-  }).then(function (results) {
-
-    res.send(results);
-
-  });
-  // if (!req.body.latitudeDelta) {
-  //   // queries events table and returns array of results
-  //   // results limited to ten in ascending order by date
-  //   // Event.findAll({
-
-  //   //   limit: 10,
-  //   //   order: [['date', 'ASC']]
-
-  //   // }).then(function (results) {
-
-  //   //   res.send(results);
-
-  //   // });
-  // } else {
-  // }
-  // res.send(getEventsByBox(req, res));
-
-};
-
-var getEventsByBox = function (req, res) {
-
-  console.log(req.body.latitude);
-  console.log(req.body.longitude);
-
+  // pulls data from request or sets default value
   var lat = req.body.latitude || 37;
   var long = req.body.longitude || -122;
-  var latDelta = req.body.latitudeDelta || 1;
-  var longDelta = req.body.longitudeDelta || 1;
+  var latDelta = req.body.latitudeDelta || 0.0922;
+  var longDelta = req.body.longitudeDelta || 0.0421;
 
   sequelize.query('SELECT * FROM Events WHERE latitude > :boxLatMin and latitude < :boxLatMax and longitude > :boxLongMin and longitude < :boxLongMax',
     { replacements: {
-      boxLatMin: lat - latDelta,
-      boxLatMax: lat + latDelta,
-      boxLongMin: long - longDelta,
-      boxLongMax: long + longDelta
+      boxLatMin: lat - (latDelta * .5),
+      boxLatMax: lat + (latDelta * .5),
+      boxLongMin: long - (longDelta * .5),
+      boxLongMax: long + (longDelta * .5)
       },
       type: sequelize.QueryTypes.SELECT
     })
     .then(function (results) {
-      return results;
+
+      // sends an array of results to front-end
+      res.send(results);
+
     });
 
 };
 
-// gets markers (longitude, latitude) for map
-module.exports.getMarkers = function(req, res) {
+// similar to getEventsList but results array sends markers for map view
+module.exports.getEventsMap = function(req, res) {
 
   var lat = req.body.latitude || 37;
   var long = req.body.longitude || -122;
-  var latDelta = req.body.latitudeDelta || 1;
-  var longDelta = req.body.longitudeDelta || 1;
-
-  console.log(lat);
-  console.log(long);
+  var latDelta = req.body.latitudeDelta || 0.0922;
+  var longDelta = req.body.longitudeDelta || 0.0421;
 
   sequelize.query('SELECT * FROM Events WHERE latitude > :boxLatMin and latitude < :boxLatMax and longitude > :boxLongMin and longitude < :boxLongMax',
     { replacements: {
-      boxLatMin: lat - latDelta,
-      boxLatMax: lat + latDelta,
-      boxLongMin: long - longDelta,
-      boxLongMax: long + longDelta
+      boxLatMin: lat - (latDelta * .5),
+      boxLatMax: lat + (latDelta * .5),
+      boxLongMin: long - (longDelta * .5),
+      boxLongMax: long + (longDelta * .5)
       },
       type: sequelize.QueryTypes.SELECT
     })
     .then(function (results) {
       
       console.log(results);
+
       var markers = [];
 
+      // builds a marker object from each event and adds to markers array
       results.forEach(function (item) {
 
         var marker = {

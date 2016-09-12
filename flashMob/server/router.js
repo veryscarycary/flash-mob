@@ -14,21 +14,21 @@ router.post('/api/signup', function (req, res) {
 
 });
 
-router.get('/api/events', function (req, res) {
-
-  utils.getEvents(req, res);
-
-});
-
 router.post('/api/events', function (req, res) {
 
   utils.createEvent(req, res);
 
 });
 
-router.post('/api/markers', function (req, res) {
+router.post('/api/eventsList', function (req, res) {
 
-  utils.getMarkers(req, res);
+  utils.getEventsList(req, res);
+
+});
+
+router.post('/api/eventsMap', function (req, res) {
+
+  utils.getEventsMap(req, res);
   
 });
 

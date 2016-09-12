@@ -25,16 +25,25 @@ export class Map extends Component {
     }
     this._onForward = this._onForward.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
+    this.fetchMarkers = this.fetchMarkers.bind(this);
   }
 
   watchID: ?number = null;
 
-  componentWillMount() {
-    navigator.geolocation.clearWatch(this.watchID);
-  }
-
-  componentDidMount() {
-    fetch('http://localhost:3000/api/markers')
+  fetchMarkers() {
+    fetch('http://localhost:3000/api/eventsMap', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        latitude: this.state.region.latitude,
+        longitude: this.state.region.longitude,
+        latitudeDelta: this.state.region.latitudeDelta,
+        longitudeDelta: this.state.region.longitudeDelta
+      })
+      })
       .then((res) => res.json())
       .then((resJSON) => {
         console.log(resJSON);
@@ -43,6 +52,13 @@ export class Map extends Component {
         })
       }
     );
+  }
+
+  componentWillMount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+
+  componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         var initialPosition = JSON.stringify(position);
@@ -64,12 +80,15 @@ export class Map extends Component {
           longitudeDelta: 0.0421
         }
       })
+      this.fetchMarkers();
     });
   }
 
   onRegionChange(region) {
     this.setState({region});
+    this.fetchMarkers();
   }
+  
   _onForward() {
     this.props.navigator.push({
       component: CreateEvent,
