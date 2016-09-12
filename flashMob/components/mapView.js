@@ -73,7 +73,8 @@ export class Map extends Component {
   _onForward() {
     this.props.navigator.push({
       component: CreateEvent,
-      title: 'Create Event'
+      title: 'Create Event',
+      passProps: {latitude: this.state.region.latitude, longitude: this.state.region.longitude}
     });
   }
 
