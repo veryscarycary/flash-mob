@@ -19,25 +19,58 @@ export class CreateEvent extends Component {
       date: this.date,
       somewhereElse: false,
       latitude: this.props.latitude,
-      longitude: this.props.longitude
+      longitude: this.props.longitude,
+      currentAddress: ''
     };
     this.onDateChange = this.onDateChange.bind(this);
     this._onForward = this._onForward.bind(this);
     this.toggleCustomAddressbar = this.toggleCustomAddressbar.bind(this);
     this.setLocationToHere = this.setLocationToHere.bind(this);
     this.getCoordsByAddress = this.getCoordsByAddress.bind(this);
+    this.getCurrentAddress = this.getCurrentAddress.bind(this);
+    this._customLocation = this._customLocation.bind(this);
   }
 
   onDateChange(date) {
     this.setState({date: date});
   }
-  
-  _onForward() {
 
-    console.log('what is the type of location----->', typeof this.state.location);
-    if (typeof this.state.location === 'string') {
-      this.getCoordsByAddress(this.state.location);
+  getCurrentAddress() {
+    var key = 'AIzaSyCrkf6vpb_McrZE8p4jg4oUH-oqyGwFdUo';
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.props.latitude + ',' + this.props.longitude + '&key=' + key;
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    }).then((res) => {
+      return res.json();   
+    }).then((resJson) => {
+      console.log('getting google result?--->', resJson)
+      this.setState({
+        location: resJson.results[0].formatted_address,
+        currentAddress: resJson.results[0].formatted_address
+      });
+    })
+    .catch((err) => {
+      console.log('There is an error. It\'s sad day D=', err.status, err);
+    });
+  }
+
+  componentDidMount() {
+    this.getCurrentAddress();
+  }
+  
+  _customLocation() {
+    if (this.state.somewhereElse) {
+      this.getCoordsByAddress();
+    } else {
+      this._onForward();
     }
+  }
+
+  _onForward() {
     this.props.navigator.push({
       title: 'Confirm Your Event Information',
       component: Confirmation,
@@ -53,9 +86,9 @@ export class CreateEvent extends Component {
     });
   }
 
-  getCoordsByAddress(location) {
+  getCoordsByAddress() {
     //API call to google to get coords when user input is an address
-    var address = location.replace(' ', '+');
+    var address = this.state.location.replace(' ', '+');
     var key = 'AIzaSyCrkf6vpb_McrZE8p4jg4oUH-oqyGwFdUo';
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + key;
     console.log('are you in here?', url);
@@ -71,26 +104,34 @@ export class CreateEvent extends Component {
       console.log('getting google result?--->', resJson)
       this.setState({latitude: resJson.results[0].geometry.location.lat});
       this.setState({longitude: resJson.results[0].geometry.location.lng});
-    }).catch((err) => {
+    })
+    .then((res) => {
+      this._onForward()
+    })
+    .catch((err) => {
       console.log('There is an error. It\'s sad day D=', err.status, err);
     });
   }
 
   toggleCustomAddressbar() {
-    this.setState({somewhereElse: true});
+    this.setState({
+      somewhereElse: true,
+      location: ''
+    });
   }
 
   setLocationToHere() {
-    console.log('inside of setLocationToHere------>', this.props.latitude);
-    this.setState({location: 'Current Location'});
-    this.setState({latitude: this.props.latitude});
-    this.setState({longitude: this.props.longitude});
-    this.setState({somewhereElse: false});
+    this.setState({
+      somewhereElse: false,
+      location: this.state.currentAddress,
+      latitude: this.props.latitude,
+      longitude: this.props.longitude
+    });
+    console.log(this.state.somewhereElse);
   }
 
   render() {
     return (
-      <ScrollView>
       <View style={styles.container}>
         <View style={styles.eventInputs}>
           <Text style={styles.eventText}>Title</Text>
@@ -111,19 +152,20 @@ export class CreateEvent extends Component {
           />
           <Text style={styles.eventText}>Where is the event?</Text>
           <View style={styles.buttonContainer}>
-            <TouchableHighlight style={this.state.somewhereElse ? styles.meComing : styles.meComingHightlight} underlayColor='white' onPress={this.setLocationToHere}> 
+            <TouchableHighlight underlayColor='white' style={this.state.somewhereElse ? styles.meComing : styles.meComingHightlight} onPress={this.setLocationToHere}> 
               <Text style={styles.meComingText}>Here</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={this.state.somewhereElse ? styles.meComingHightlight : styles.meComing} underlayColor='white' onPress={this.toggleCustomAddressbar}> 
+            <TouchableHighlight underlayColor='white' style={this.state.somewhereElse ? styles.meComingHightlight : styles.meComing} onPress={this.toggleCustomAddressbar}> 
               <Text style={styles.meComingText}>Elsewhere</Text>
             </TouchableHighlight>
           </View>
             {this.state.somewhereElse ? <TextInput
               style={styles.eventsTextInput}
-              placeholder={"1 Infinite Loop, Cupertino, CA"}
+              placeholder={this.state.currentAddress}
               onChangeText={(location) => this.setState({location})}
               value={this.state.location}
               /> : null}
+            {!this.state.somewhereElse ? <Text>{this.state.location}</Text> : null}
           <Text style={styles.eventText}>Pick a time and date</Text>
           <DatePickerIOS
                     date={this.state.date}
@@ -139,11 +181,10 @@ export class CreateEvent extends Component {
             value={this.state.description}
           />
         </View>
-        <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._onForward}> 
+        <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._customLocation}> 
           <Text style={styles.buttonText}>Confirm</Text>
         </TouchableHighlight>
       </View>
-      </ScrollView>
     );
   }
 }
