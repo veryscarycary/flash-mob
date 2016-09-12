@@ -24,9 +24,7 @@ export class Confirmation extends Component {
     this.setState({
       modalVisible: true
     });
-    var loc = this.props.location.split(',');
-    var latitude = loc[0];
-    var longitude = loc[1];
+    
     // geolocation on location
     // store lat and long for fetch
     fetch('http://localhost:3000/api/events', {
@@ -39,8 +37,8 @@ export class Confirmation extends Component {
         title: this.props.title,
         category: this.props.category,
         location: this.props.location,
-        latitude: latitude,
-        longitude: longitude,
+        latitude: this.props.latitude,
+        longitude: this.props.longitude,
         date: this.props.date,
         description: this.props.description
       })

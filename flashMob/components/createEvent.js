@@ -31,7 +31,7 @@ export class CreateEvent extends Component {
   onDateChange(date) {
     this.setState({date: date});
   }
-
+  
   _onForward() {
 
     console.log('what is the type of location----->', typeof this.state.location);
