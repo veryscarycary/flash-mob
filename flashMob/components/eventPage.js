@@ -36,11 +36,10 @@ export class EventPage extends Component {
           </View>
 
           <View>
-            <Text style={styles.eventText}> Intagram photo container</Text>
+            <Text style={styles.eventText}> Instagram photo container</Text>
           </View>
 
           <Text style={styles.eventText}>{this.props.description}</Text>
-          <Text style={styles.eventText}>More Information</Text>
         </View>
       </View>
       </ScrollView>
