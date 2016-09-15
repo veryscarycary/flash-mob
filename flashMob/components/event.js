@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { styles } from './styles.js';
 import { distance } from './util.js';
+import { EventPage } from './eventPage.js';
 import {
   StyleSheet,
   Text,
@@ -36,6 +37,24 @@ export class Event extends Component {
     });
   }
 
+  _forwardToEventPage() {
+    this.props.navigator.push({
+      title: 'Event Title',
+      component: EventPage,
+      passProps: {
+        title: this.props.event.title,
+        category: this.props.event.category,
+        location: this.props.event.location,
+        latitude: this.props.event.latitude,
+        longitude: this.props.event.longitude,
+        date: this.props.event.date,
+        description: this.props.event.description,
+        private: this.props.event.private,
+        invites: this.props.event.invites
+      }
+    });
+  }
+
   // append description to event on eventlist
   _showDescription() {
     if (this.state.descriptionHidden) {
@@ -44,9 +63,14 @@ export class Event extends Component {
         <Text style={styles.eventText}>
           {this.props.event.description}
         </Text>
-        <TouchableHighlight style={styles.meComing} underlayColor='white' onPress={this._toggleIsComing}>
-          <Text style={styles.meComingText}>i am coming!</Text>
-        </TouchableHighlight>
+          <View style={styles.eventButtons}>
+            <TouchableHighlight style={styles.meComing} underlayColor='white' onPress={this._toggleIsComing}>
+              <Text style={styles.meComingText}>i am coming!</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={styles.eventInfoButton} underlayColor='white' onPress={this._forwardToEventPage}>
+              <Text style={styles.eventInfo}>?</Text>
+            </TouchableHighlight>
+          </View>
         </View>
       );
     } else {
