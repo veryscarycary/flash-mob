@@ -96,30 +96,46 @@ var createSession = function (req, res) {
 };
 
 module.exports.findMyEvents = function (req, res) {
-  // User.findOne({
-  //   where: {
-  //     username: req.body.username
-  //   }
-  // }).then(function (user) {
-  //   EventUser.findAll({
-  //     where: {
-  //       userId: user.id
-  //     }
-  //   }).then(function(events) {
-  //     res.send(events);
-  //   });
-  // });
 
   User.find({
     where: {
-      username: req.body.username
-    },
+      username: req.body.username,
+    }, 
     include: [Event]
   }).then(function (events) {
-    res.send(events.Events);
+    console.log(events, 'EVENTS');
+    // if (events.Events)
+    var pastEvents = events.Events.filter(function(event) {
+      console.log(event.date, new Date(), 'old', 'new');
+      if (event.date > new Date()) {
+        return event;
+      }
+    });
+    res.send(pastEvents);
+  });
+};
+
+module.exports.findMyPastEvents = function (req, res) {
+
+  User.find({
+    where: {
+      username: req.body.username,
+    }, 
+    include: [Event]
+  }).then(function (events) {
+    console.log(events, 'EVENTS');
+    // if (events.Events)
+    var pastEvents = events.Events.filter(function(event) {
+      console.log(event.date, new Date(), 'old', 'new');
+      if (event.date < new Date()) {
+        return event;
+      }
+    });
+    res.send(pastEvents);
   });
 
 };
+
 
 module.exports.login = function (req, res) {
 
