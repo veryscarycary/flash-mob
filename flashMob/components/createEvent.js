@@ -305,7 +305,6 @@ export class CreateEvent extends Component {
 
           </View>
           <View>
-            
             {this.state.invites.map((friend, i) => 
               <Text key={i} onPress={this.removeFriend.bind(this, i)} style={styles.meComingText} onClick>{friend}</Text>)}
           </View>
