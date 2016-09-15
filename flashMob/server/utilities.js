@@ -1,5 +1,6 @@
 var User = require('./db/db').User;
 var Event = require('./db/db').Event;
+var EventUser = require('./db/db').EventUser;
 var sequelize = require('./db/db').sequelize;
 var bcrypt = require('bcrypt');
 
@@ -94,6 +95,32 @@ var createSession = function (req, res) {
 
 };
 
+module.exports.findMyEvents = function (req, res) {
+  // User.findOne({
+  //   where: {
+  //     username: req.body.username
+  //   }
+  // }).then(function (user) {
+  //   EventUser.findAll({
+  //     where: {
+  //       userId: user.id
+  //     }
+  //   }).then(function(events) {
+  //     res.send(events);
+  //   });
+  // });
+
+  User.find({
+    where: {
+      username: req.body.username
+    },
+    include: [Event]
+  }).then(function (events) {
+    res.send(events.Events);
+  });
+
+};
+
 module.exports.login = function (req, res) {
 
   // searches users table for user
@@ -101,7 +128,7 @@ module.exports.login = function (req, res) {
   sequelize.query('SELECT password FROM Users WHERE username = :username',
     { replacements: {
       username: req.body.username
-      }, 
+    }, 
       type: sequelize.QueryTypes.SELECT 
     })
     .then(function (hashedVal) {
@@ -150,10 +177,22 @@ module.exports.createEvent = function (req, res) {
       description: req.body.description,
       location: req.body.location,
       longitude: req.body.longitude,
-      latitude: req.body.latitude
+      latitude: req.body.latitude,
+      created_by: req.body.username
       // organizer to be added later
       // organizer: req.body.organizer
 
+    }).then(function(createdEvent) {
+      User.findOne({
+        where: {
+          username: req.body.username
+        }
+      }).then(function(foundUser) {
+        EventUser.create({
+          EventId: createdEvent.id,
+          UserId: foundUser.id
+        });
+      });
     });
 
   });
@@ -177,7 +216,7 @@ module.exports.getEventsList = function (req, res) {
       boxLatMax: lat + (latDelta * .5),
       boxLongMin: long - (longDelta * .5),
       boxLongMax: long + (longDelta * .5)
-      },
+    },
       type: sequelize.QueryTypes.SELECT
     })
     .then(function (results) {
