@@ -85,7 +85,8 @@ export class CreateEvent extends Component {
         latitude: this.state.latitude,
         longitude: this.state.longitude,
         date: this.state.date,
-        description: this.state.description
+        description: this.state.description,
+        username: this.props.username
       }
     });
   }
