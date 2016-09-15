@@ -103,15 +103,20 @@ module.exports.findMyEvents = function (req, res) {
     }, 
     include: [Event]
   }).then(function (events) {
-    console.log(events, 'EVENTS');
-    // if (events.Events)
-    var pastEvents = events.Events.filter(function(event) {
-      console.log(event.date, new Date(), 'old', 'new');
-      if (event.date > new Date()) {
-        return event;
-      }
-    });
-    res.send(pastEvents);
+    if (events === null) {
+      res.send([]);
+    } else {
+      
+      console.log(events, 'EVENTS');
+      // if (events.Events)
+      var pastEvents = events.Events.filter(function(event) {
+        console.log(event.date, new Date(), 'old', 'new');
+        if (event.date > new Date()) {
+          return event;
+        }
+      });
+      res.send(pastEvents);
+    }
   });
 };
 
@@ -123,15 +128,19 @@ module.exports.findMyPastEvents = function (req, res) {
     }, 
     include: [Event]
   }).then(function (events) {
-    console.log(events, 'EVENTS');
-    // if (events.Events)
-    var pastEvents = events.Events.filter(function(event) {
-      console.log(event.date, new Date(), 'old', 'new');
-      if (event.date < new Date()) {
-        return event;
-      }
-    });
-    res.send(pastEvents);
+    if (events === null) {
+      res.send([]);
+    } else {
+      console.log(events, 'EVENTS');
+      // if (events.Events)
+      var pastEvents = events.Events.filter(function(event) {
+        console.log(event.date, new Date(), 'old', 'new');
+        if (event.date < new Date()) {
+          return event;
+        }
+      });
+      res.send(pastEvents);
+    }
   });
 
 };
