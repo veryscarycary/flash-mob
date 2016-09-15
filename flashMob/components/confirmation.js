@@ -84,7 +84,7 @@ export class Confirmation extends Component {
           <Text style={styles.info}>Event Location</Text>
           <Text style={styles.text}>{this.props.location}</Text>
           <Text style={styles.info}>Event Date</Text>
-          <Text style={styles.text}>{this.props.date.toDateString()}</Text>
+          <Text style={styles.text}>{this.props.date.toString()}</Text>
           {this.props.private ? <Text style={styles.info}>Invited Friends</Text> : null}
           {this.props.private ? this.props.invites.map((friend) => <Text style={[styles.text, styles.textNoBottom]}>{friend}</Text>) : null}
           
