@@ -154,6 +154,21 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
     borderRadius: 15,
   },
+  eventButtons: {
+    justifyContent: 'center',
+    alignItems: 'flex-end'
+  },
+  eventInfoButton: {
+    height: 30,
+    width: 30,
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#007AFF',
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 5,
+    borderRadius: 3,
+  },
   add: {
     height: 30,
     width: 30,

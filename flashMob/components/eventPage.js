@@ -11,7 +11,7 @@ import {
   RefreshControl
 } from 'react-native';
 
-export class Event extends Component {
+export class EventPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
