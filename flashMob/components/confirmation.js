@@ -42,7 +42,9 @@ export class Confirmation extends Component {
         longitude: this.props.longitude,
         date: this.props.date,
         description: this.props.description,
-        username: this.props.username
+        username: this.props.username,
+        private: this.props.private,
+        invites: this.props.invites
       })
     });
   }

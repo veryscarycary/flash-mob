@@ -178,23 +178,62 @@ module.exports.createEvent = function (req, res) {
       location: req.body.location,
       longitude: req.body.longitude,
       latitude: req.body.latitude,
-      created_by: req.body.username
+      created_by: req.body.username,
+      private: req.body.private
       // organizer to be added later
       // organizer: req.body.organizer
 
     }).then(function(createdEvent) {
-      User.findOne({
-        where: {
-          username: req.body.username
-        }
-      }).then(function(foundUser) {
-        EventUser.create({
-          EventId: createdEvent.id,
-          UserId: foundUser.id
-        });
-      });
-    });
+      console.log(createdEvent.private, '<==== createdevent.private');
 
+      if (createdEvent.private) {
+        // fill in later
+        console.log('INSIDE PRIVATE')
+        console.log(req.body.invites, 'INVITES')
+
+        User.findOne({
+          where: {
+            username: req.body.username
+          }
+        }).then(function(foundUser) {
+          EventUser.create({
+            EventId: createdEvent.id,
+            UserId: foundUser.id
+          });
+        });
+
+        for (var i = 0; i < req.body.invites.length; i++) {
+          console.log(i, "i");
+          console.log(req.body.invites[i], "person invited");
+          User.findOne({
+            where: {
+              username: req.body.invites[i]
+            }
+          }).then(function (foundInvite) {
+            EventUser.create({
+              EventId: createdEvent.id,
+              UserId: foundInvite.id
+            }).catch(function(error) {
+              console.log('There was an error when creating a private event!');
+              res.send(error);
+            });
+          });
+        }
+
+      } else {
+        User.findOne({
+          where: {
+            username: req.body.username
+          }
+        }).then(function(foundUser) {
+          EventUser.create({
+            EventId: createdEvent.id,
+            UserId: foundUser.id
+          });
+        });
+      }
+
+    });
   });
 
   res.status(201).send('Event created');

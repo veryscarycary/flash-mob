@@ -91,7 +91,9 @@ export class CreateEvent extends Component {
         longitude: this.state.longitude,
         date: this.state.date,
         description: this.state.description,
-        username: this.props.username
+        username: this.props.username,
+        private: this.state.private,
+        invites: this.state.invites
       }
     });
   }
