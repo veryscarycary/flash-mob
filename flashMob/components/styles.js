@@ -28,9 +28,6 @@ export const styles = StyleSheet.create({
     flex: 1
   },
   imageEventPage: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    flex: 1,
   },
   image: {
     height: 70,
