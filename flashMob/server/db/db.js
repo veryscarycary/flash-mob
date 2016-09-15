@@ -18,7 +18,8 @@ var Event = sequelize.define('Event', {
   description: Sequelize.TEXT(),
   location: Sequelize.STRING,
   longitude: Sequelize.DOUBLE,
-  latitude: Sequelize.DOUBLE
+  latitude: Sequelize.DOUBLE,
+  created_by: Sequelize.STRING
   // Foreign key relationship with Users table to be added later
   // organizer: Sequelize.STRING
 
@@ -31,6 +32,16 @@ User.sync().then(function () {
 Event.sync().then(function () {
 });
 
+var EventUser = sequelize.define('EventUser', {
+  EventId: Sequelize.INTEGER,
+  UserId: Sequelize.INTEGER
+});
+
+Event.belongsToMany(User, {through: 'EventUser', foreignKey: 'EventId'});
+User.belongsToMany(Event, {through: 'EventUser', foreignKey: 'UserId'});
+
+EventUser.sync();
+
 sequelize.authenticate()
   .then(function(err) {
     console.log('Connection has been made successfully.');
@@ -42,3 +53,4 @@ sequelize.authenticate()
 module.exports.sequelize = sequelize;
 module.exports.User = User;
 module.exports.Event = Event;
+module.exports.EventUser = EventUser;
