@@ -17,6 +17,7 @@ export class CreateEvent extends Component {
     super(props);
     this.date = new Date();
     this.state = {
+      title: null,
       date: this.date,
       somewhereElse: false,
       latitude: this.props.latitude,
@@ -38,6 +39,14 @@ export class CreateEvent extends Component {
     this.addFriends = this.addFriends.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleSubmit() {
+    if (this.titleCheck() && this.hashtagCheck()) {
+      this._customLocation();
+    }
+
+  }
+
   // state change on ios data picker
   onDateChange(date) {
     this.setState({date: date});
@@ -72,12 +81,6 @@ export class CreateEvent extends Component {
     this.getCurrentAddress();
   }
 
-  handleSubmit() {
-    if (this.hashtagCheck()) {
-      this._customLocation();
-    }
-
-  }
   
   // The switch for whether or not to getCoordsByAddress or to pass your current location
   _customLocation() {
@@ -118,7 +121,12 @@ export class CreateEvent extends Component {
         Alert.alert(
           'Invalid Hashtag',
           //[{text: <Text>Errorrrr</Text>}],
-          'Please use the following convention: \n - only one hashtag allowed \n - no spaces between letters \n - only use one hashtag symbol',
+          'Please use the following convention: ' +
+          '\n - only one hashtag allowed' + 
+          '\n - no spaces between letters' + 
+          '\n - only use one hashtag symbol' +
+          '\n - do not start with a number' +
+          '\n - no special characters: \n !@$%^&*()?<>/\'\\,.+-={}[]~`|',
           [{text: 'OK', onPress: () => { console.log('OK pressed'); } }]
         );
         return false;
@@ -127,6 +135,18 @@ export class CreateEvent extends Component {
         hashtag = '#' + hashtag;
       }
       this.setState({instagramHashtag: hashtag});
+    }
+    return true;
+  }
+
+  titleCheck() {
+    if (!this.state.title) {
+      Alert.alert(
+        'Incomplete',
+        'Please add a name for your event',
+        [{text: 'OK', onPress: () => { console.log('OK pressed'); } }]
+      );
+      return false;
     }
     return true;
   }
@@ -233,11 +253,11 @@ export class CreateEvent extends Component {
       <ScrollView>
       <View style={styles.container}>
         <View style={styles.eventInputs}>
-          <Text style={styles.eventText}>Title</Text>
+          <Text style={styles.eventText}>Event Name</Text>
           <TextInput
             maxLength={25}
             style={styles.eventsTextInput}
-            placeholder={"name your event"}
+            placeholder={"Add a short, clear name"}
             onChangeText={(title) => this.setState({title})}
             value={this.state.title}
           />
@@ -259,15 +279,16 @@ export class CreateEvent extends Component {
             </TouchableHighlight>
           </View>
 
-            {this.state.somewhereElse ? <TextInput
-              style={styles.eventsTextInput}
-              placeholder={this.state.currentAddress}
-              onChangeText={(location) => this.setState({location})}
-              value={this.state.location}
-              /> : null}
+          {this.state.somewhereElse ? <TextInput
+            style={styles.eventsTextInput}
+            placeholder={this.state.currentAddress}
+            //placeholder='Include a place or address'
+            onChangeText={(location) => this.setState({location})}
+            value={this.state.location}
+            /> : null}
 
 
-            {!this.state.somewhereElse ? <Text>{this.state.location}</Text> : null}
+          {!this.state.somewhereElse ? <Text>{this.state.location}</Text> : null}
           <Text style={styles.eventText}>Pick a time and date</Text>
           <DatePickerIOS
                     date={this.state.date}
@@ -300,14 +321,13 @@ export class CreateEvent extends Component {
 
           </View>
           <View>
-            
             {this.state.invites.map((friend, i) => 
               <Text key={i} onPress={this.removeFriend.bind(this, i)} style={styles.meComingText} onClick>{friend}</Text>)}
           </View>
 
           <Text style={styles.eventText}> </Text>
 
-          <Text style={styles.eventText}>Add an Instagram hastag for your event:</Text>
+          <Text style={styles.eventText}>Add an Instagram hashtag for your event:</Text>
           <TextInput
             maxLength={20}
             style={styles.eventsTextInput}
@@ -317,11 +337,11 @@ export class CreateEvent extends Component {
           />
 
           <Text style={styles.eventText}> </Text>
-          <Text style={styles.eventText}>More Information</Text>
+          <Text style={styles.eventText}>Description</Text>
           <TextInput
             style={styles.description}
             multiline={true}
-            placeholder={"what is the plan?"}
+            placeholder={"Tell people more about the event"}
             onChangeText={(description) => this.setState({description})}
             value={this.state.description}
           />
