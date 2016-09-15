@@ -118,7 +118,12 @@ export class CreateEvent extends Component {
         Alert.alert(
           'Invalid Hashtag',
           //[{text: <Text>Errorrrr</Text>}],
-          'Please use the following convention: \n - only one hashtag allowed \n - no spaces between letters \n - only use one hashtag symbol',
+          'Please use the following convention: ' +
+          '\n - only one hashtag allowed' + 
+          '\n - no spaces between letters' + 
+          '\n - only use one hashtag symbol' +
+          '\n - do not start with a number' +
+          '\n - no special characters: \n !@$%^&*()?<>/\'\\,.+-={}[]~`|',
           [{text: 'OK', onPress: () => { console.log('OK pressed'); } }]
         );
         return false;
@@ -300,14 +305,13 @@ export class CreateEvent extends Component {
 
           </View>
           <View>
-            
             {this.state.invites.map((friend, i) => 
               <Text key={i} onPress={this.removeFriend.bind(this, i)} style={styles.meComingText} onClick>{friend}</Text>)}
           </View>
 
           <Text style={styles.eventText}> </Text>
 
-          <Text style={styles.eventText}>Add an Instagram hastag for your event:</Text>
+          <Text style={styles.eventText}>Add an Instagram hashtag for your event:</Text>
           <TextInput
             maxLength={20}
             style={styles.eventsTextInput}
