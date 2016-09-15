@@ -6,6 +6,10 @@ router.post('/api/myEvents', function (req, res) {
   utils.findMyEvents(req, res);
 });
 
+router.post('/api/myPastEvents', function (req, res) {
+  utils.findMyPastEvents(req, res);
+});
+
 router.post('/api/login', function (req, res) {
 
   utils.login(req, res);
