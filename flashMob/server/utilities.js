@@ -204,7 +204,8 @@ module.exports.createEvent = function (req, res) {
       longitude: req.body.longitude,
       latitude: req.body.latitude,
       created_by: req.body.username,
-      private: req.body.private
+      private: req.body.private,
+      instagramHashtag: req.body.instagramHashtag
       // organizer to be added later
       // organizer: req.body.organizer
 
