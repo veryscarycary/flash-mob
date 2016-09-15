@@ -42,7 +42,7 @@ export class Login extends Component {
       //redirect to events page
         this.setState({isLoggedin: true});      
         this.props.navigator.replacePreviousAndPop({
-          title: 'My Events!',
+          title: 'My Events',
           component: EventsList,
           passProps: {
             username: this.state.username,
