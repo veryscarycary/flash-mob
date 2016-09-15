@@ -56,7 +56,11 @@ export class Event extends Component {
 
   render() {
     var date = new Date(this.props.event.date).toString().slice(4, 15);
-    var time = new Date(this.props.event.date).toString().slice(16, 21);
+    var minutes = new Date(this.props.event.date).toString().slice(18, 21);
+    var hours = new Date(this.props.event.date).toString().slice(16, 18);
+    hours = ((Number(hours) + 11) % 12 + 1);
+    var suffix = hours >= 12 ? ' PM':' AM';
+    var time = hours + minutes + suffix;
 
     return (
       <TouchableWithoutFeedback style={styles.highlight} onPress={this._toggleDescription}>
