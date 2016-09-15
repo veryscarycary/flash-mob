@@ -8,7 +8,8 @@ import {
   TouchableHighlight,
   TextInput,
   DatePickerIOS,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native';
 
 export class CreateEvent extends Component {
@@ -22,7 +23,8 @@ export class CreateEvent extends Component {
       longitude: this.props.longitude,
       currentAddress: '',
       private: false,
-      invites: []
+      invites: [],
+      instagramHashtag: null
     };
     this.onDateChange = this.onDateChange.bind(this);
     this._onForward = this._onForward.bind(this);
@@ -34,6 +36,7 @@ export class CreateEvent extends Component {
     this.getCurrentAddress = this.getCurrentAddress.bind(this);
     this._customLocation = this._customLocation.bind(this);
     this.addFriends = this.addFriends.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   // state change on ios data picker
   onDateChange(date) {
@@ -68,6 +71,13 @@ export class CreateEvent extends Component {
   componentDidMount() {
     this.getCurrentAddress();
   }
+
+  handleSubmit() {
+    if (this.hashtagCheck()) {
+      this._customLocation();
+    }
+
+  }
   
   // The switch for whether or not to getCoordsByAddress or to pass your current location
   _customLocation() {
@@ -93,9 +103,32 @@ export class CreateEvent extends Component {
         description: this.state.description,
         username: this.props.username,
         private: this.state.private,
-        invites: this.state.invites
+        invites: this.state.invites,
+        instagramHashtag: this.state.instagramHashtag
       }
     });
+  }
+
+  hashtagCheck() {
+    var hashtag = this.state.instagramHashtag;
+    if (hashtag) {
+      hashtag = hashtag.trim();
+      if (hashtag.split(' ').length > 1 || hashtag.substring(1).split('#').length > 1) {
+        //put alert message here with appropriate message
+        Alert.alert(
+          'Invalid Hashtag',
+          //[{text: <Text>Errorrrr</Text>}],
+          'Please use the following convention: \n - only one hashtag allowed \n - no spaces between letters \n - only use one hashtag symbol',
+          [{text: 'OK', onPress: () => { console.log('OK pressed'); } }]
+        );
+        return false;
+      }
+      if (hashtag[0] !== '#') {
+        hashtag = '#' + hashtag;
+      }
+      this.setState({instagramHashtag: hashtag});
+    }
+    return true;
   }
 
   // return lat and long for an address
@@ -148,9 +181,10 @@ export class CreateEvent extends Component {
   removeFriend(i) {
     var invites = this.state.invites;
     invites.splice(i, 1);
-    this.setState({
-      invites: invites
-    });
+    // this.setState({
+    //   invites: invites
+    // });
+    this.setState({invites});
   }
 
   addFriends() {
@@ -272,15 +306,27 @@ export class CreateEvent extends Component {
           </View>
 
           <Text style={styles.eventText}> </Text>
+
+          <Text style={styles.eventText}>Add an Instagram hastag for your event:</Text>
+          <TextInput
+            maxLength={20}
+            style={styles.eventsTextInput}
+            placeholder={"#HRflashmob2016"}
+            onChangeText={(instagramHashtag) => this.setState({instagramHashtag})}
+            value={this.state.instagramHashtag}
+          />
+
+          <Text style={styles.eventText}> </Text>
           <Text style={styles.eventText}>More Information</Text>
           <TextInput
             style={styles.description}
+            multiline={true}
             placeholder={"what is the plan?"}
             onChangeText={(description) => this.setState({description})}
             value={this.state.description}
           />
         </View>
-        <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._customLocation}> 
+        <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this.handleSubmit}> 
           <Text style={styles.buttonText}>Confirm</Text>
         </TouchableHighlight>
       </View>
