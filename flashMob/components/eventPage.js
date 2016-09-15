@@ -8,6 +8,7 @@ import {
   View,
   ListView,
   TouchableHighlight,
+  ScrollView,
   RefreshControl
 } from 'react-native';
 
@@ -16,8 +17,6 @@ export class EventPage extends Component {
     super(props);
     this.state = {
     };
-    this._showDescription = this._showDescription.bind(this);
-    this._toggleDescription = this._toggleDescription.bind(this);
   }
 
   render () {
@@ -26,26 +25,21 @@ export class EventPage extends Component {
       <View style={styles.container}>
         <View style={styles.eventInputs}>
           <Text style={styles.eventText}>Title</Text>
-          <img style={styles.imageEventPage}
-            source={'http://www.businessofpt.com/wp-content/uploads/2015/08/free-birthday-meals.jpg'}
-          />
 
-
-
-          <Text style={styles.eventText}>props > Event Title</Text>
-          <Text style={styles.eventText}>props > Category</Text>
-          <Text style={styles.eventText}>props > Address</Text>
-          <Text style={styles.eventText}>props > Time and Date</Text>
+          <Text style={styles.eventText}>{this.props.title}</Text>
+          <Text style={styles.eventText}>{this.props.category}</Text>
+          <Text style={styles.eventText}>{this.props.location}</Text>
+          <Text style={styles.eventText}>{this.props.time + ', ' + this.props.date}</Text>
 
           <View>
-            <Text style={styles.eventText}>props > Friends that are invited</Text>
+            <Text style={styles.eventText}>{this.props.invites}</Text>
           </View>
 
           <View>
             <Text style={styles.eventText}> Intagram photo container</Text>
           </View>
 
-          <Text style={styles.eventText}>Event Description</Text>
+          <Text style={styles.eventText}>{this.props.description}</Text>
           <Text style={styles.eventText}>More Information</Text>
         </View>
       </View>
