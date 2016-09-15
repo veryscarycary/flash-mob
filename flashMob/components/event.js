@@ -40,7 +40,11 @@ export class Event extends Component {
   }
 
   _forwardToEventPage() {
+<<<<<<< HEAD
     console.log('this', this);
+=======
+    console.log("this dot props", this.props);
+>>>>>>> 6b1dc9ce44afbab9a783a0150d3fa0b084fa54b4
     this.props.navigator.push({
       title: 'Event Title',
       component: EventPage,
@@ -67,9 +71,6 @@ export class Event extends Component {
         <Text style={styles.eventText}>
           {this.props.event.description}
         </Text>
-        <Image style={styles.imageEventPage}
-          source={{uri: 'http://www.businessofpt.com/wp-content/uploads/2015/08/free-birthday-meals.jpg'}}
-        />
           <View style={styles.eventButtons}>
             <TouchableHighlight style={styles.meComing} underlayColor='white' onPress={this._toggleIsComing}>
               <Text style={styles.meComingText}>i am coming!</Text>

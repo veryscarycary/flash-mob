@@ -115,15 +115,20 @@ export class EventsList extends Component {
   renderSectionHeader() {
     return (
       <View style={styles.row}>
-        <Text style={styles.greeting}>HI!! {this.props.username.toUpperCase()} !</Text>
+        <Text style={styles.greeting}>HI {this.props.username.toUpperCase()} !</Text>
       </View>
       );
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.events}>
+      <View>
+        <View style={styles.container}>
+          <TouchableHighlight style={styles.publicButton} underlayColor='white' onPress={this.addFriends}> 
+            <Text style={styles.buttonText}>+</Text>
+          </TouchableHighlight>
+        </View>
+        <View style={[styles.container, styles.events]}>
           <ListView
             renderSectionHeader={this.renderSectionHeader}
             refreshControl={

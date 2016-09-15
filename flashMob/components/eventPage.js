@@ -23,14 +23,14 @@ export class EventPage extends Component {
     return (
       <ScrollView>
       <View style={styles.container}>
+      <Image style={styles.imageEventPage}
+        source={{uri: 'http://www.businessofpt.com/wp-content/uploads/2015/08/free-birthday-meals.jpg'}}
+      />
         <View style={styles.eventInputs}>
-          <Text style={styles.eventText}>Title</Text>
-
           <Text style={styles.eventText}>{this.props.title}</Text>
           <Text style={styles.eventText}>{this.props.category}</Text>
           <Text style={styles.eventText}>{this.props.location}</Text>
           <Text style={styles.eventText}>{this.props.time + ', ' + this.props.date}</Text>
-
           <View>
             <Text style={styles.eventText}>{this.props.invites}</Text>
           </View>
