@@ -149,6 +149,18 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
     borderRadius: 15,
   },
+  add: {
+    height: 30,
+    width: 30,
+    // alignSelf: 'center',
+    // justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#ff69b4',
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 5,
+    borderRadius: 15,
+  },
   meComingHightlight: {
     height: 30,
     width: 140,
@@ -181,6 +193,9 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 4,
     marginBottom: 10
+  },
+  eventsTextInputShort: {
+    width: 260
   },
   description: {
     height: 85,

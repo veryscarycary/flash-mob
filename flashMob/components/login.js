@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { styles } from './styles.js';
 import { EventsList } from './events.js';
 import { Map } from './mapView.js';
+import { Main } from './Main.js';
 
 import {
   StyleSheet,
@@ -41,7 +42,7 @@ export class Login extends Component {
       //redirect to events page
         this.setState({isLoggedin: true});      
         this.props.navigator.replacePreviousAndPop({
-          title: 'Events',
+          title: 'My Events!',
           component: EventsList,
           passProps: {
             username: this.state.username,
@@ -55,6 +56,14 @@ export class Login extends Component {
                 username: this.state.username
               }
             });
+          },
+          leftButtonTitle: 'Sign Out',
+          onLeftButtonPress: () => {
+            this.props.navigator.replace({
+              title: 'Main',
+              component: Main
+            });
+            
           }
         });        
       }

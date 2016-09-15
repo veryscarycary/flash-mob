@@ -16,6 +16,7 @@
     "url": "git+https://github.com/AkaiS/flash-mob.git"
   },
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "bootstrap": "^4.0.0-alpha.2",
