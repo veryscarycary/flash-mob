@@ -38,6 +38,7 @@ export class Event extends Component {
   }
 
   _forwardToEventPage() {
+    console.log("this dot props", this.props);
     this.props.navigator.push({
       title: 'Event Title',
       component: EventPage,
@@ -63,12 +64,12 @@ export class Event extends Component {
         <Text style={styles.eventText}>
           {this.props.event.description}
         </Text>
-          <View style={styles.eventButtons}>
-            <TouchableHighlight style={styles.meComing} underlayColor='white' onPress={this._toggleIsComing}>
+          <View style={styles.hiddenButtons} >
+            <TouchableHighlight style={styles.Coming} underlayColor='white' onPress={this._toggleIsComing}>
               <Text style={styles.meComingText}>i am coming!</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.eventInfoButton} underlayColor='white' onPress={this._forwardToEventPage}>
-              <Text style={styles.eventInfo}>?</Text>
+            <TouchableHighlight style={styles.EventInfo} props={this.props} underlayColor='white' onPress={this._forwardToEventPage}>
+              <Text style={styles.meComingText}>Event Info</Text>
             </TouchableHighlight>
           </View>
         </View>
