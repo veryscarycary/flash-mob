@@ -20,15 +20,20 @@ export class CreateEvent extends Component {
       somewhereElse: false,
       latitude: this.props.latitude,
       longitude: this.props.longitude,
-      currentAddress: ''
+      currentAddress: '',
+      private: false,
+      invites: []
     };
     this.onDateChange = this.onDateChange.bind(this);
     this._onForward = this._onForward.bind(this);
     this.toggleCustomAddressbar = this.toggleCustomAddressbar.bind(this);
+    this.toggleFriendList = this.toggleFriendList.bind(this);
+    this.setToPublic = this.setToPublic.bind(this);
     this.setLocationToHere = this.setLocationToHere.bind(this);
     this.getCoordsByAddress = this.getCoordsByAddress.bind(this);
     this.getCurrentAddress = this.getCurrentAddress.bind(this);
     this._customLocation = this._customLocation.bind(this);
+    this.addFriends = this.addFriends.bind(this);
   }
   // state change on ios data picker
   onDateChange(date) {
@@ -85,7 +90,8 @@ export class CreateEvent extends Component {
         latitude: this.state.latitude,
         longitude: this.state.longitude,
         date: this.state.date,
-        description: this.state.description
+        description: this.state.description,
+        username: this.props.username
       }
     });
   }
@@ -125,6 +131,35 @@ export class CreateEvent extends Component {
     });
   }
 
+  toggleFriendList() {
+    this.setState({
+      private: true
+    });
+  }  
+
+  setToPublic() {
+    this.setState({
+      private: false
+    });
+  }
+
+  addFriends() {
+    var friends = this.state.invitedFriends;
+    var friendsArray = friends.split(',');
+    for (var i = 0; i < friendsArray.length; i++) {
+      friendsArray[i] = friendsArray[i].trim();
+    }
+    var invites = this.state.invites.concat(friendsArray);
+    console.log('invites array: ', invites);
+    this.setState({ 
+      invites: invites
+    });
+    console.log('invites state: ,', this.state.invites);
+    this.setState({
+      invitedFriends: 'added: ' + invites
+    });
+  }
+
   // set state for current location
   setLocationToHere() {
     this.setState({
@@ -139,6 +174,7 @@ export class CreateEvent extends Component {
   // Confirm button sends to confirmation page
   render() {
     return (
+      <ScrollView>
       <View style={styles.container}>
         <View style={styles.eventInputs}>
           <Text style={styles.eventText}>Title</Text>
@@ -166,12 +202,14 @@ export class CreateEvent extends Component {
               <Text style={styles.meComingText}>Elsewhere</Text>
             </TouchableHighlight>
           </View>
+
             {this.state.somewhereElse ? <TextInput
               style={styles.eventsTextInput}
               placeholder={this.state.currentAddress}
               onChangeText={(location) => this.setState({location})}
               value={this.state.location}
               /> : null}
+
             {!this.state.somewhereElse ? <Text>{this.state.location}</Text> : null}
           <Text style={styles.eventText}>Pick a time and date</Text>
           <DatePickerIOS
@@ -179,10 +217,36 @@ export class CreateEvent extends Component {
                     mode="datetime"
                     onDateChange={this.onDateChange}
                   />
+
+          <Text style={styles.eventText}>Is your event public or private?</Text>
+          <View style={styles.buttonContainer}>
+            <TouchableHighlight underlayColor='white' style={this.state.private ? styles.meComing : styles.meComingHightlight} onPress={this.setToPublic}> 
+              <Text style={styles.meComingText}>Public</Text>
+            </TouchableHighlight>
+            <TouchableHighlight underlayColor='white' style={this.state.private ? styles.meComingHightlight : styles.meComing} onPress={this.toggleFriendList}> 
+              <Text style={styles.meComingText}>Private</Text>
+            </TouchableHighlight>
+          </View> 
+
+          <View style={styles.buttonContainer}>
+
+          {this.state.private ? <TextInput
+            style={[styles.eventsTextInput, styles.eventsTextInputShort]}
+            placeholder={"invite friends?"}
+            onChangeText={(invitedFriends) => this.setState({invitedFriends: invitedFriends})}
+            value={this.state.invitedFriends}
+            /> : null}
+
+          {this.state.private ? <TouchableHighlight style={[styles.add]} underlayColor='white' onPress={this.addFriends}> 
+          <Text style={styles.buttonText}>+</Text>
+          </TouchableHighlight> : null}
+
+          </View>
+
+          <Text style={styles.eventText}> </Text>
           <Text style={styles.eventText}>More Information</Text>
           <TextInput
             style={styles.description}
-            multiline={true}
             placeholder={"what is the plan?"}
             onChangeText={(description) => this.setState({description})}
             value={this.state.description}
@@ -192,6 +256,7 @@ export class CreateEvent extends Component {
           <Text style={styles.buttonText}>Confirm</Text>
         </TouchableHighlight>
       </View>
+      </ScrollView>
     );
   }
 }

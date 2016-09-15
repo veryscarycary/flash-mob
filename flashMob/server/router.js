@@ -2,6 +2,10 @@ var express = require('express');
 var utils = require('./utilities');
 var router = express.Router();
 
+router.post('/api/myEvents', function (req, res) {
+  utils.findMyEvents(req, res);
+});
+
 router.post('/api/login', function (req, res) {
 
   utils.login(req, res);

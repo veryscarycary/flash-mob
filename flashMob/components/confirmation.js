@@ -41,7 +41,8 @@ export class Confirmation extends Component {
         latitude: this.props.latitude,
         longitude: this.props.longitude,
         date: this.props.date,
-        description: this.props.description
+        description: this.props.description,
+        username: this.props.username
       })
     });
   }

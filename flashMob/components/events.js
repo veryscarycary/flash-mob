@@ -99,7 +99,7 @@ export class EventsList extends Component {
       title: 'create event',
       component: CreateEvent,
       //passing user's geolocation to CreateEvent
-      passProps: {latitude: this.state.latitude, longitude: this.state.longitude}
+      passProps: {latitude: this.state.latitude, longitude: this.state.longitude, username: this.props.username}
     });
   }
 
@@ -115,7 +115,7 @@ export class EventsList extends Component {
   renderSectionHeader() {
     return (
       <View style={styles.row}>
-        <Text style={styles.greeting}>HI {this.props.username.toUpperCase()} !</Text>
+        <Text style={styles.greeting}>HI!! {this.props.username.toUpperCase()} !</Text>
       </View>
       );
   }

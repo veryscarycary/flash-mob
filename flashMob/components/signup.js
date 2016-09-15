@@ -24,7 +24,7 @@ export class Signup extends Component {
   }
 
   handleSignup() {
-    //check if comfirm password matches password
+    //check if confirm password matches password
     if (this.state.password !== this.state.confirm) {
       this.setState({pwMatched: true});
     } else {
