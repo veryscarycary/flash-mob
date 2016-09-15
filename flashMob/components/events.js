@@ -115,7 +115,7 @@ export class EventsList extends Component {
   renderSectionHeader() {
     return (
       <View style={styles.row}>
-        <Text style={styles.greeting}>HI!! {this.props.username.toUpperCase()} !</Text>
+        <Text style={styles.greeting}>HI {this.props.username.toUpperCase()} !</Text>
       </View>
       );
   }
