@@ -20,7 +20,8 @@ var Event = sequelize.define('Event', {
   longitude: Sequelize.DOUBLE,
   latitude: Sequelize.DOUBLE,
   created_by: Sequelize.STRING,
-  private: Sequelize.STRING
+  private: Sequelize.STRING,
+  instagramHashtag: Sequelize.STRING
   // Foreign key relationship with Users table to be added later
   // organizer: Sequelize.STRING
 
