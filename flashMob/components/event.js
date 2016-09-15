@@ -55,6 +55,9 @@ export class Event extends Component {
   }
 
   render() {
+    var date = new Date(this.props.event.date).toString().slice(4, 15);
+    var time = new Date(this.props.event.date).toString().slice(16, 21);
+
     return (
       <TouchableWithoutFeedback style={styles.highlight} onPress={this._toggleDescription}>
         <View style={styles.event}>
@@ -67,7 +70,7 @@ export class Event extends Component {
             <Text style={styles.distAndTime}>{
               Math.floor(distance(this.props.latitude, this.props.longitude, this.props.event.latitude, this.props.event.longitude) * 10) / 10
             } miles away @ {
-              this.props.event.date.substr(this.props.event.date.indexOf('T') + 1, 5)
+              (time + ', ' + date)
             }</Text>
           </View>
           <View style={styles.hidden}>
