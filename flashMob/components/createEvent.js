@@ -145,9 +145,19 @@ export class CreateEvent extends Component {
     });
   }
 
+  removeFriend(i) {
+    var invites = this.state.invites;
+    invites.splice(i, 1);
+    this.setState({
+      invites: invites
+    });
+  }
+
   addFriends() {
 
-    if (!this.state.invitedFriends) {return; }
+    if (!this.state.invitedFriends || this.state.invites.indexOf(this.state.invitedFriends) !== -1) {
+      return; 
+    }
 
     var friends = this.state.invitedFriends;
     var friendsArray = friends.split(',');
@@ -248,6 +258,11 @@ export class CreateEvent extends Component {
           <Text style={styles.buttonText}>+</Text>
           </TouchableHighlight> : null}
 
+          </View>
+          <View>
+            
+            {this.state.invites.map((friend, i) => 
+              <Text key={i} onPress={this.removeFriend.bind(this, i)} style={styles.meComingText} onClick>{friend}</Text>)}
           </View>
 
           <Text style={styles.eventText}> </Text>
