@@ -144,6 +144,9 @@ export class CreateEvent extends Component {
   }
 
   addFriends() {
+
+    if (!this.state.invitedFriends) {return; }
+    
     var friends = this.state.invitedFriends;
     var friendsArray = friends.split(',');
     for (var i = 0; i < friendsArray.length; i++) {
@@ -158,7 +161,6 @@ export class CreateEvent extends Component {
     this.setState({
       invitedFriends: ''
     });
-    this.render();
 
   }
 
@@ -246,7 +248,7 @@ export class CreateEvent extends Component {
 
           </View>
 
-          <Text style={styles.eventText}>{this.state.invites}</Text>
+          <Text style={styles.eventText}>{this.state.invites[2]}</Text>
           <Text style={styles.eventText}>More Information</Text>
           <TextInput
             style={styles.description}
