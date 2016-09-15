@@ -228,6 +228,9 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10
   },
+  textNoBottom: {
+    marginBottom: 5,
+  },
   confirm: {
     color: 'grey',
     textAlign: 'center',
