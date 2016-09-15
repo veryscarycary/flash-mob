@@ -149,14 +149,16 @@ export class CreateEvent extends Component {
       friendsArray[i] = friendsArray[i].trim();
     }
     var invites = this.state.invites.concat(friendsArray);
-    console.log('invites array: ', invites);
+    // console.log('invites array: ', invites);
     this.setState({ 
       invites: invites
     });
-    console.log('invites state: ,', this.state.invites);
+    // console.log('invites state: ,', this.state.invites);
     this.setState({
-      invitedFriends: 'added: ' + invites
+      invitedFriends: ''
     });
+    this.render();
+
   }
 
   // set state for current location
@@ -209,6 +211,7 @@ export class CreateEvent extends Component {
               value={this.state.location}
               /> : null}
 
+
             {!this.state.somewhereElse ? <Text>{this.state.location}</Text> : null}
           <Text style={styles.eventText}>Pick a time and date</Text>
           <DatePickerIOS
@@ -232,7 +235,7 @@ export class CreateEvent extends Component {
           {this.state.private ? <TextInput
             style={[styles.eventsTextInput, styles.eventsTextInputShort]}
             placeholder={"invite friends?"}
-            onChangeText={(invitedFriends) => this.setState({invitedFriends: invitedFriends})}
+            onChangeText={(invitedFriends) => this.setState({invitedFriends})}
             value={this.state.invitedFriends}
             /> : null}
 
@@ -242,7 +245,7 @@ export class CreateEvent extends Component {
 
           </View>
 
-          <Text style={styles.eventText}> </Text>
+          <Text style={styles.eventText}>{this.state.invites}</Text>
           <Text style={styles.eventText}>More Information</Text>
           <TextInput
             style={styles.description}
