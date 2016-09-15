@@ -53,7 +53,7 @@ export class CreateEvent extends Component {
     }).then((res) => {
       return res.json();   
     }).then((resJson) => {
-      console.log('getting google result?--->', resJson)
+      //console.log('getting google result?--->', resJson)
       this.setState({
         location: resJson.results[0].formatted_address,
         currentAddress: resJson.results[0].formatted_address
@@ -118,7 +118,7 @@ export class CreateEvent extends Component {
       this.setState({longitude: resJson.results[0].geometry.location.lng});
     })
     .then((res) => {
-      this._onForward()
+      this._onForward();
     })
     .catch((err) => {
       console.log('There is an error. It\'s sad day D=', err.status, err);
@@ -166,6 +166,12 @@ export class CreateEvent extends Component {
     }
     var invites = this.state.invites.concat(friendsArray);
     // console.log('invites array: ', invites);
+    //var invitesLength = invites.length;
+    for (var i = invites.length; i >= 0; i--) {
+      if (invites.slice(i + 1).indexOf(invites[i]) !== -1) {
+        invites.splice(i, 1);
+      }
+    }
     this.setState({ 
       invites: invites
     });
