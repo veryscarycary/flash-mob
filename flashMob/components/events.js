@@ -151,17 +151,17 @@ export class EventsList extends Component {
 
   render() {
     return (
-      <View>
-        <View style={styles.container}>
+      <View style={styles.containerRight}>
+        <View>
           <TouchableHighlight style={styles.publicButton} underlayColor='white' onPress={this.addFriends}> 
             <Text style={styles.buttonText}>+</Text>
           </TouchableHighlight>
         </View>
-        <View style={styles.buttonContainer}>
-            <TouchableHighlight underlayColor='white' style={this.state.current ? styles.meComingHighlight : styles.meComing} onPress={this.setCurrent}>
+        <View style={[styles.buttonContainer]}>
+            <TouchableHighlight underlayColor='white' style={this.state.current ? styles.meComingHightlight : styles.meComing} onPress={this.setCurrent}>
               <Text style={styles.buttonText}>Current Events</Text>
             </TouchableHighlight>
-            <TouchableHighlight underlayColor='white' style={this.state.current ? styles.meComing : styles.meComingHighlight} onPress={this.setPast}>
+            <TouchableHighlight underlayColor='white' style={this.state.current ? styles.meComing : styles.meComingHightlight} onPress={this.setPast}>
               <Text style={styles.buttonText}>Past Events</Text>
             </TouchableHighlight>
         </View>
