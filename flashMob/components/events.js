@@ -122,28 +122,30 @@ export class EventsList extends Component {
 
   render() {
     return (
-      <View>
-        <View style={styles.container}>
+      <View style={styles.containerRight}>
+        <View>
           <TouchableHighlight style={styles.publicButton} underlayColor='white' onPress={this.addFriends}> 
             <Text style={styles.buttonText}>+</Text>
           </TouchableHighlight>
         </View>
-        <View style={[styles.container, styles.events]}>
-          <ListView
-            renderSectionHeader={this.renderSectionHeader}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this._onRefresh}
-              />
-            }
-            dataSource={this.state.dataSource}
-            renderRow={(rowData) => <Event event={rowData} latitude={this.state.latitude} longitude={this.state.longitude}/>}
-          />
+        <View style={styles.container}>
+          <View style={styles.events}>
+            <ListView
+              renderSectionHeader={this.renderSectionHeader}
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this._onRefresh}
+                />
+              }
+              dataSource={this.state.dataSource}
+              renderRow={(rowData) => <Event event={rowData} latitude={this.state.latitude} longitude={this.state.longitude}/>}
+            />
+          </View>
+          <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._onForward}> 
+            <Text style={styles.buttonText}>Create Event</Text>
+          </TouchableHighlight>
         </View>
-        <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._onForward}> 
-          <Text style={styles.buttonText}>Create Event</Text>
-        </TouchableHighlight>
       </View>
     );
   }

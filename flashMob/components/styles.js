@@ -3,10 +3,51 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
+    // flexWrap: 'nowrap',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f0f8ff',
+  },
+  containerRight: {
+    // flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    backgroundColor: '#f0f8ff',
+  },
+  containerBottom: {
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    backgroundColor: '#f0f8ff',
+  },
+  publicButton: {
+    flexDirection: 'row',
+    flex: 1,
+    height: 30,
+    width: 30,
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#ff69b4',
+    marginTop: 70,
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 5,
+    borderRadius: 15,
+  },
+  buttonText: {
+    fontSize: 18,
+    color: '#ff69b4',
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 3
+  },
+  events: {
+    // marginTop: 70,
+    flexDirection: 'row',
+    flex: 1,
   },
   containerRight: {
     flex: 1,
@@ -56,11 +97,6 @@ export const styles = StyleSheet.create({
     color: '#696969',
     marginBottom: 10,
   },
-  buttonText: {
-    fontSize: 18,
-    color: '#ff69b4',
-    alignSelf: 'center'
-  },
   button: {
     height: 45,
     width: 150,
@@ -100,27 +136,6 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: '#ff69b4',
     marginBottom: 5,
-  },
-  events: {
-    // marginTop: 70,
-    flexDirection: 'row',
-    flex: 1,
-  },
-  publicButton: {
-    flexDirection: 'row',
-    flex: 1,
-    height: 30,
-    width: 30,
-    alignItems: 'flex-start',
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#ff69b4',
-    marginTop: 70,
-    marginLeft: 0,
-    marginRight: 5,
-    marginBottom: 5,
-    borderRadius: 15,
   },
   greeting: {
     flex: 4,
