@@ -145,6 +145,23 @@ module.exports.findMyPastEvents = function (req, res) {
 
 };
 
+module.exports.deleteEvent = function (req, res) {
+
+  User.find({
+    where: {
+      username: req.body.username,
+    },
+    include: [Event]
+  }).then(function (events) {
+    events.Events.filter(function(event) {
+      if (event.created_by === req.body.username && event.title === req.body.title) {
+        return event.destroy();
+      }
+    });
+    res.send("event deleted");
+  });
+};
+
 
 module.exports.login = function (req, res) {
 
