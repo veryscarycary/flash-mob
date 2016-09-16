@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+  scrollHeight: {
+    height: 600
+  },
   container: {
     // flexWrap: 'nowrap',
     flex: 1,
@@ -161,12 +164,6 @@ export const styles = StyleSheet.create({
   },
   events: {
     // marginTop: 70,
-    flex: 1,
-    alignItems: 'flex-start',
-    flexDirection: 'row',
-  },
-  eventsPublic: {
-    marginTop: 70,
     flex: 1,
     alignItems: 'flex-start',
     flexDirection: 'row',
