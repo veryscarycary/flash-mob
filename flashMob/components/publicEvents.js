@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Event } from './event.js';
+import { PublicEvent } from './publicEvent.js';
 import { CreateEvent } from './createEvent';
 import { styles } from './styles.js';
-import { PublicEventsList } from './publicEvents.js';
+import { EventsList } from './events.js';
 import { Map } from './mapView.js';
 import {
   StyleSheet,
@@ -16,7 +16,7 @@ import {
 
 // Events list is the scene which render a list of nearby events
 // all events need to make it into the listview datasrouce if they are to render
-export class EventsList extends Component {
+export class PublicEventsList extends Component {
   constructor(props) {
     super(props);
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -39,7 +39,7 @@ export class EventsList extends Component {
     this.getEvents = this.getEvents.bind(this);
     this.setCurrent = this.setCurrent.bind(this);
     this.setPast = this.setPast.bind(this);
-    this.changePublic = this.changePublic.bind(this);
+    // this.changeMyEvent = this.changeMyEvent.bind(this);
   }
 
   watchID: ?number = null;
@@ -76,11 +76,11 @@ export class EventsList extends Component {
   }
   
   getMyEvents() {
-    this.getEvents('http://localhost:3000/api/myEvents');
+    this.getEvents('http://localhost:3000/api/eventsList');
   }
 
   getMyPastEvents() {
-    this.getEvents('http://localhost:3000/api/myPastEvents');
+    this.getEvents('http://localhost:3000/api/eventsList');
   }
 
   //function to look for near by events, passing in lat and lng
@@ -124,23 +124,13 @@ export class EventsList extends Component {
     this.getMyPastEvents();
   }
 
-  changePublic() {
-    this.props.navigator.push({
-      title: 'Public Events',
-      component: PublicEventsList,
-      passProps: {username: this.props.username},
-      rightButtonTitle: 'Map',
-          onRightButtonPress: () => {
-            this.props.navigator.push({
-              title: 'Map',
-              component: Map,
-              passProps: {
-                username: this.state.username
-              }
-            });
-          }
-    });
-  }
+  // changeMyEvent () {
+  //   this.props.navigator.replace({
+  //     title: 'My Events',
+  //     component: EventsList,
+  //     passProps: {username: this.props.username}
+  //   });
+  // }
 
   // go to create an event
   _onForward() {
@@ -172,28 +162,11 @@ export class EventsList extends Component {
 
   render() {
     return (
-      <View style={styles.containerRight}>
-        <View style={styles.navRow}>
-          <View style={styles.containerEmpty}></View>
-          <View style={styles.navRow}>
-            <TouchableHighlight onPress={this.changePublic}>
-              <Text style={styles.navText}>see nearby events...</Text>
-            </TouchableHighlight>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.greeting}>HI {this.props.username.toUpperCase()} !</Text>
-        </View>
-        <View style={[styles.buttonContainer]}>
-            <TouchableHighlight underlayColor='white' style={this.state.current ? styles.meComingHightlight : styles.meComing} onPress={this.setCurrent}>
-              <Text style={styles.buttonText}>Current Events</Text>
-            </TouchableHighlight>
-            <TouchableHighlight underlayColor='white' style={this.state.current ? styles.meComing : styles.meComingHightlight} onPress={this.setPast}>
-              <Text style={styles.buttonText}>Past Events</Text>
-            </TouchableHighlight>
-        </View>
+      <View style={styles.container}>
+        
         <View style={[styles.container, styles.events]}>
-          <ListView
+          <ListView style={styles.scrollHeight}
+            enableEmptySections={true}
             refreshControl={
               <RefreshControl
                 refreshing={this.state.refreshing}
@@ -201,13 +174,36 @@ export class EventsList extends Component {
               />
             }
             dataSource={this.state.dataSource}
-            renderRow={(rowData) => <Event navigator={this.props.navigator} event={rowData} latitude={this.state.latitude} longitude={this.state.longitude}/>}
+            renderRow={(rowData) => <PublicEvent navigator={this.props.navigator} event={rowData} latitude={this.state.latitude} longitude={this.state.longitude}/>}
           />
         </View>
-          <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._onForward}> 
-            <Text style={styles.buttonText}>Create Event</Text>
-          </TouchableHighlight>
+        <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._onForward}> 
+          <Text style={styles.buttonText}>Create Event</Text>
+        </TouchableHighlight>
       </View>
     );
   }
 }
+
+// const styles1 = StyleSheet.create({
+//   wrapper: {
+//     flex: 1
+//   },
+//   events: {
+//     marginTop: 70,
+//     flexDirection: 'row',
+//     flex: 1
+//   },
+//   bottomBar: {
+//     backgroundColor: '#cccccc',
+//     marginBottom: 0,
+//     paddingBottom: 10,
+//     paddingTop: 10,
+//     flexDirection: 'row'
+//   },
+//   footer: {
+//     fontSize: 20,
+//     textAlign: 'center',
+//     flex: 1
+//   }
+// });

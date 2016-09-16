@@ -16,6 +16,12 @@ router.post('/api/login', function (req, res) {
 
 });
 
+router.post('/api/delete', function (req, res) {
+
+  utils.deleteEvent(req, res);
+
+});
+
 router.post('/api/signup', function (req, res) {
 
   utils.findUser(req, res);
