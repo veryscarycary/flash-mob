@@ -165,6 +165,12 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flexDirection: 'row',
   },
+  eventsPublic: {
+    marginTop: 70,
+    flex: 1,
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+  },
   publicButton: {
     flex: 1,
     height: 30,
