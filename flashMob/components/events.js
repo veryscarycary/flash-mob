@@ -149,7 +149,7 @@ export class EventsList extends Component {
       title: 'create event',
       component: CreateEvent,
       //passing user's geolocation to CreateEvent
-      passProps: {latitude: this.state.latitude, longitude: this.state.longitude, username: this.props.username}
+      passProps: {latitude: this.state.latitude, longitude: this.state.longitude, username: this.props.username, refreshfunc: this.setCurrent}
     });
   }
 
