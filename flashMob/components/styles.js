@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   },
   containerRight: {
     flex: 1,
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'flex-end',
     backgroundColor: '#f0f8ff',
   },
@@ -56,7 +56,8 @@ export const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: '#ff69b4',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginBottom: 3,
   },
   greetings: {
     fontSize: 18,
@@ -105,23 +106,20 @@ export const styles = StyleSheet.create({
   },
   events: {
     // marginTop: 70,
+    alignItems: 'flex-start',
     flexDirection: 'row',
     flex: 1,
   },
   publicButton: {
-    flexDirection: 'row',
     flex: 1,
     height: 30,
     width: 30,
-    alignItems: 'flex-start',
-    alignSelf: 'flex-end',
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: '#ff69b4',
     marginTop: 70,
-    marginLeft: 0,
-    marginRight: 5,
-    marginBottom: 5,
+    marginBottom: 10,
+    // marginLeft: 320,
     borderRadius: 15,
   },
   greeting: {
