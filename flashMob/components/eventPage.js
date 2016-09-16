@@ -42,6 +42,19 @@ export class EventPage extends Component {
     return images;
   }
 
+  deleteEvent () {
+    var xhr = new XMLHttpRequest();
+    xhr.open('DELETE', 'api/delete');
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        console.log('Deleted event: ' + xhr.responseText);
+      } else {
+        alert('Request failed.  Returned status of ' + xhr.status);
+      }
+    };
+    xhr.send();
+  }
+
   getPhotosFromInstagram (hashtag) {
     var context = this;
     var url = 'https://api.instagram.com/v1/users/self/media/recent/?access_token=' + ACCESS_TOKEN;
@@ -88,6 +101,10 @@ export class EventPage extends Component {
           </View>
 
           <Text style={styles.eventText}>{this.props.description}</Text>
+
+          <TouchableHighlight style={styles.deleteEventButton} underlayColor='white' onPress={this.deleteEvent}>
+            <Text style={styles.deleteButtonText}>Delete Event</Text>
+          </TouchableHighlight>
         </View>
       </View>
       </ScrollView>
