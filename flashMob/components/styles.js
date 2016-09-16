@@ -21,22 +21,6 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-end',
     backgroundColor: '#f0f8ff',
   },
-  publicButton: {
-    flexDirection: 'row',
-    flex: 1,
-    height: 30,
-    width: 30,
-    alignItems: 'center',
-    alignSelf: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#ff69b4',
-    marginTop: 70,
-    marginLeft: 5,
-    marginRight: 5,
-    marginBottom: 5,
-    borderRadius: 15,
-  },
   buttonText: {
     fontSize: 18,
     color: '#ff69b4',
@@ -45,14 +29,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 3
   },
-  events: {
-    // marginTop: 70,
-    flexDirection: 'row',
-    flex: 1,
-  },
   containerRight: {
     flex: 1,
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'flex-end',
     backgroundColor: '#f0f8ff',
   },
@@ -99,7 +78,8 @@ export const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: '#ff69b4',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginBottom: 3,
   },
   greetings: {
     fontSize: 18,
@@ -146,6 +126,24 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: '#ff69b4',
     marginBottom: 5,
+  },
+  events: {
+    // marginTop: 70,
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    flex: 1,
+  },
+  publicButton: {
+    flex: 1,
+    height: 30,
+    width: 30,
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#ff69b4',
+    marginTop: 70,
+    marginBottom: 10,
+    // marginLeft: 320,
+    borderRadius: 15,
   },
   greeting: {
     flex: 4,
