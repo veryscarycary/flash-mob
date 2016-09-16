@@ -90,7 +90,7 @@ export class PublicEvent extends Component {
 
     return (
       <TouchableWithoutFeedback style={styles.highlight} onPress={this._toggleDescription}>
-        <View style={styles.event}>
+        <View style={styles.eventPublic}>
           <View style={styles.row}>
           {this.state.isComing ? <Image style={styles.imageIcon} source={require('./img/flash-logo-pink-sm-solid.png')} /> : <Image style={styles.imageIcon} source={require('./img/flash-logo-pink-sm.png')} />}
             <Text style={styles.title}>{'  ' + this.props.event.title}</Text>

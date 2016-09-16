@@ -161,23 +161,11 @@ export class PublicEventsList extends Component {
 
   render() {
     return (
-      <View style={styles.containerRight}>
-        <View>
-          <TouchableHighlight style={styles.publicButton} underlayColor='white'> 
-            <Text style={styles.buttonText}>+</Text>
-          </TouchableHighlight>
-        </View>
-        <View style={[styles.buttonContainer]}>
-            <TouchableHighlight underlayColor='white' style={this.state.current ? styles.meComingHightlight : styles.meComing} onPress={this.setCurrent}>
-              <Text style={styles.buttonText}>Current Events</Text>
-            </TouchableHighlight>
-            <TouchableHighlight underlayColor='white' style={this.state.current ? styles.meComing : styles.meComingHightlight} onPress={this.setPast}>
-              <Text style={styles.buttonText}>Past Events</Text>
-            </TouchableHighlight>
-        </View>
-        <View style={[styles.container, styles.events]}>
-          <ListView
-            renderSectionHeader={this.renderSectionHeader}
+      <View style={styles.container}>
+        
+        <View style={styles.listView}>
+          <ListView style={styles.flexRow}
+            enableEmptySections={true}
             refreshControl={
               <RefreshControl
                 refreshing={this.state.refreshing}
