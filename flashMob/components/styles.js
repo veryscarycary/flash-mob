@@ -3,10 +3,63 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
+    // flexWrap: 'nowrap',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f0f8ff',
+  },
+  listView: {
+    // marginTop: 70,
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f0f8ff',
+  },
+  flexRow: {
+    flexDirection: 'row',
+  },
+  containerRight: {
+    // flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    backgroundColor: '#f0f8ff',
+    flexDirection: 'row-reverse'
+  },
+  containerBottom: {
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    backgroundColor: '#f0f8ff',
+  },
+  containerTop: {
+    flex: 1,
+    justifyContent: 'flex-start'
+  },
+  containerEmpty: {
+    flex: 1
+  },
+  buttonText: {
+    fontSize: 18,
+    color: '#ff69b4',
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 3
+  },
+  topMargin: {
+    marginTop: 70
+  },
+  navText: {
+    fontSize: 15,
+    color: '#ff69b4',
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    textAlign: 'right',
+    marginTop: 70,
+    marginRight: 5
   },
   containerRight: {
     flex: 1,
@@ -53,6 +106,7 @@ export const styles = StyleSheet.create({
     color: '#696969',
     marginBottom: 10,
   },
+
   buttonText: {
     fontSize: 18,
     color: '#ff69b4',
@@ -64,6 +118,7 @@ export const styles = StyleSheet.create({
     color: '#ff69b4',
     alignSelf: 'flex-start'
   },
+
   button: {
     height: 45,
     width: 150,
@@ -106,9 +161,9 @@ export const styles = StyleSheet.create({
   },
   events: {
     // marginTop: 70,
+    flex: 1,
     alignItems: 'flex-start',
     flexDirection: 'row',
-    flex: 1,
   },
   publicButton: {
     flex: 1,
@@ -127,7 +182,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 20,
     fontWeight: 'bold',
-    textAlign: 'left',
+    textAlign: 'center',
     color: 'black',
     marginBottom: 10,
   },
@@ -141,6 +196,16 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10
   },
+  eventPublic: {
+    flexDirection: 'column',
+    padding: 8,
+    margin: 5,
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: '#696969',
+    marginLeft: 0,
+    marginRight: 0
+  },
   highlight: {
     flex: 1
   },
@@ -148,14 +213,25 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch'
   },
+  navRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    textAlign: 'right'
+  },
   title: {
-    flex: 4,
+    flex: 3,
     fontSize: 18,
     fontWeight: 'bold'
   },
   category: {
     flex: 1,
-    fontSize: 16
+    fontSize: 15,
+    textAlign: 'right',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    // flexDirection: 'row',
+    // flexWrap: 'nowrap',
   },
   distAndTime: {
     color: 'grey',
