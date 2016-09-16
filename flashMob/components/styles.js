@@ -203,8 +203,8 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     borderColor: '#696969',
-    marginLeft: 0,
-    marginRight: 0
+    marginLeft: 5,
+    marginRight: 5
   },
   highlight: {
     flex: 1
