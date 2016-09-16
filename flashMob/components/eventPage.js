@@ -4,6 +4,7 @@ import { CreateEvent } from './createEvent';
 import { styles } from './styles.js';
 import {
   StyleSheet,
+  Image,
   Text,
   View,
   ListView,
@@ -17,30 +18,47 @@ export class EventPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      instagramObject: null
+      instagramObject: null,
+      images: ['no images']
     };
 
     this.getPhotosFromInstagram = this.getPhotosFromInstagram.bind(this);
   }
 
   componentWillMount () {
-    this.getPhotosFromInstagram();
+    console.log(this.props.hashtag, "THIS IS THE PASSED IN HASHTAG");
+    this.getPhotosFromInstagram(this.props.hashtag);
   }
 
-  getPhotosFromInstagram () {
+  filterInstagramData (data, hashtag) {
+    var images = [];
+
+    data.forEach(function (image) {
+      if (image.caption.text.includes(hashtag)) {
+        images.push(image.images.low_resolution.url);
+      }
+    });
+
+    return images;
+  }
+
+  getPhotosFromInstagram (hashtag) {
     var context = this;
-    var url = 'https://api.instagram.com/v1/users/self/media/recent/?access_token=3939505238.26c62f3.052108e4465c423d9ab85bb2f3bd1b91';
-    console.log('ACCESS_TOKEN.AccessToken', ACCESS_TOKEN.AccessToken);
+    var url = 'https://api.instagram.com/v1/users/self/media/recent/?access_token=' + ACCESS_TOKEN;
+    console.log('ACCESS_TOKEN.AccessToken', ACCESS_TOKEN);
 
 
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url);
     xhr.onload = function() {
       if (xhr.status === 200) {
-        alert('The data back is ' + xhr.responseText);
+        var imageObject = JSON.parse(xhr.responseText);
+
         context.setState({
-          instagramObject: xhr.responseText
+          instagramObject: imageObject,
+          images: context.filterInstagramData(imageObject.data, hashtag)
         });
+
       } else {
         alert('Request failed.  Returned status of ' + xhr.status);
       }
@@ -62,7 +80,11 @@ export class EventPage extends Component {
           </View>
 
           <View>
-            <Text style={styles.eventText}>{this.state.instagramObject}</Text>
+          <Text style={styles.eventText}>{this.props.hashtag}</Text>
+            <Image style={{width: 150, height: 150}} source={{uri: this.state.images[0]}}/>
+            <Image style={{width: 150, height: 150}} source={{uri: this.state.images[1]}}/>
+            <Image style={{width: 150, height: 150}} source={{uri: this.state.images[2]}}/>
+            <Image style={{width: 150, height: 150}} source={{uri: this.state.images[3]}}/>
           </View>
 
           <Text style={styles.eventText}>{this.props.description}</Text>
