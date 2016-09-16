@@ -28,9 +28,6 @@ export const styles = StyleSheet.create({
     flex: 1
   },
   imageEventPage: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    flex: 1,
   },
   image: {
     height: 70,
@@ -181,6 +178,7 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
     borderRadius: 15,
   },
+
   meComingHightlight: {
     height: 30,
     width: 140,
@@ -194,6 +192,53 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
     borderRadius: 15,
   },
+
+  hiddenButtons:{
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    height: 35,
+  },
+  Coming: {
+    height: 30,
+    width: 140,
+    alignSelf: 'flex-start',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#ff69b4',
+    marginLeft: 0,
+    marginRight: 5,
+    marginBottom: 5,
+    borderRadius: 15,
+  },
+  EventInfo: {
+    height: 30,
+    width: 140,
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#ff69b4',
+    marginLeft: 25,
+    marginRight: 5,
+    marginBottom: 5,
+    borderRadius: 15,
+  },
+  eventButtons: {
+    justifyContent: 'center',
+    alignItems: 'flex-end'
+  },
+  eventInfoButton: {
+    height: 30,
+    width: 30,
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#007AFF',
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 5,
+    borderRadius: 3,
+  },
+    
   add: {
     height: 30,
     width: 30,
