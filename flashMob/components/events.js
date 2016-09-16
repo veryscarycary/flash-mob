@@ -3,6 +3,7 @@ import { Event } from './event.js';
 import { CreateEvent } from './createEvent';
 import { styles } from './styles.js';
 import { PublicEventsList } from './publicEvents.js';
+import { Map } from './mapView.js';
 import {
   StyleSheet,
   Text,
@@ -124,10 +125,20 @@ export class EventsList extends Component {
   }
 
   changePublic() {
-    this.props.navigator.replace({
+    this.props.navigator.push({
       title: 'Public Events',
       component: PublicEventsList,
-      passProps: {username: this.props.username}
+      passProps: {username: this.props.username},
+      rightButtonTitle: 'Map',
+          onRightButtonPress: () => {
+            this.props.navigator.push({
+              title: 'Map',
+              component: Map,
+              passProps: {
+                username: this.state.username
+              }
+            });
+          }
     });
   }
 
