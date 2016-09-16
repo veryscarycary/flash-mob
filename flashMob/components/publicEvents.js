@@ -38,7 +38,7 @@ export class PublicEventsList extends Component {
     this.getEvents = this.getEvents.bind(this);
     this.setCurrent = this.setCurrent.bind(this);
     this.setPast = this.setPast.bind(this);
-    this.changeMyEvent = this.changeMyEvent.bind(this);
+    // this.changeMyEvent = this.changeMyEvent.bind(this);
   }
 
   watchID: ?number = null;
@@ -123,13 +123,13 @@ export class PublicEventsList extends Component {
     this.getMyPastEvents();
   }
 
-  changeMyEvent () {
-    this.props.navigator.replace({
-      title: 'My Events',
-      component: EventsList,
-      passProps: {username: this.props.username}
-    });
-  }
+  // changeMyEvent () {
+  //   this.props.navigator.replace({
+  //     title: 'My Events',
+  //     component: EventsList,
+  //     passProps: {username: this.props.username}
+  //   });
+  // }
 
   // go to create an event
   _onForward() {
@@ -163,7 +163,7 @@ export class PublicEventsList extends Component {
     return (
       <View style={styles.containerRight}>
         <View>
-          <TouchableHighlight style={styles.publicButton} underlayColor='white' onPress={this.changeMyEvent}> 
+          <TouchableHighlight style={styles.publicButton} underlayColor='white'> 
             <Text style={styles.buttonText}>+</Text>
           </TouchableHighlight>
         </View>
