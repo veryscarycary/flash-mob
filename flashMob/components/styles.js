@@ -58,6 +58,11 @@ export const styles = StyleSheet.create({
     color: '#ff69b4',
     alignSelf: 'center'
   },
+  greetings: {
+    fontSize: 18,
+    color: '#ff69b4',
+    alignSelf: 'flex-start'
+  },
   button: {
     height: 45,
     width: 150,
@@ -173,6 +178,21 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
     borderRadius: 15,
   },
+
+  meComingHightlight: {
+    height: 30,
+    width: 140,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#ff69b4',
+    backgroundColor: 'white',
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 5,
+    borderRadius: 15,
+  },
+
   hiddenButtons:{
     justifyContent: 'space-between',
     alignItems: 'flex-start',
@@ -218,6 +238,7 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
     borderRadius: 3,
   },
+    
   add: {
     height: 30,
     width: 30,
@@ -225,19 +246,6 @@ export const styles = StyleSheet.create({
     // justifyContent: 'center',
     borderWidth: 1,
     borderColor: '#ff69b4',
-    marginLeft: 5,
-    marginRight: 5,
-    marginBottom: 5,
-    borderRadius: 15,
-  },
-  meComingHightlight: {
-    height: 30,
-    width: 140,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#ff69b4',
-    backgroundColor: 'white',
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 5,
