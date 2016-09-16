@@ -40,11 +40,6 @@ export class Event extends Component {
   }
 
   _forwardToEventPage() {
-<<<<<<< HEAD
-    console.log('this', this);
-=======
-    console.log("this dot props", this.props);
->>>>>>> 6b1dc9ce44afbab9a783a0150d3fa0b084fa54b4
     this.props.navigator.push({
       title: 'Event Title',
       component: EventPage,
