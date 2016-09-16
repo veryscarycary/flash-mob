@@ -173,10 +173,16 @@ export class EventsList extends Component {
   render() {
     return (
       <View style={styles.containerRight}>
-        <View>
-          <TouchableHighlight style={styles.publicButton} underlayColor='white' onPress={this.changePublic}> 
-            <Text style={styles.buttonText}>+</Text>
-          </TouchableHighlight>
+        <View style={styles.navRow}>
+          <View style={styles.containerEmpty}></View>
+          <View style={styles.navRow}>
+            <TouchableHighlight onPress={this.changePublic}>
+              <Text style={styles.navText}>see nearby events...</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.greeting}>HI {this.props.username.toUpperCase()} !</Text>
         </View>
         <View style={[styles.buttonContainer]}>
             <TouchableHighlight underlayColor='white' style={this.state.current ? styles.meComingHightlight : styles.meComing} onPress={this.setCurrent}>
@@ -188,7 +194,6 @@ export class EventsList extends Component {
         </View>
         <View style={[styles.container, styles.events]}>
           <ListView
-            renderSectionHeader={this.renderSectionHeader}
             refreshControl={
               <RefreshControl
                 refreshing={this.state.refreshing}
