@@ -3,6 +3,7 @@ import { PublicEvent } from './publicEvent.js';
 import { CreateEvent } from './createEvent';
 import { styles } from './styles.js';
 import { EventsList } from './events.js';
+import { Map } from './mapView.js';
 import {
   StyleSheet,
   Text,
@@ -163,8 +164,8 @@ export class PublicEventsList extends Component {
     return (
       <View style={styles.container}>
         
-        <View style={styles.listView}>
-          <ListView style={styles.flexRow}
+        <View style={[styles.container, styles.events]}>
+          <ListView 
             enableEmptySections={true}
             refreshControl={
               <RefreshControl
