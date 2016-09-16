@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+  scrollHeight: {
+    height: 600
+  },
   container: {
     // flexWrap: 'nowrap',
     flex: 1,

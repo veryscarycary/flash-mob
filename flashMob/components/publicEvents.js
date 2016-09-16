@@ -165,7 +165,7 @@ export class PublicEventsList extends Component {
       <View style={styles.container}>
         
         <View style={[styles.container, styles.events]}>
-          <ListView 
+          <ListView style={styles.scrollHeight}
             enableEmptySections={true}
             refreshControl={
               <RefreshControl
