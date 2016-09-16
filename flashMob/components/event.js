@@ -53,7 +53,8 @@ export class Event extends Component {
         description: this.props.event.description,
         private: this.props.event.private,
         invites: this.props.event.invites,
-        time: this._time
+        time: this._time,
+        hashtag: this.props.event.instagramHashtag
       }
     });
   }
