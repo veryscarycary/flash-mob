@@ -66,12 +66,12 @@ export class Event extends Component {
         <Text style={styles.eventText}>
           {this.props.event.description}
         </Text>
-          <View style={styles.eventButtons}>
-            <TouchableHighlight style={styles.meComing} underlayColor='white' onPress={this._toggleIsComing}>
+          <View style={styles.hiddenButtons}>
+            <TouchableHighlight style={styles.Coming} underlayColor='white' onPress={this._toggleIsComing}>
               <Text style={styles.meComingText}>i am coming!</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.eventInfoButton} underlayColor='white' onPress={this._forwardToEventPage.bind(this)}>
-              <Text>?</Text>
+            <TouchableHighlight style={styles.EventInfo} underlayColor='white' onPress={this._forwardToEventPage.bind(this)}>
+              <Text style={styles.meComingText}>event info</Text>
             </TouchableHighlight>
           </View>
         </View>

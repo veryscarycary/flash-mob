@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   },
   containerRight: {
     flex: 1,
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'flex-end',
     backgroundColor: '#f0f8ff',
   },
@@ -56,7 +56,13 @@ export const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: '#ff69b4',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginBottom: 3,
+  },
+  greetings: {
+    fontSize: 18,
+    color: '#ff69b4',
+    alignSelf: 'flex-start'
   },
   button: {
     height: 45,
@@ -100,23 +106,20 @@ export const styles = StyleSheet.create({
   },
   events: {
     // marginTop: 70,
+    alignItems: 'flex-start',
     flexDirection: 'row',
     flex: 1,
   },
   publicButton: {
-    flexDirection: 'row',
     flex: 1,
     height: 30,
     width: 30,
-    alignItems: 'flex-start',
-    alignSelf: 'flex-end',
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: '#ff69b4',
     marginTop: 70,
-    marginLeft: 0,
-    marginRight: 5,
-    marginBottom: 5,
+    marginBottom: 10,
+    // marginLeft: 320,
     borderRadius: 15,
   },
   greeting: {
@@ -173,6 +176,21 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
     borderRadius: 15,
   },
+
+  meComingHightlight: {
+    height: 30,
+    width: 140,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#ff69b4',
+    backgroundColor: 'white',
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 5,
+    borderRadius: 15,
+  },
+
   hiddenButtons:{
     justifyContent: 'space-between',
     alignItems: 'flex-start',
@@ -218,6 +236,7 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
     borderRadius: 3,
   },
+    
   add: {
     height: 30,
     width: 30,
@@ -225,19 +244,6 @@ export const styles = StyleSheet.create({
     // justifyContent: 'center',
     borderWidth: 1,
     borderColor: '#ff69b4',
-    marginLeft: 5,
-    marginRight: 5,
-    marginBottom: 5,
-    borderRadius: 15,
-  },
-  meComingHightlight: {
-    height: 30,
-    width: 140,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#ff69b4',
-    backgroundColor: 'white',
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 5,
