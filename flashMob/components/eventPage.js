@@ -31,34 +31,21 @@ export class EventPage extends Component {
     var context = this;
     var url = 'https://api.instagram.com/v1/users/self/media/recent/?access_token=3939505238.26c62f3.052108e4465c423d9ab85bb2f3bd1b91';
     console.log('ACCESS_TOKEN.AccessToken', ACCESS_TOKEN.AccessToken);
-    // fetch(url, {
-    //   method: 'GET',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   }
-    // }).then(function(res) {
-    //   return res.json();
-    // }).then(function(instagramObject) {
-    //   console.log('before setState in fetch');
-      // context.setState({
-      //   instagramObject: instagramObject
-      // });
-    // }).then(function() {
-    //   console.log(context.state);
-    // });
 
-    $.ajax({
-      url: url,
-      method: 'GET',
-      success: function (instagramObject) {
-        console.log(instagramObject);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        alert('The data back is ' + xhr.responseText);
         context.setState({
-          instagramObject: instagramObject
+          instagramObject: xhr.responseText
         });
-      },
-      error: function () {console.log('You have an error, brother');}
-    });
+      } else {
+        alert('Request failed.  Returned status of ' + xhr.status);
+      }
+    };
+    xhr.send();
   }
 
   render () {
