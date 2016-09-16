@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+  scrollHeight: {
+    height: 600
+  },
   container: {
     // flexWrap: 'nowrap',
     flex: 1,
@@ -203,8 +206,8 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     borderColor: '#696969',
-    marginLeft: 0,
-    marginRight: 0
+    marginLeft: 5,
+    marginRight: 5
   },
   instagramContainter: {
     alignItems: 'center'

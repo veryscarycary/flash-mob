@@ -107,7 +107,8 @@ export class CreateEvent extends Component {
         username: this.props.username,
         private: this.state.private,
         invites: this.state.invites,
-        instagramHashtag: this.state.instagramHashtag
+        instagramHashtag: this.state.instagramHashtag,
+        refreshfunc: this.props.refreshfunc
       }
     });
   }
