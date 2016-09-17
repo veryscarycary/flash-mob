@@ -44,7 +44,7 @@ export class Event extends Component {
       title: 'Event: ' + this.props.event.title,
       component: EventPage,
       passProps: {
-        title: this.props.event.title,
+        title: marker.title,
         category: this.props.event.category,
         location: this.props.event.location,
         latitude: this.props.event.latitude,

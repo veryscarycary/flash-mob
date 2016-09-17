@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { CreateEvent } from './createEvent.js';
 import MapView from 'react-native-maps';
 import { styles } from './styles.js';
+import { EventPage } from './eventPage.js';
 import {
   StyleSheet,
   Text,
@@ -26,6 +27,7 @@ export class Map extends Component {
     this._onForward = this._onForward.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
     this.fetchMarkers = this.fetchMarkers.bind(this);
+    this._onCalloutPress = this._onCalloutPress.bind(this);
   }
 
   watchID: ?number = null;
@@ -102,6 +104,30 @@ export class Map extends Component {
     });
   }
 
+  _onCalloutPress(marker) {
+    this.props.navigator.push({
+      title: 'Event: ' + marker.title,
+      component: EventPage,
+      passProps: {
+        title: marker.title,
+        category: marker.category,
+        location: marker.location,
+        latitude: marker.latlng.latitude,
+        longitude: marker.latlng.longitude,
+        date: (new Date(marker.date).toString().slice(4, 15)),
+        description: marker.description,
+        private: marker.private,
+        invites: marker.invites,
+        time: 'Loading Time',
+        hashtag: marker.instagramHashtag,
+        username: this.props.username,
+        refreshCurrent: this.props.refreshCurrent, 
+        refreshPast: this.props.refreshPast,
+        current: this.props.current 
+      }
+    });
+  }
+
   // the map render with a button to create events
   render() {
     return (
@@ -111,13 +137,18 @@ export class Map extends Component {
           region={this.state.region}
           showsUserLocation={true}
           onRegionChange={this.onRegionChange}
+
         >
+
           {this.state.markers.map(marker => (
             <MapView.Marker
               coordinate={marker.latlng}
               title={marker.title}
               description={marker.description}
-            />
+              pinColor={'#ff69b4'}
+              onCalloutPress={() => {this._onCalloutPress(marker)}}
+            >
+            </MapView.Marker>
           ))}
         </MapView>
         <TouchableHighlight style={[styles.button, styles.newButton, localStyles.button]} underlayColor='white' onPress={this._onForward}> 

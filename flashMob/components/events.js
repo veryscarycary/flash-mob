@@ -135,7 +135,10 @@ export class EventsList extends Component {
               title: 'Map',
               component: Map,
               passProps: {
-                username: this.state.username
+                username: this.state.username,
+                refreshCurrent: this.setCurrent,
+                refreshPast: this.setPast,
+                current: this.state.current
               }
             });
           }
