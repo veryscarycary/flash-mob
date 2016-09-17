@@ -347,6 +347,23 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
     borderRadius: 15,
   },
+  deleteEventButton: {
+    height: 30,
+    width: 140,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#cc0000',
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 5,
+    borderRadius: 15,
+  },
+  deleteButtonText: {
+    fontSize: 16,
+    color: '#cc0000',
+    alignSelf: 'center'
+  },
   meComingText: {
     fontSize: 16,
     color: '#ff69b4',

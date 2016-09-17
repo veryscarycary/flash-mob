@@ -146,6 +146,7 @@ module.exports.findMyPastEvents = function (req, res) {
 };
 
 module.exports.deleteEvent = function (req, res) {
+  console.log('REQBODYDELETE', req);
 
   User.find({
     where: {
