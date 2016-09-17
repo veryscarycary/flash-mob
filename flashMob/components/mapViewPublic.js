@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { CreateEvent } from './createEvent.js';
 import MapView from 'react-native-maps';
 import { styles } from './styles.js';
-import { EventPage } from './eventPage.js';
 import {
   StyleSheet,
   Text,
@@ -27,7 +26,6 @@ export class Map extends Component {
     this._onForward = this._onForward.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
     this.fetchMarkers = this.fetchMarkers.bind(this);
-    this._forwardToEventPage = this._forwardToEventPage.bind(this);
   }
 
   watchID: ?number = null;
@@ -130,26 +128,6 @@ export class Map extends Component {
     });
   }
 
-  _forwardToEventPage() {
-    this.props.navigator.push({
-      title: 'Event Title',
-      component: EventPage,
-      passProps: {
-        title: this.props.event.title,
-        category: this.props.event.category,
-        location: this.props.event.location,
-        latitude: this.props.event.latitude,
-        longitude: this.props.event.longitude,
-        date: this._date,
-        description: this.props.event.description,
-        private: this.props.event.private,
-        invites: this.props.event.invites,
-        time: this._time,
-        hashtag: this.props.event.instagramHashtag
-      }
-    });
-  }
-
   // the map render with a button to create events
   render() {
     return (
@@ -161,12 +139,10 @@ export class Map extends Component {
           onRegionChange={this.onRegionChange}
         >
           {this.state.markers.map(marker => (
-            <MapView.Marker 
+            <MapView.Marker
               coordinate={marker.latlng}
               title={marker.title}
               description={marker.description}
-              pinColor={'#FF0093'}
-              onCalloutPress={this._onForward}
             />
           ))}
         </MapView>

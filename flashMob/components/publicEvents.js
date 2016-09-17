@@ -3,7 +3,7 @@ import { PublicEvent } from './publicEvent.js';
 import { CreateEvent } from './createEvent';
 import { styles } from './styles.js';
 import { EventsList } from './events.js';
-import { Map } from './mapView.js';
+import { Map } from './mapViewPublic.js';
 import {
   StyleSheet,
   Text,
