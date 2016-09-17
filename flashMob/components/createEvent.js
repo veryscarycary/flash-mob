@@ -255,7 +255,7 @@ export class CreateEvent extends Component {
     return (
       <ScrollView>
       <View style={styles.container}>
-        <View style={styles.eventInputs}>
+        <View style={styles.eventTop}>
           <Text style={styles.eventText}>Event Name</Text>
           <TextInput
             maxLength={25}
@@ -289,9 +289,8 @@ export class CreateEvent extends Component {
             onChangeText={(location) => this.setState({location})}
             value={this.state.location}
             /> : null}
-
-
           {!this.state.somewhereElse ? <Text>{this.state.location}</Text> : null}
+          
           <Text style={styles.eventText}>Pick a time and date</Text>
           <DatePickerIOS
                     date={this.state.date}
