@@ -21,6 +21,7 @@ export class PublicEvent extends Component {
     this._showDescription = this._showDescription.bind(this);
     this._toggleDescription = this._toggleDescription.bind(this);
     this._toggleIsComing = this._toggleIsComing.bind(this);
+    this.addToMyEvents = this.addToMyEvents.bind(this);
     this._date = new Date(this.props.event.date).toString().slice(4, 15);
     this._time = 'Loading Time';
   }
@@ -37,6 +38,28 @@ export class PublicEvent extends Component {
     this.setState({
       isComing: !this.state.isComing
     });
+
+  }
+
+  addToMyEvents() {
+    console.log('addtomyevents props', this.props);
+    var context = this;
+    this.setState({
+      isComing: !this.state.isComing
+    });
+    fetch('http://localhost:3000/api/addPublic', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }, 
+      body: JSON.stringify({
+        title: context.props.event.title,
+        username: this.props.username
+      })
+
+    });
+    
   }
 
   _forwardToEventPage() {
@@ -67,7 +90,7 @@ export class PublicEvent extends Component {
           {this.props.event.description}
         </Text>
           <View style={styles.hiddenButtons}>
-            <TouchableHighlight style={styles.Coming} underlayColor='white' onPress={this._toggleIsComing}>
+            <TouchableHighlight style={styles.Coming} underlayColor='white' onPress={this.addToMyEvents}>
               <Text style={styles.meComingText}>i am coming!</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.EventInfo} underlayColor='white' onPress={this._forwardToEventPage.bind(this)}>

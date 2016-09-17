@@ -281,17 +281,21 @@ module.exports.createEvent = function (req, res) {
 };
 
 module.exports.addPublicEvent = function (req, res) {
+  console.log('reqbodytitle', req.body.title);
   User.findOne({
     where: {
       username: req.body.username
     }
   }).then(function(foundUser) {
+    console.log(foundUser, "foundUser");
     Event.findOne({
       where: {
         title: req.body.title
       }
       
     }).then(function(foundEvent){
+      console.log(foundEvent, "foundEvent");
+
       EventUser.create({
         EventId: foundEvent.id,
         UserId: foundUser.id
@@ -311,7 +315,7 @@ module.exports.getEventsList = function (req, res) {
   var latDelta = req.body.latitudeDelta || 0.0922;
   var longDelta = req.body.longitudeDelta || 0.0421;
 
-  sequelize.query('SELECT * FROM Events WHERE latitude > :boxLatMin and latitude < :boxLatMax and longitude > :boxLongMin and longitude < :boxLongMax',
+  sequelize.query('SELECT * FROM Events WHERE latitude > :boxLatMin and latitude < :boxLatMax and longitude > :boxLongMin and longitude < :boxLongMax and private = false',
     { replacements: {
       boxLatMin: lat - (latDelta * .5),
       boxLatMax: lat + (latDelta * .5),
