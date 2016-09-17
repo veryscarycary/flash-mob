@@ -27,11 +27,9 @@ export class Map extends Component {
     this._onForward = this._onForward.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
     this.fetchMarkers = this.fetchMarkers.bind(this);
-<<<<<<< HEAD
     this._onCalloutPress = this._onCalloutPress.bind(this);
-=======
     this._forwardToEventPage = this._forwardToEventPage.bind(this);
->>>>>>> effce375832c87f5987e3dd3811c9f057dc954c4
+
   }
 
   watchID: ?number = null;
@@ -134,7 +132,7 @@ export class Map extends Component {
     });
   }
 
-  // _onCalloutPress(marker) {
+  _onCalloutPress(marker) {
   //   this.props.navigator.push({
   //     title: 'Event: ' + marker.title,
   //     component: EventPage,
@@ -156,7 +154,7 @@ export class Map extends Component {
   //       current: this.props.current 
   //     }
   //   });
-  // }
+  }
 
   _forwardToEventPage() {
     this.props.navigator.push({
