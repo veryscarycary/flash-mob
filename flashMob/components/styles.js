@@ -209,6 +209,16 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5
   },
+  instagramContainter: {
+    alignItems: 'center'
+    
+  },
+  eventPageContainer: {
+    padding: 10,
+    alignItems: 'flex-start'
+
+
+  },
   highlight: {
     flex: 1
   },
@@ -314,6 +324,15 @@ export const styles = StyleSheet.create({
     marginRight: 5,
     marginBottom: 5,
     borderRadius: 3,
+  },
+  instagramPhoto: {
+    width: 300,
+    height: 300,
+    marginTop: 10,
+    marginBottom: 10,
+    justifyContent: 'center',
+    alignSelf: 'center',
+
   },
     
   add: {
