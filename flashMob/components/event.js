@@ -56,7 +56,9 @@ export class Event extends Component {
         time: this._time,
         hashtag: this.props.event.instagramHashtag,
         username: this.props.username,
-        refreshfunc: this.props.refreshfunc
+        refreshCurrent: this.props.refreshCurrent,
+        refreshPast: this.props.refreshPast,
+        current: this.state.current
       }
     });
   }
