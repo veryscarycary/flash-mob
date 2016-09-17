@@ -22,6 +22,12 @@ router.post('/api/delete', function (req, res) {
 
 });
 
+router.post('/api/addPublic', function (req, res) {
+
+  utils.addPublicEvent(req, res);
+
+});
+
 router.post('/api/signup', function (req, res) {
 
   utils.findUser(req, res);

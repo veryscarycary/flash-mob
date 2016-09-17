@@ -228,12 +228,8 @@ module.exports.createEvent = function (req, res) {
       // organizer: req.body.organizer
 
     }).then(function(createdEvent) {
-      console.log(createdEvent.private, '<==== createdevent.private');
 
       if (createdEvent.private) {
-        // fill in later
-        console.log('INSIDE PRIVATE')
-        console.log(req.body.invites, 'INVITES')
 
         User.findOne({
           where: {
@@ -281,6 +277,28 @@ module.exports.createEvent = function (req, res) {
   });
 
   res.status(201).send('Event created');
+
+};
+
+module.exports.addPublicEvent = function (req, res) {
+  User.findOne({
+    where: {
+      username: req.body.username
+    }
+  }).then(function(foundUser) {
+    Event.findOne({
+      where: {
+        title: req.body.title
+      }
+      
+    }).then(function(foundEvent){
+      EventUser.create({
+        EventId: foundEvent.id,
+        UserId: foundUser.id
+      });
+    });
+  });
+  res.status(201).send('Event added to your events!');
 
 };
 
