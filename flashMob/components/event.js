@@ -26,7 +26,26 @@ export class Event extends Component {
   }
 
   componentWillMount () {
+  
+    this.setState({
+      title: this.props.event.title
+    });
+
     this.checkConfirmFromServer(this);
+  }
+
+  componentDidUpdate () {
+    console.log(this.props, "props");
+
+    if (this.props.event.title !== this.state.title) {
+      this.setState({
+        title: this.props.event.title
+      });
+
+      this.checkConfirmFromServer(this);
+
+    }
+
   }
 
   sendConfirmToServer (cb) {

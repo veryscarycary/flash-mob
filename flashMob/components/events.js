@@ -21,7 +21,7 @@ export class EventsList extends Component {
   constructor(props) {
     super(props);
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    
+    this.set = true;
     this.state = {
       refreshing: false,
       dataSource: this.ds.cloneWithRows([]),
@@ -122,7 +122,11 @@ export class EventsList extends Component {
       current: false,
       refreshing: true,
     });
+    this.props.set = true;
+
     this.getMyPastEvents();
+
+
   }
 
   changePublic() {
