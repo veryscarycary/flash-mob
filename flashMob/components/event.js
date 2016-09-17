@@ -25,7 +25,11 @@ export class Event extends Component {
     this._time = 'Loading Time';
   }
 
-  sendConfirmToServer () {
+  componentWillMount () {
+    this.checkConfirmFromServer();
+  }
+
+  sendConfirmToServer (cb) {
     var context = this;
     // onload, 
     fetch('http://localhost:3000/api/setConfirm', {
@@ -35,11 +39,41 @@ export class Event extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        title: context.props.title,
+        title: context.props.event.title,
         username: context.props.username
       }),
+    }).then(function () {
+      cb(context);
     });
   }
+
+
+  checkConfirmFromServer (context) {
+    var context = context || this;
+    // onload, 
+    fetch('http://localhost:3000/api/checkConfirm', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: context.props.event.title,
+        username: context.props.username
+      }),
+    }).then(function(res) {
+      if (res === 'true') {
+        context.setState({
+          isComing: true
+        });
+      } else {
+        context.setState({
+          isComing: false
+        });
+      }
+    });
+  }
+
 
   // show description when tapped on
   _toggleDescription() {
@@ -50,13 +84,13 @@ export class Event extends Component {
 
   // light up events you are going to
   _toggleIsComing() {
-    this.setState({
-      isComing: !this.state.isComing
-    }, function () {
-      if (this.state.isComing) {
-        this.sendConfirmToServer();
-      }
-    });
+    // this.setState({
+    //   isComing: !this.state.isComing
+    // }, function () {
+      // if (this.state.isComing) {
+    this.sendConfirmToServer(this.checkConfirmFromServer);
+      // }
+    // });
   }
 
   _forwardToEventPage() {
@@ -92,7 +126,7 @@ export class Event extends Component {
           {this.props.event.description}
         </Text>
           <View style={styles.hiddenButtons}>
-            <TouchableHighlight style={styles.Coming} underlayColor='white' onPress={this._toggleIsComing}>
+            <TouchableHighlight style={styles.Coming} underlayColor='white' onPress={this._toggleIsComing.bind(this)}>
               <Text style={styles.meComingText}>i am coming!</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.EventInfo} underlayColor='white' onPress={this._forwardToEventPage.bind(this)}>
