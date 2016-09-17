@@ -108,6 +108,22 @@ export class EventsList extends Component {
     );
   }
 
+  checkConfirmFromServer () {
+    var context = this;
+    // onload, 
+    fetch('http://localhost:3000/api/checkConfirm', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: context.props.title,
+        username: context.props.username
+      }),
+    });
+  }
+
   setCurrent() {
     this.setState({
       current: true,
@@ -155,6 +171,7 @@ export class EventsList extends Component {
 
   // used to control the spinning wheel and send the call to refresh the event
   _onRefresh() {
+    // this.checkConfirmFromServer();
     this.setState({
       refreshing: true
     });

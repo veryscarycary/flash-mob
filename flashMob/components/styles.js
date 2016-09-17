@@ -229,8 +229,7 @@ export const styles = StyleSheet.create({
   navRow: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    textAlign: 'right'
+    alignItems: 'flex-end'
   },
   title: {
     flex: 3,

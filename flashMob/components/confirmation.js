@@ -55,13 +55,17 @@ export class Confirmation extends Component {
     this.setState({
       modalVisible: false
     });
-    if(this.props.current) {
+    console.log(this.props, 'PROPS ON CONFIRMATION');
+
+    if (this.props.current && this.props.refreshCurrent !== undefined) {
       this.props.refreshCurrent();
     } else {
-      this.props.refreshPast();
+      if (this.props.refreshPast !== undefined) {
+        this.props.refreshPast();
+      }
     }
     
-    this.props.navigator.popToTop(0);
+    this.props.navigator.popToTop();
   }
 
   // modal acts as confirmation of event submission
