@@ -9,7 +9,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-export class Map extends Component {
+export class MapPublic extends Component {
   constructor(props) {
     super(props);
     this.state = {
