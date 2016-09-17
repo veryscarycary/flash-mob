@@ -175,7 +175,7 @@ export class PublicEventsList extends Component {
               />
             }
             dataSource={this.state.dataSource}
-            renderRow={(rowData) => <PublicEvent navigator={this.props.navigator} username = {this.props.username} event={rowData} latitude={this.state.latitude} longitude={this.state.longitude}/>}
+            renderRow={(rowData) => <PublicEvent navigator={this.props.navigator} username={this.props.username} event={rowData} latitude={this.state.latitude} longitude={this.state.longitude}/>}
           />
         </View>
         <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._onForward}> 
