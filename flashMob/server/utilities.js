@@ -333,13 +333,13 @@ module.exports.setConfirm = function (req, res) {
       
       }).then(function(eventUser){
         console.log(eventUser.Confirmed, "eventUser confirmed");
-        if(eventUser.Confirmed === 'false') {
+        if(!eventUser.Confirmed) {
           eventUser.update({
-            Confirmed: 'true'
+            Confirmed: true
           });
         } else {
           eventUser.update({
-            Confirmed: 'false'
+            Confirmed: false
           });
         }
         res.send("user confirmation toggled");
