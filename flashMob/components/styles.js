@@ -334,7 +334,6 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    color: '#cc0000',
     borderColor: '#cc0000',
     marginLeft: 5,
     marginRight: 5,

@@ -22,11 +22,11 @@ export class EventPage extends Component {
       images: ['no images']
     };
 
+    this._backwardToEvents = this._backwardToEvents.bind(this);
     this.getPhotosFromInstagram = this.getPhotosFromInstagram.bind(this);
   }
 
   componentWillMount () {
-    console.log(this.props.hashtag, "THIS IS THE PASSED IN HASHTAG");
     this.getPhotosFromInstagram(this.props.hashtag);
   }
 
@@ -42,17 +42,25 @@ export class EventPage extends Component {
     return images;
   }
 
+  _backwardToEvents() {
+    this.props.navigator.pop(1);
+  }
+
   deleteEvent () {
-    var xhr = new XMLHttpRequest();
-    xhr.open('DELETE', 'api/delete');
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        console.log('Deleted event: ' + xhr.responseText);
-      } else {
-        alert('Request failed.  Returned status of ' + xhr.status);
-      }
-    };
-    xhr.send();
+    var context = this;
+    console.log(this.props);
+
+    xhr = new XMLHttpRequest();
+
+    xhr.open('POST', 'http://localhost:3000/api/delete');
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    var json = JSON.stringify({
+      title: context.props.title,
+      username: context.props.username
+    });
+    xhr.send(json);
+
+    this.backwardToEvents();
   }
 
   getPhotosFromInstagram (hashtag) {
@@ -102,7 +110,7 @@ export class EventPage extends Component {
 
           <Text style={styles.eventText}>{this.props.description}</Text>
 
-          <TouchableHighlight style={styles.deleteEventButton} underlayColor='white' onPress={this.deleteEvent}>
+          <TouchableHighlight style={styles.deleteEventButton} underlayColor='white' backwardToEvents={this._backwardToEvents} props={this.props} onPress={this.deleteEvent}>
             <Text style={styles.deleteButtonText}>Delete Event</Text>
           </TouchableHighlight>
         </View>

@@ -54,7 +54,8 @@ export class Event extends Component {
         private: this.props.event.private,
         invites: this.props.event.invites,
         time: this._time,
-        hashtag: this.props.event.instagramHashtag
+        hashtag: this.props.event.instagramHashtag,
+        username: this.props.username
       }
     });
   }
