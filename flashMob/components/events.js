@@ -180,7 +180,7 @@ export class EventsList extends Component {
           <View style={styles.containerEmpty}></View>
           <View style={styles.navRow}>
             <TouchableHighlight onPress={this.changePublic}>
-              <Text style={styles.navText}>see nearby events...</Text>
+              <Text style={styles.navText}>see nearby events ></Text>
             </TouchableHighlight>
           </View>
         </View>

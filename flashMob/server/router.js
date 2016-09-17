@@ -34,6 +34,19 @@ router.post('/api/signup', function (req, res) {
 
 });
 
+router.post('/api/checkConfirm', function (req, res) {
+
+  utils.checkConfirm(req, res);
+
+});
+
+router.post('/api/setConfirm', function (req, res) {
+
+  utils.setConfirm(req, res);
+
+});
+
+
 router.post('/api/events', function (req, res) {
 
   utils.createEvent(req, res);

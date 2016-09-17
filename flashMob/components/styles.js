@@ -83,6 +83,10 @@ export const styles = StyleSheet.create({
     marginTop: 70,
     flex: 1
   },
+  eventTop: {
+    marginTop: 10,
+    flex: 1
+  },
   imageEventPage: {
   },
   image: {

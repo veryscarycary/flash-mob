@@ -36,7 +36,8 @@ Event.sync().then(function () {
 
 var EventUser = sequelize.define('EventUser', {
   EventId: Sequelize.INTEGER,
-  UserId: Sequelize.INTEGER
+  UserId: Sequelize.INTEGER,
+  Confirmed: Sequelize.STRING
 });
 
 Event.belongsToMany(User, {through: 'EventUser', foreignKey: 'EventId'});
