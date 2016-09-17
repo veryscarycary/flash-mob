@@ -25,6 +25,14 @@ export class Event extends Component {
     this._time = 'Loading Time';
   }
 
+  componentWillMount () {
+    if (this.sendConfirmToServer()) {
+      this.setState({
+        isComing: true
+      });
+    };
+  }
+
   sendConfirmToServer () {
     var context = this;
     // onload, 
@@ -35,9 +43,11 @@ export class Event extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        title: context.props.title,
+        title: context.props.event.title,
         username: context.props.username
       }),
+    }).then(function(res) {
+      return res;
     });
   }
 
