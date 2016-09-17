@@ -43,7 +43,8 @@ export class EventPage extends Component {
   }
 
   _backwardToEvents() {
-    if(this.props.current) {
+    console.log(this.props.current, 'CURRENT');
+    if (this.props.current) {
       this.props.refreshCurrent();
     } else {
       this.props.refreshPast();
