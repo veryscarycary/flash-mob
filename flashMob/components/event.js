@@ -26,7 +26,7 @@ export class Event extends Component {
   }
 
   componentWillMount () {
-    this.checkConfirmFromServer();
+    this.checkConfirmFromServer(this);
   }
 
   sendConfirmToServer (cb) {
@@ -50,6 +50,7 @@ export class Event extends Component {
 
   checkConfirmFromServer (context) {
     var context = context || this;
+    console.log('title, username, context', context.props.event.title, context.props.username, context);
     // onload, 
     fetch('http://localhost:3000/api/checkConfirm', {
       method: 'POST',
@@ -62,7 +63,12 @@ export class Event extends Component {
         username: context.props.username
       }),
     }).then(function(res) {
-      if (res === 'true') {
+      console.log(res, "res from check");
+      return res.text();
+    })
+    .then(function (blobby) {
+      console.log(blobby);
+      if (blobby === 'true') {
         context.setState({
           isComing: true
         });
@@ -71,7 +77,9 @@ export class Event extends Component {
           isComing: false
         });
       }
+      
     });
+    
   }
 
 
@@ -84,11 +92,12 @@ export class Event extends Component {
 
   // light up events you are going to
   _toggleIsComing() {
+    var context = this;
     // this.setState({
     //   isComing: !this.state.isComing
     // }, function () {
       // if (this.state.isComing) {
-    this.sendConfirmToServer(this.checkConfirmFromServer);
+    this.sendConfirmToServer(context.checkConfirmFromServer);
       // }
     // });
   }

@@ -369,7 +369,8 @@ module.exports.checkConfirm = function (req, res) {
         }  
       }).then(function(eventUser) {
         console.log(eventUser, "eventUser");
-        res.send(eventUser.Confirmed);  
+       
+        res.send(eventUser.Confirmed); 
       });
     });
   });
