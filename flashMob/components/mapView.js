@@ -130,25 +130,25 @@ export class Map extends Component {
     });
   }
 
-  _forwardToEventPage() {
-    this.props.navigator.push({
-      title: 'Event Title',
-      component: EventPage,
-      passProps: {
-        title: this.props.event.title,
-        category: this.props.event.category,
-        location: this.props.event.location,
-        latitude: this.props.event.latitude,
-        longitude: this.props.event.longitude,
-        date: this._date,
-        description: this.props.event.description,
-        private: this.props.event.private,
-        invites: this.props.event.invites,
-        time: this._time,
-        hashtag: this.props.event.instagramHashtag
-      }
-    });
-  }
+  // _forwardToEventPage() {
+  //   this.props.navigator.push({
+  //     title: 'Event Title',
+  //     component: EventPage,
+  //     passProps: {
+  //       title: this.props.event.title,
+  //       category: this.props.event.category,
+  //       location: this.props.event.location,
+  //       latitude: this.props.event.latitude,
+  //       longitude: this.props.event.longitude,
+  //       date: this._date,
+  //       description: this.props.event.description,
+  //       private: this.props.event.private,
+  //       invites: this.props.event.invites,
+  //       time: this._time,
+  //       hashtag: this.props.event.instagramHashtag
+  //     }
+  //   });
+  // }
 
   // the map render with a button to create events
   render() {
@@ -165,8 +165,8 @@ export class Map extends Component {
               coordinate={marker.latlng}
               title={marker.title}
               description={marker.description}
+              image={require('./img/flash-logo-pink-pin.png')}
               pinColor={'#FF0093'}
-              onCalloutPress={this._onForward}
             />
           ))}
         </MapView>
