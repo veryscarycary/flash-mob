@@ -27,7 +27,7 @@ export class Map extends Component {
     this._onForward = this._onForward.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
     this.fetchMarkers = this.fetchMarkers.bind(this);
-    this._forwardToEventPage = this._forwardToEventPage.bind(this);
+    this._onCalloutPress = this._onCalloutPress.bind(this);
   }
 
   watchID: ?number = null;
@@ -131,25 +131,50 @@ export class Map extends Component {
     });
   }
 
-  // _forwardToEventPage() {
-  //   this.props.navigator.push({
-  //     title: 'Event Title',
-  //     component: EventPage,
-  //     passProps: {
-  //       title: this.props.event.title,
-  //       category: this.props.event.category,
-  //       location: this.props.event.location,
-  //       latitude: this.props.event.latitude,
-  //       longitude: this.props.event.longitude,
-  //       date: this._date,
-  //       description: this.props.event.description,
-  //       private: this.props.event.private,
-  //       invites: this.props.event.invites,
-  //       time: this._time,
-  //       hashtag: this.props.event.instagramHashtag
-  //     }
-  //   });
-  // }
+  _onCalloutPress(marker) {
+    this.props.navigator.push({
+      title: 'Event: ' + marker.title,
+      component: EventPage,
+      passProps: {
+        title: marker.title,
+        category: marker.category,
+        location: marker.location,
+        latitude: marker.latlng.latitude,
+        longitude: marker.latlng.longitude,
+        date: (new Date(marker.date).toString().slice(4, 15)),
+        description: marker.description,
+        private: marker.private,
+        invites: marker.invites,
+        time: 'Loading Time',
+        hashtag: marker.instagramHashtag,
+        username: this.props.username,
+        refreshCurrent: this.props.refreshCurrent, 
+        refreshPast: this.props.refreshPast,
+        current: this.props.current 
+      }
+    });
+  }
+
+  _forwardToEventPage() {
+    // this.props.navigator.push({
+    //   title: 'Event Title',
+    //   component: EventPage,
+    //   passProps: {
+    //     title: this.props.event.title,
+    //     category: this.props.event.category,
+    //     location: this.props.event.location,
+    //     latitude: this.props.event.latitude,
+    //     longitude: this.props.event.longitude,
+    //     date: this._date,
+    //     description: this.props.event.description,
+    //     private: this.props.event.private,
+    //     invites: this.props.event.invites,
+    //     time: this._time,
+    //     hashtag: this.props.event.instagramHashtag
+    //   }
+    // });
+  }
+
 
   // the map render with a button to create events
   render() {
@@ -162,12 +187,13 @@ export class Map extends Component {
           onRegionChange={this.onRegionChange}
         >
           {this.state.markers.map(marker => (
-            <MapView.Marker 
+            <MapView.Marker
               coordinate={marker.latlng}
               title={marker.title}
               description={marker.description}
               image={require('./img/flash-logo-pink-pin.png')}
               pinColor={'#FF0093'}
+              onCalloutPress={()=> this._onCalloutPress(marker)}
             />
           ))}
         </MapView>

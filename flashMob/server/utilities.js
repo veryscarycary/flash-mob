@@ -369,7 +369,8 @@ module.exports.checkConfirm = function (req, res) {
         }  
       }).then(function(eventUser) {
         console.log(eventUser, "eventUser");
-        res.send(eventUser.Confirmed);  
+       
+        res.send(eventUser.Confirmed); 
       });
     });
   });
@@ -432,6 +433,12 @@ module.exports.getEventsMap = function(req, res) {
 
           title: item.title,
           description: item.description,
+          category: item.category,
+          location: item.location,
+          private: item.private,
+          invites: item.invites,
+          instagramHashtag: item.instagramHashtag,
+          date: item.date,
           latlng: {
             longitude: item.longitude,
             latitude: item.latitude
