@@ -164,6 +164,7 @@ module.exports.deleteEvent = function (req, res) {
 };
 
 
+
 module.exports.login = function (req, res) {
 
   // searches users table for user
@@ -238,7 +239,8 @@ module.exports.createEvent = function (req, res) {
         }).then(function(foundUser) {
           EventUser.create({
             EventId: createdEvent.id,
-            UserId: foundUser.id
+            UserId: foundUser.id,
+            Confirmed: false
           });
         });
 
@@ -252,7 +254,8 @@ module.exports.createEvent = function (req, res) {
           }).then(function (foundInvite) {
             EventUser.create({
               EventId: createdEvent.id,
-              UserId: foundInvite.id
+              UserId: foundInvite.id,
+              Confirmed: false
             }).catch(function(error) {
               console.log('There was an error when creating a private event!');
               res.send(error);
@@ -268,7 +271,8 @@ module.exports.createEvent = function (req, res) {
         }).then(function(foundUser) {
           EventUser.create({
             EventId: createdEvent.id,
-            UserId: foundUser.id
+            UserId: foundUser.id,
+            Confirmed: false
           });
         });
       }
@@ -298,13 +302,80 @@ module.exports.addPublicEvent = function (req, res) {
 
       EventUser.create({
         EventId: foundEvent.id,
-        UserId: foundUser.id
+        UserId: foundUser.id,
+        Confirmed: false
       });
     });
   });
   res.status(201).send('Event added to your events!');
 
 };
+
+module.exports.setConfirm = function (req, res) {
+  User.findOne({
+    where: {
+      username: req.body.username
+    }
+  }).then(function(foundUser) {
+    Event.findOne({
+      where: {
+        title: req.body.title
+      }
+      
+    }).then(function(foundEvent){
+
+
+      EventUser.find({
+        where: {
+          EventId: foundEvent.id,
+          UserId: foundUser.id
+        }  
+      
+      }).then(function(eventUser){
+        console.log(eventUser.Confirmed, "eventUser confirmed");
+        if(eventUser.Confirmed === 'false') {
+          eventUser.update({
+            Confirmed: 'true'
+          });
+        } else {
+          eventUser.update({
+            Confirmed: 'false'
+          });
+        }
+        res.send("user confirmation toggled");
+      });  
+    });
+  });  
+};
+
+module.exports.checkConfirm = function (req, res) {
+  User.findOne({
+    where: {
+      username: req.body.username
+    }
+  }).then(function(foundUser) {
+    Event.findOne({
+      where: {
+        title: req.body.title
+      }
+      
+    }).then(function(foundEvent){
+
+      console.log("foundIDs", foundEvent.id, foundUser.id);
+      EventUser.findOne({
+        where: {
+          EventId: foundEvent.id,
+          UserId: foundUser.id
+        }  
+      }).then(function(eventUser) {
+        console.log(eventUser, "eventUser");
+        res.send(eventUser.Confirmed);  
+      });
+    });
+  });
+  
+};
+
 
 // searches Events table for events within window range
 module.exports.getEventsList = function (req, res) {
