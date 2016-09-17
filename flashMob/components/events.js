@@ -4,6 +4,7 @@ import { CreateEvent } from './createEvent';
 import { styles } from './styles.js';
 import { PublicEventsList } from './publicEvents.js';
 import { Map } from './mapView.js';
+import { MapPublic } from './mapViewPublic.js';
 import {
   StyleSheet,
   Text,
@@ -133,7 +134,7 @@ export class EventsList extends Component {
           onRightButtonPress: () => {
             this.props.navigator.push({
               title: 'Map',
-              component: Map,
+              component: MapPublic,
               passProps: {
                 username: this.state.username
               }
