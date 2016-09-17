@@ -43,6 +43,7 @@ export class EventPage extends Component {
   }
 
   _backwardToEvents() {
+    this.props.refreshfunc();
     this.props.navigator.pop(1);
   }
 
@@ -50,17 +51,31 @@ export class EventPage extends Component {
     var context = this;
     console.log(this.props);
 
-    xhr = new XMLHttpRequest();
+    // xhr = new XMLHttpRequest();
 
-    xhr.open('POST', 'http://localhost:3000/api/delete');
-    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    var json = JSON.stringify({
-      title: context.props.title,
-      username: context.props.username
-    });
-    xhr.send(json);
+    // xhr.open('POST', 'http://localhost:3000/api/delete');
+    // xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    // var json = JSON.stringify({
+    //   title: context.props.title,
+    //   username: context.props.username
+    // });
+    // xhr.send(json);
 
-    this.backwardToEvents();
+    fetch('http://localhost:3000/api/delete', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: context.props.title,
+        username: context.props.username
+      }),
+    })
+      .then(() => {
+        this.backwardToEvents();
+      }
+    );
   }
 
   getPhotosFromInstagram (hashtag) {
