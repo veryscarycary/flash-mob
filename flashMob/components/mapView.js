@@ -133,27 +133,27 @@ export class Map extends Component {
   }
 
   _onCalloutPress(marker) {
-  //   this.props.navigator.push({
-  //     title: 'Event: ' + marker.title,
-  //     component: EventPage,
-  //     passProps: {
-  //       title: marker.title,
-  //       category: marker.category,
-  //       location: marker.location,
-  //       latitude: marker.latlng.latitude,
-  //       longitude: marker.latlng.longitude,
-  //       date: (new Date(marker.date).toString().slice(4, 15)),
-  //       description: marker.description,
-  //       private: marker.private,
-  //       invites: marker.invites,
-  //       time: 'Loading Time',
-  //       hashtag: marker.instagramHashtag,
-  //       username: this.props.username,
-  //       refreshCurrent: this.props.refreshCurrent, 
-  //       refreshPast: this.props.refreshPast,
-  //       current: this.props.current 
-  //     }
-  //   });
+    // this.props.navigator.push({
+    //   title: 'Event: ' + marker.title,
+    //   component: EventPage,
+    //   passProps: {
+    //     title: marker.title,
+    //     category: marker.category,
+    //     location: marker.location,
+    //     latitude: marker.latlng.latitude,
+    //     longitude: marker.latlng.longitude,
+    //     date: (new Date(marker.date).toString().slice(4, 15)),
+    //     description: marker.description,
+    //     private: marker.private,
+    //     invites: marker.invites,
+    //     time: 'Loading Time',
+    //     hashtag: marker.instagramHashtag,
+    //     username: this.props.username,
+    //     refreshCurrent: this.props.refreshCurrent, 
+    //     refreshPast: this.props.refreshPast,
+    //     current: this.props.current 
+    //   }
+    // });
   }
 
   _forwardToEventPage() {
@@ -194,7 +194,7 @@ export class Map extends Component {
               title={marker.title}
               description={marker.description}
               pinColor={'#FF0093'}
-              onCalloutPress={this._onForward}
+              onCalloutPress={() => this._onCalloutPress(marker)}
             />
           ))}
         </MapView>
