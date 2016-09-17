@@ -43,7 +43,12 @@ export class EventPage extends Component {
   }
 
   _backwardToEvents() {
-    this.props.refreshfunc();
+    if(this.props.current) {
+      this.props.refreshCurrent();
+    } else {
+      this.props.refreshPast();
+    }
+    
     this.props.navigator.pop(1);
   }
 

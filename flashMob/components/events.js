@@ -149,7 +149,7 @@ export class EventsList extends Component {
       title: 'create event',
       component: CreateEvent,
       //passing user's geolocation to CreateEvent
-      passProps: {latitude: this.state.latitude, longitude: this.state.longitude, username: this.props.username, refreshfunc: this.setCurrent}
+      passProps: {latitude: this.state.latitude, longitude: this.state.longitude, username: this.props.username, refreshCurrent: this.setCurrent, refreshPast: this.setPast, current: this.state.current}
     });
   }
 
@@ -201,7 +201,7 @@ export class EventsList extends Component {
               />
             }
             dataSource={this.state.dataSource}
-            renderRow={(rowData) => <Event navigator={this.props.navigator} event={rowData} username={this.props.username} latitude={this.state.latitude} longitude={this.state.longitude} refreshfunc={this.getMyEvents}/>}
+            renderRow={(rowData) => <Event navigator={this.props.navigator} event={rowData} username={this.props.username} latitude={this.state.latitude} longitude={this.state.longitude} refreshCurrent={this.setCurrent} refreshPast={this.setPast} current={this.state.current}/>}
           />
         </View>
           <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._onForward}> 
