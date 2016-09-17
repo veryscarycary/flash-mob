@@ -194,6 +194,7 @@ export class Map extends Component {
               coordinate={marker.latlng}
               title={marker.title}
               description={marker.description}
+              image={require('./img/flash-logo-pink-pin.png')}
               pinColor={'#FF0093'}
               onCalloutPress={() => this._onCalloutPress(marker)}
             />
