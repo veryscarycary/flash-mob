@@ -41,7 +41,7 @@ export class Event extends Component {
 
   _forwardToEventPage() {
     this.props.navigator.push({
-      title: 'Event Title',
+      title: 'Event: ' + this.props.event.title,
       component: EventPage,
       passProps: {
         title: this.props.event.title,

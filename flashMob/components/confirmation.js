@@ -55,6 +55,7 @@ export class Confirmation extends Component {
     this.setState({
       modalVisible: false
     });
+    this.props.refreshfunc();
     this.props.navigator.popToTop(0);
   }
 

@@ -35,7 +35,7 @@ export class EventPage extends Component {
 
     data.forEach(function (image) {
       if (image.caption.text.includes(hashtag)) {
-        images.push(image.images.low_resolution.url);
+        images.push(image.images.standard_resolution.url);
       }
     });
 
@@ -91,22 +91,20 @@ export class EventPage extends Component {
     return (
       <ScrollView>
       <View style={styles.container}>
-        <View style={styles.eventInputs}>
-          <Text style={styles.eventText}>{this.props.title}</Text>
-          <Text style={styles.eventText}>{this.props.category}</Text>
-          <Text style={styles.eventText}>{this.props.location}</Text>
-          <Text style={styles.eventText}>{this.props.time + ', ' + this.props.date}</Text>
-          <View>
-            <Text style={styles.eventText}>{this.props.invites}</Text>
-          </View>
+        <View style={styles.eventPageContainer}>
+          <Text style={styles.eventText}>Title: {this.props.title}</Text>
+          <Text style={styles.eventText}>Catgegory: {this.props.category}</Text>
+          <Text style={styles.eventText}>Location: {this.props.location}</Text>
+          <Text style={styles.eventText}>Date/Time: {this.props.time + ', ' + this.props.date}</Text>
+          <Text style={styles.eventText}>Description: {this.props.description}</Text>
+        </View>
 
-          <View>
-          <Text style={styles.eventText}>{this.props.hashtag}</Text>
-            <Image style={{width: 150, height: 150}} source={{uri: this.state.images[0]}}/>
-            <Image style={{width: 150, height: 150}} source={{uri: this.state.images[1]}}/>
-            <Image style={{width: 150, height: 150}} source={{uri: this.state.images[2]}}/>
-            <Image style={{width: 150, height: 150}} source={{uri: this.state.images[3]}}/>
-          </View>
+        <View style={styles.instagramContainer}>
+          <Text style={styles.eventText}>Check out some pics from {this.props.hashtag}!</Text>
+          <Image style={styles.instagramPhoto} source={{uri: this.state.images[0]}}/>
+          <Image style={styles.instagramPhoto} source={{uri: this.state.images[1]}}/>
+          <Image style={styles.instagramPhoto} source={{uri: this.state.images[2]}}/>
+          <Image style={styles.instagramPhoto} source={{uri: this.state.images[3]}}/>
 
           <Text style={styles.eventText}>{this.props.description}</Text>
 
@@ -114,6 +112,7 @@ export class EventPage extends Component {
             <Text style={styles.deleteButtonText}>Delete Event</Text>
           </TouchableHighlight>
         </View>
+
       </View>
       </ScrollView>
     );
