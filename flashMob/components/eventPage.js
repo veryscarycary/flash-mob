@@ -3,6 +3,7 @@ import { Event } from './event.js';
 import { CreateEvent } from './createEvent';
 import { styles } from './styles.js';
 import {
+  Alert,
   StyleSheet,
   Image,
   Text,
@@ -53,20 +54,10 @@ export class EventPage extends Component {
     this.props.navigator.pop(1);
   }
 
+
   deleteEvent () {
     var context = this;
-    console.log(this.props);
-
-    // xhr = new XMLHttpRequest();
-
-    // xhr.open('POST', 'http://localhost:3000/api/delete');
-    // xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    // var json = JSON.stringify({
-    //   title: context.props.title,
-    //   username: context.props.username
-    // });
-    // xhr.send(json);
-
+    // var deleteE = function() {
     fetch('http://localhost:3000/api/delete', {
       method: 'POST',
       headers: {
@@ -83,6 +74,29 @@ export class EventPage extends Component {
       }
     );
   }
+    // Alert.alert(
+    //   'Confirm Delete',
+    //   'Are you sure?',
+    //   [{text: 'Cancel', onPress: () => { 
+    //     console.log('Cancel Pressed'); 
+    //   }},
+    //   {text: 'OK', onPress: () => { 
+    //     // console.log('OK pressed'); 
+    //     deleteE();
+    //     this.backwardToEvents().bind(context);
+
+    //   }}]
+    // );
+
+    // xhr = new XMLHttpRequest();
+
+    // xhr.open('POST', 'http://localhost:3000/api/delete');
+    // xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    // var json = JSON.stringify({
+    //   title: context.props.title,
+    //   username: context.props.username
+    // });
+    // xhr.send(json);
 
   getPhotosFromInstagram (hashtag) {
     var context = this;
