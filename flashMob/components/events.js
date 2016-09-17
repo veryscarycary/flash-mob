@@ -201,7 +201,7 @@ export class EventsList extends Component {
               />
             }
             dataSource={this.state.dataSource}
-            renderRow={(rowData) => <Event navigator={this.props.navigator} event={rowData} username={this.props.username} latitude={this.state.latitude} longitude={this.state.longitude}/>}
+            renderRow={(rowData) => <Event navigator={this.props.navigator} event={rowData} username={this.props.username} latitude={this.state.latitude} longitude={this.state.longitude} refreshfunc={this.getMyEvents}/>}
           />
         </View>
           <TouchableHighlight style={[styles.button, styles.newButton]} underlayColor='white' onPress={this._onForward}> 
