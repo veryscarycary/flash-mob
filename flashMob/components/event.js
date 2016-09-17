@@ -58,7 +58,7 @@ export class Event extends Component {
         username: this.props.username,
         refreshCurrent: this.props.refreshCurrent,
         refreshPast: this.props.refreshPast,
-        current: this.state.current
+        current: this.props.current
       }
     });
   }
