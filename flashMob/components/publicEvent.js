@@ -41,6 +41,62 @@ export class PublicEvent extends Component {
 
   }
 
+  componentWillMount () {
+    this.checkConfirmFromServer(this);
+  }
+
+  sendConfirmToServer (cb) {
+    var context = this;
+    // onload, 
+    fetch('http://localhost:3000/api/setConfirm', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: context.props.event.title,
+        username: context.props.username
+      }),
+    }).then(function () {
+      cb(context);
+    });
+  }
+
+  checkConfirmFromServer (context) {
+    var context = context || this;
+    console.log('title, username, context', context.props.event.title, context.props.username, context);
+    // onload, 
+    fetch('http://localhost:3000/api/checkConfirm', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: context.props.event.title,
+        username: context.props.username
+      }),
+    }).then(function(res) {
+      console.log(res, "res from check");
+      return res.text();
+    })
+    .then(function (blobby) {
+      console.log(blobby);
+      if (blobby === 'true') {
+        context.setState({
+          isComing: true
+        });
+      } else {
+        context.setState({
+          isComing: false
+        });
+      }
+      
+    });
+    
+  }
+
   addToMyEvents() {
     console.log('addtomyevents props', this.props);
     var context = this;
