@@ -22,7 +22,34 @@ export class Login extends Component {
       password: '',
       isLoggedin: false,
     };
+
+    // this.getEvents = this.getEvents.bind(this);
   }
+
+  // getEvents(route) {
+  //   fetch(route, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       latitude: this.state.latitude,
+  //       longitude: this.state.longitude,
+  //       username: this.props.username
+  //     })
+  //   })
+  //     .then((res) => res.json())
+  //     .then((resJSON) => {
+  //       console.log(resJSON);
+  //       this.setState({
+  //         dataSource: this.ds.cloneWithRows(resJSON),
+  //         refreshing: false
+  //       });
+  //     }
+  //   );
+  // }
+
 
   handleLogin() {
     fetch('http://localhost:3000/api/login', {
@@ -53,7 +80,9 @@ export class Login extends Component {
               title: 'Map',
               component: Map,
               passProps: {
-                username: this.state.username
+                username: this.state.username,
+                refreshCurrent: this.setCurrent,
+                refreshPast: this.setPast
               }
             });
           },

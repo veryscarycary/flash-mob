@@ -123,10 +123,11 @@ export class Map extends Component {
   
   // push info to create event scene
   _onForward() {
+    console.log(this.props, 'There should be refreshCurrent functiion in these props');
     this.props.navigator.push({
       component: CreateEvent,
       title: 'Create Event',
-      passProps: {latitude: this.state.region.latitude, longitude: this.state.region.longitude}
+      passProps: {refreshCurrent: this.props.refreshCurrent, refreshPast: this.props.refreshPast, latitude: this.state.region.latitude, longitude: this.state.region.longitude}
     });
   }
 

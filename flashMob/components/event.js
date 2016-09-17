@@ -25,6 +25,22 @@ export class Event extends Component {
     this._time = 'Loading Time';
   }
 
+  sendConfirmToServer () {
+    var context = this;
+    // onload, 
+    fetch('http://localhost:3000/api/setConfirm', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: context.props.title,
+        username: context.props.username
+      }),
+    });
+  }
+
   // show description when tapped on
   _toggleDescription() {
     this.setState({
@@ -36,6 +52,10 @@ export class Event extends Component {
   _toggleIsComing() {
     this.setState({
       isComing: !this.state.isComing
+    }, function () {
+      if (this.state.isComing) {
+        this.sendConfirmToServer();
+      }
     });
   }
 
