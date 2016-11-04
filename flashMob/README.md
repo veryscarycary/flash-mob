@@ -6,7 +6,7 @@ Entertainment on a whim!
 
 ## Table of Contents
 
-1. [Team](#team)
+1. [Team](#team-iridescent-flume)
 2. [Contributing](#contributing)
 3. [Requirements](#requirements)
 4. [Usage](#usage)
