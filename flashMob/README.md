@@ -1,72 +1,71 @@
-# flash-mob
-
-Flash
+# Flash
 
 Entertainment on a whim!
 
-Team Purposeful Llama
+![alt tag](http://www.carymeskell.com/portfolio/flashPortfolio.jpg)
 
-Product Owner: Wendy Cheung
-Scrum Master: Chris Picato
-Development Team Members: Akai Senghor, Danny Metzger
+## Table of Contents
 
-Table of Contents
+1. [Team](#team)
+2. [Contributing](#contributing)
+3. [Requirements](#requirements)
+4. [Usage](#usage)
+    1. [Installing Dependencies](#installing-dependencies)
+    2. [To Run](#to-run)
+5. [Roadmap](#roadmap)
 
-  Usage
-  Requirements
-  Development
-  Installing Dependencies
-  Tasks
-  Team
-  Contributing
-  Usage
+## Team Iridescent Flume
 
-Requirements:
+  - __Product Owner__: Cary Meskell
+  - __Scrum Master__: Michael Chow
+  - __Development Team Members__: Patrick Hartley, Josephine Eng
 
-  body-parser ^1.15.2
-  bootstrap ^4.0.0-alpha.2
-  express ^4.14.0
-  express-session ^1.14.1
-  jquery ^2.2.1
-  lodash ^4.6.1
-  mysql ^2.11.1
-  node 0.0.0
-  nodemon ^1.10.2
-  react 15.3.1
-  react-native 0.32.0
-  react-native-button ^1.7.0
-  react-native-maps ^0.8.0
-  sequelize ^3.24.1
-  babel-cli ^6.6.5
-  babel-preset-es2015 ^6.6.0
-  babel-preset-react ^6.5.0
-  react-native-cli ^1.0.0
+## Contributing
 
-Development
+  - Back-end: Cary Meskell
+  - Back-end: Patrick Hartley
+  - Front-end: Michael Chow
+  - Front-end: Josephine Eng
 
-Installing Dependencies
+## Requirements:
+
+      body-parser ^1.15.2
+      bootstrap ^4.0.0-alpha.2
+      express ^4.14.0
+      express-session ^1.14.1
+      jquery ^2.2.1
+      lodash ^4.6.1
+      mysql ^2.11.1
+      node 0.0.0
+      nodemon ^1.10.2
+      react 15.3.1
+      react-native 0.32.0
+      react-native-button ^1.7.0
+      react-native-maps ^0.8.0
+      sequelize ^3.24.1
+      babel-cli ^6.6.5
+      babel-preset-es2015 ^6.6.0
+      babel-preset-react ^6.5.0
+      react-native-cli ^1.0.0
+
+## Usage
+
+## Installing Dependencies
 
   In Terminal, from within the root directory:
 
-    brew install node
-    brew install watchman
-    npm install -g react-native-cli
-    npm install
+      brew install node
+      brew install watchman
+      npm install -g react-native-cli
+      npm install
 
-  To Run:
+## To Run
 
-    In Terminal in server folder, nodemon server.js
-    In Terminal, start mysql server
-    In Terminal in root directory, react-native run-ios
-    *XCode is needed for IOS simulator
+      In Terminal, mysql.server start
+      In Terminal in server folder, nodemon server.js
+      In Terminal in root directory, react-native run-ios
+      *XCode is needed for IOS simulator
 
-Roadmap
+## Roadmap
 
-  Contact Purposeful Llama for access to Trello
-
-Contributing
-
-  Wendy Cheung: Front-end
-  Akai Senghor: Front-end
-  Chris Picato: Back-end
-  Danny Metzger: Back-end
+  Contact Iridescent Flume for roadmap
