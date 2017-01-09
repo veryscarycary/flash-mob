@@ -1,6 +1,4 @@
-# flash-mob
-
-# Flash
+# Flash!
 
 Entertainment on a whim!
 
