@@ -2,7 +2,7 @@
 
 Entertainment on a whim!
 
-![alt tag](http://www.carymeskell.com/portfolio/flashPortfolio.jpg)
+![alt tag](http://www.carymeskell.com/img/portfolio/FlashModal.jpg)
 
 ## Table of Contents
 
